@@ -1,0 +1,55 @@
+{
+  "project": "DRAM Foundation VN",
+  "version": "1.0.0",
+  "modules": [
+    {
+      "id": "module_dram_root",
+      "name": "180nm DRAM Master Integration & Architecture",
+      "generation": "Gen 2 (µm)",
+      "file": "data/modules/00_dram_root.json",
+      "node_count": 106
+    },
+    {
+      "id": "module_mcu_cots",
+      "name": "Electronics & Drive Infrastructure",
+      "generation": "Gen 1 (mm)",
+      "file": "data/modules/01_mcu_cots.json",
+      "node_count": 1
+    },
+    {
+      "id": "module_litho_stage_gen1",
+      "name": "Macroscopic Lithography Stage",
+      "generation": "Gen 1 (mm)",
+      "file": "data/modules/02_litho_stage_gen1.json",
+      "node_count": 13
+    },
+    {
+      "id": "module_optical_aligner_gen2",
+      "name": "Microscopic Mask Optical Aligner",
+      "generation": "Gen 2 (µm)",
+      "file": "data/modules/03_optical_aligner_gen2.json",
+      "node_count": 31
+    },
+    {
+      "id": "module_wet_chemistry_gen1",
+      "name": "Wet Chemistry & Acid Etch Bench",
+      "generation": "Gen 1 (mm)",
+      "file": "data/modules/04_wet_chemistry_gen1.json",
+      "node_count": 210
+    },
+    {
+      "id": "module_thermal_oxidation_gen1",
+      "name": "Thermal Oxidation Quartz Tube Furnace",
+      "generation": "Gen 1 (mm)",
+      "file": "data/modules/05_thermal_oxidation_gen1.json",
+      "node_count": 351
+    },
+    {
+      "id": "module_dram_cell_gen2",
+      "name": "180nm DRAM Cell Architecture & Readout Circuitry",
+      "generation": "Gen 2 (µm)",
+      "file": "data/modules/06_dram_cell_architecture_gen2.json",
+      "node_count": 291
+    }
+  ]
+}

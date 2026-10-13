@@ -1,0 +1,86 @@
+# =====================================================================
+# DRAM Foundation VN - Git Ignore Configuration
+# =====================================================================
+
+# 1. Byte-compiled / Optimized / Python Artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# 2. Virtual Environments & Secret Keys
+.env
+.env.*
+!.env.example
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# 3. Internal Agent Rules & System Prompts (Confidential)
+AGENTS.md
+GEMINI.md
+*prompt*
+prompts/
+**/prompts/
+**/*prompt*
+.agents/
+
+# 4. Internal Prompt Context & Strategy Files (Confidential)
+*context*.yaml
+context*.yaml
+docs/context*.yaml
+**/context*.yaml
+
+# 5. Local Scripts, Batch Automation & Shell Tools
+scripts/
+*.bat
+*.cmd
+*.sh
+run_overnight.bat
+start_sandbox.bat
+docs/*.py
+**/scratch*.py
+
+# 6. Agent Caches & Temporary Scratch Files
+scratch/
+scratch_*
+temp_*
+*.mmd
+laya_benchmark_report.json
+laya_openapi.json
+
+# 7. Databases & Vector Stores (Derived Artifacts)
+data/dram_graph.db
+data/chroma_db/
+chroma_db/
+**/chroma_db/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# 8. IDE, Workspace & OS Metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+dram.code-workspace
+
+# 9. Build Outputs & Logs
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*

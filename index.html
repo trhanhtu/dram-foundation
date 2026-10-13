@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRAM Foundation VN - Knowledge OS (Dual-Mode WBS Explorer)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Marked Markdown Parser CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- KaTeX LaTeX Math Engine CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  <!-- Mermaid In-Browser Diagram Renderer CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+    /* SVG Smooth transitions & node card styles */
+    .svg-node-card {
+      cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .svg-node-card:hover {
+      filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+    }
+    .svg-node-active {
+      filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.8));
+    }
+
+    /* Markdown prose styles inside dark drawer */
+    .sop-prose h1 { font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin-top: 1rem; margin-bottom: 0.5rem; border-bottom: 1px solid #334155; padding-bottom: 0.25rem; }
+    .sop-prose h2 { font-size: 1.1rem; font-weight: 600; color: #93c5fd; margin-top: 0.85rem; margin-bottom: 0.4rem; }
+    .sop-prose h3 { font-size: 0.95rem; font-weight: 600; color: #cbd5e1; margin-top: 0.6rem; margin-bottom: 0.3rem; }
+    .sop-prose p { margin-bottom: 0.6rem; line-height: 1.5; color: #cbd5e1; font-size: 0.85rem; }
+    .sop-prose ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.6rem; font-size: 0.85rem; color: #cbd5e1; }
+    .sop-prose ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 0.6rem; font-size: 0.85rem; color: #cbd5e1; }
+    .sop-prose li { margin-bottom: 0.25rem; }
+    .sop-prose code { background: #0f172a; border: 1px solid #1e293b; color: #38bdf8; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.8rem; }
+    .sop-prose pre { background: #090d16; border: 1px solid #1e293b; border-radius: 0.5rem; padding: 0.75rem; overflow-x: auto; margin-bottom: 0.75rem; }
+    .sop-prose pre code { background: transparent; border: none; padding: 0; color: #7dd3fc; }
+    .sop-prose table { width: 100%; border-collapse: collapse; margin-bottom: 0.75rem; font-size: 0.8rem; }
+    .sop-prose th, .sop-prose td { border: 1px solid #1e293b; padding: 0.4rem 0.6rem; text-align: left; }
+    .sop-prose th { background: #0f172a; color: #93c5fd; font-weight: 600; }
+    .sop-prose blockquote { border-left: 3px solid #3b82f6; padding-left: 0.75rem; color: #94a3b8; font-style: italic; margin-bottom: 0.6rem; }
+    .sop-prose img { max-width: 100%; border-radius: 0.5rem; border: 1px solid #334155; margin: 0.75rem auto; display: block; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+    .sop-prose svg { max-width: 100%; height: auto; display: block; margin: 0.75rem auto; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 h-screen w-screen overflow-hidden flex flex-col font-sans select-none">
+
+  <!-- Top Navigation & Global Header -->
+  <header class="h-16 bg-slate-900/90 border-b border-slate-800 px-5 flex items-center justify-between z-20 backdrop-blur-md flex-shrink-0">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400 font-bold text-lg shadow-inner">
+        ⚡
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="text-base font-bold tracking-tight text-white">DRAM Foundation VN</h1>
+          <span class="px-2 py-0.5 text-[11px] font-semibold rounded-full bg-blue-950 border border-blue-700/50 text-blue-300">Option 1: WBS Explorer</span>
+          <span class="px-2 py-0.5 text-[11px] font-semibold rounded-full bg-emerald-950 border border-emerald-700/50 text-emerald-300">180nm Open-Source DAG</span>
+        </div>
+        <p class="text-xs text-slate-400">High-Performance Split-Pane WBS Navigator • Instant Causality Graph • 8-80h SOP Specs</p>
+      </div>
+    </div>
+
+    <!-- Live Status Badges & Quick Action Buttons -->
+    <div class="flex items-center gap-3 text-xs">
+      <div id="backend-status-badge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-slate-950/80 rounded-md border border-slate-800 text-slate-300 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="backend-status-text">Server: Connecting...</span>
+      </div>
+
+      <div id="dag-badge" class="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-950/60 rounded-md border border-emerald-800/60 text-emerald-300 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span id="dag-badge-text">DAG: <strong>Acyclic & Valid</strong></span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800/80 rounded-md border border-slate-700 text-slate-300 font-mono text-[11px]">
+        <span id="stat-total" class="font-bold text-white">1,003</span> nodes |
+        <span id="stat-done" class="text-emerald-400 font-bold">1,003</span> done |
+        <span id="stat-edges" class="text-blue-400 font-bold">1,000</span> edges
+      </div>
+
+      <button id="btn-convene-modal" class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-md font-semibold transition shadow-lg shadow-purple-600/20 active:scale-95">
+        <span>✨</span>
+        <span>Convene AI Council</span>
+      </button>
+
+      <button id="btn-export-pr" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-medium transition shadow-lg shadow-blue-600/20 active:scale-95">
+        <span>📦</span>
+        <span>Export PR</span>
+      </button>
+
+      <button id="btn-reload" class="flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-md transition border border-slate-700 active:scale-95">
+        <span>↺</span>
+        <span>Reload</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area: Split-Pane Dual Mode -->
+  <main class="flex-1 flex overflow-hidden w-full h-full relative">
+
+    <!-- ======================================================== -->
+    <!-- LEFT PANEL: High-Speed WBS Table & Instant Filter Engine -->
+    <!-- ======================================================== -->
+    <section class="w-1/2 min-w-[480px] max-w-[55%] border-r border-slate-800 bg-slate-950 flex flex-col h-full flex-shrink-0">
+      
+      <!-- Search & Discipline Filter Bar -->
+      <div class="p-3 border-b border-slate-800/80 bg-slate-900/60 space-y-2.5">
+        <!-- Search Input -->
+        <div class="relative flex items-center">
+          <span class="absolute left-3 text-slate-400 text-sm">🔍</span>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search 1,003 packages by ID, title, keyword (e.g. furnace, rca, 180nm, dry ox)..." 
+            class="w-full bg-slate-950/90 border border-slate-800 hover:border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 rounded-lg pl-9 pr-8 py-1.5 text-xs text-slate-100 placeholder-slate-500 outline-none transition"
+          />
+          <button id="btn-clear-search" class="absolute right-2.5 text-slate-500 hover:text-slate-300 text-xs hidden">✕</button>
+        </div>
+
+        <!-- Discipline / Module Dropdown -->
+        <div class="flex items-center gap-2">
+          <label class="text-[11px] font-semibold text-slate-400 flex-shrink-0">Discipline:</label>
+          <select id="select-discipline" class="w-full bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-md px-2.5 py-1 text-xs text-slate-200 outline-none focus:border-blue-500 transition cursor-pointer">
+            <option value="all">🌐 All Disciplines (1,003 Work Packages)</option>
+            <option value="module_dram_root">🏆 00: 180nm DRAM Master Integration (106 nodes)</option>
+            <option value="module_mcu_cots">⚙️ 01: Electronics & Drive Infrastructure (1 node)</option>
+            <option value="module_litho_stage_gen1">📐 02: Macroscopic Lithography Stage (13 nodes)</option>
+            <option value="module_optical_aligner_gen2">🔬 03: Microscopic Mask Optical Aligner (31 nodes)</option>
+            <option value="module_wet_chemistry_gen1">🧪 04: Wet Chemistry & Acid Etch Bench (210 nodes)</option>
+            <option value="module_thermal_oxidation_gen1">🔥 05: Thermal Oxidation Quartz Furnace (351 nodes)</option>
+            <option value="module_dram_cell_gen2">💾 06: 180nm DRAM Cell Architecture (291 nodes)</option>
+          </select>
+        </div>
+
+        <!-- Filter Pills Bar -->
+        <div class="flex items-center justify-between gap-2 text-[11px]">
+          <!-- Action Make/Buy Filter -->
+          <div class="flex items-center gap-1 bg-slate-950/70 p-1 rounded-md border border-slate-800/80">
+            <span class="text-slate-400 px-1 font-medium">Type:</span>
+            <button class="filter-pill-action active px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white" data-action="all">All</button>
+            <button class="filter-pill-action px-2 py-0.5 rounded text-[10px] font-medium text-emerald-400 hover:bg-slate-800" data-action="Make">🔨 MAKE</button>
+            <button class="filter-pill-action px-2 py-0.5 rounded text-[10px] font-medium text-cyan-400 hover:bg-slate-800" data-action="Buy">🛒 BUY</button>
+          </div>
+
+          <!-- Status Filter -->
+          <div class="flex items-center gap-1 bg-slate-950/70 p-1 rounded-md border border-slate-800/80">
+            <span class="text-slate-400 px-1 font-medium">Status:</span>
+            <button class="filter-pill-status active px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white" data-status="all">All</button>
+            <button class="filter-pill-status px-2 py-0.5 rounded text-[10px] font-medium text-emerald-400 hover:bg-slate-800" data-status="done">Done</button>
+            <button class="filter-pill-status px-2 py-0.5 rounded text-[10px] font-medium text-amber-400 hover:bg-slate-800" data-status="in_progress">Active</button>
+            <button class="filter-pill-status px-2 py-0.5 rounded text-[10px] font-medium text-rose-400 hover:bg-slate-800" data-status="red_flag">Red Flag</button>
+          </div>
+
+          <!-- Generation Filter -->
+          <div class="flex items-center gap-1 bg-slate-950/70 p-1 rounded-md border border-slate-800/80">
+            <span class="text-slate-400 px-1 font-medium">Gen:</span>
+            <button class="filter-pill-gen active px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white" data-gen="all">All</button>
+            <button class="filter-pill-gen px-1.5 py-0.5 rounded text-[10px] font-medium text-blue-300 hover:bg-slate-800" data-gen="Gen 1">Gen 1</button>
+            <button class="filter-pill-gen px-1.5 py-0.5 rounded text-[10px] font-medium text-purple-300 hover:bg-slate-800" data-gen="Gen 2">Gen 2</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Meta Info & Pagination Controls -->
+      <div class="px-3 py-2 bg-slate-950 border-b border-slate-800/60 flex items-center justify-between text-xs text-slate-400">
+        <div class="flex items-center gap-2">
+          <span id="filtered-count" class="font-medium text-slate-300">Showing 1-50 of 1,003</span>
+          <span class="text-slate-600">•</span>
+          <span class="text-[11px] text-slate-400">Use <kbd class="px-1 py-0.5 bg-slate-800 rounded text-[9px] border border-slate-700">↑</kbd> <kbd class="px-1 py-0.5 bg-slate-800 rounded text-[9px] border border-slate-700">↓</kbd> to navigate</span>
+        </div>
+
+        <div class="flex items-center gap-1 text-[11px]">
+          <button id="btn-first-page" class="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 rounded border border-slate-800">«</button>
+          <button id="btn-prev-page" class="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 rounded border border-slate-800">‹ Prev</button>
+          <span id="page-indicator" class="px-2 font-mono text-slate-300">Page 1 / 21</span>
+          <button id="btn-next-page" class="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 rounded border border-slate-800">Next ›</button>
+          <button id="btn-last-page" class="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-30 rounded border border-slate-800">»</button>
+        </div>
+      </div>
+
+      <!-- Work Packages List / Table -->
+      <div id="wbs-list-container" class="flex-1 overflow-y-auto divide-y divide-slate-900 bg-slate-950">
+        <!-- Rendered dynamically by JavaScript -->
+        <div class="p-8 text-center text-slate-500 font-mono text-xs">
+          <div class="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+          Loading WBS work packages...
+        </div>
+      </div>
+
+      <!-- Bottom Quick Summary -->
+      <div class="px-3 py-1.5 bg-slate-900/60 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+        <span id="footer-selection-info">Select any task to inspect causality graph & SOP</span>
+        <span class="font-mono text-slate-400">Zero DOM Lag Mode</span>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- RIGHT PANEL: Mini Neighborhood Graph + SOP Markdown Spec -->
+    <!-- ======================================================== -->
+    <section class="flex-1 flex flex-col h-full overflow-hidden bg-slate-950">
+      
+      <!-- TOP SUB-PANE: Mini Local Neighborhood Graph (Ego-Network) -->
+      <div class="h-[44%] min-h-[280px] border-b border-slate-800 flex flex-col bg-slate-900/40 relative flex-shrink-0">
+        <!-- Mini-Graph Header -->
+        <div class="px-4 py-2 bg-slate-900/80 border-b border-slate-800/80 flex items-center justify-between text-xs backdrop-blur-sm z-10 flex-shrink-0">
+          <div class="flex items-center gap-2">
+            <span class="text-blue-400 font-bold">🔗 Local Causality Graph</span>
+            <span class="text-slate-500">•</span>
+            <span class="text-slate-400 text-[11px]">Immediate Prerequisites (Upstream) ➔ Active Task ➔ Unlocked Dependents (Downstream)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="btn-history-back" class="hidden px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[11px] border border-slate-700 transition">
+              ← Back
+            </button>
+            <span class="text-[10px] text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 font-mono">Click any box to navigate</span>
+          </div>
+        </div>
+
+        <!-- SVG Mini-Graph Canvas Container with smooth scroll support -->
+        <div id="neighborhood-canvas-container" class="flex-1 w-full h-full relative overflow-y-auto overflow-x-hidden p-2">
+          <svg id="neighborhood-svg" class="w-full">
+            <defs>
+              <marker id="arrow-prereq" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#3b82f6" />
+              </marker>
+              <marker id="arrow-dep" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+              </marker>
+            </defs>
+            <g id="svg-connections-layer"></g>
+            <g id="svg-nodes-layer"></g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- BOTTOM SUB-PANE: Full Engineering Spec & SOP Markdown Drawer -->
+      <div id="spec-drawer-container" class="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-950">
+        <!-- Node Header & Badges -->
+        <div class="flex flex-col gap-2 pb-3 border-b border-slate-800/80">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                <span id="spec-action-badge" class="px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider bg-emerald-950 border border-emerald-800 text-emerald-400">MAKE (R&D)</span>
+                <span id="spec-gen-badge" class="px-2 py-0.5 text-[10px] font-semibold rounded bg-blue-950 border border-blue-800 text-blue-300">Gen 2 (µm)</span>
+                <span id="spec-discipline-badge" class="px-2 py-0.5 text-[10px] font-medium rounded bg-slate-800 text-slate-300 border border-slate-700">Discipline</span>
+              </div>
+              <h2 id="spec-title" class="text-base font-bold text-white leading-snug break-words">Select a Work Package</h2>
+              <p id="spec-id" class="text-xs font-mono text-slate-400 mt-0.5 break-all">node-id</p>
+            </div>
+
+            <!-- Status Selector -->
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <label class="text-xs text-slate-400">Status:</label>
+              <select id="spec-status-select" class="bg-slate-900 border border-slate-700 rounded-md px-2.5 py-1 text-xs text-slate-200 outline-none focus:border-blue-500 cursor-pointer">
+                <option value="done">✓ Done</option>
+                <option value="in_progress">⏳ In Progress</option>
+                <option value="pending">○ Pending</option>
+                <option value="red_flag">⚠️ Red Flag</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Quick Metrics & Scope Info -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-xs">
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px]">Estimated Effort</span>
+              <span id="spec-hours" class="font-bold text-emerald-400 font-mono text-xs mt-0.5 block">40 hrs</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px]">Primary Metric</span>
+              <span id="spec-primary-metric" class="font-medium text-slate-200 break-words block text-xs mt-0.5">180nm</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px]">Literature Citations</span>
+              <span id="spec-citations-count" class="font-bold text-purple-400 font-mono text-xs mt-0.5 block">3 Sources</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800/80">
+              <span class="text-slate-400 block text-[10px]">Proof of Work</span>
+              <span id="spec-pow-status" class="font-medium text-cyan-400 break-words block text-xs mt-0.5">Documented</span>
+              <div id="spec-pow-links" class="flex flex-wrap gap-1.5 mt-1 text-[10px]"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Target Parameters Specs -->
+        <div id="spec-params-container" class="space-y-1.5">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Quantitative Target Parameters</h3>
+          <div id="spec-params-grid" class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Literature Citations -->
+        <div id="spec-citations-container" class="space-y-1.5">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">RAG Academic Citations & Literature</h3>
+          <ul id="spec-citations-list" class="space-y-1 text-xs text-slate-300">
+            <!-- Dynamically populated -->
+          </ul>
+        </div>
+
+        <!-- Full SOP Markdown Section -->
+        <div class="space-y-2 pt-2 border-t border-slate-800/80">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+              <span>📋</span> Standard Operating Procedure (SOP)
+            </h3>
+            <button id="btn-copy-sop" class="px-2.5 py-1 text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700 transition flex items-center gap-1">
+              <span>📋</span> Copy SOP
+            </button>
+          </div>
+          <div id="spec-sop-markdown" class="sop-prose bg-slate-900/40 p-4 rounded-xl border border-slate-800/80 min-h-[160px]">
+            <!-- Rendered Markdown goes here -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: Convene AI Council (Review & Commit Candidate)   -->
+  <!-- ======================================================== -->
+  <div id="council-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-2xl max-h-[90vh] shadow-2xl overflow-hidden flex flex-col">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">✨</span>
+          <div>
+            <h3 class="text-base font-bold text-white">Convene Multi-Agent AI Council</h3>
+            <p class="text-xs text-slate-400">Systems Engineer (Acyclicity) • Laya PM (8-80h & Make/Buy) • Gemini Domain Expert (SOP)</p>
+          </div>
+        </div>
+        <button id="btn-close-modal" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <!-- Modal Body Form -->
+      <div class="p-6 overflow-y-auto space-y-4 text-xs flex-1">
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Candidate Node ID</label>
+          <input type="text" id="modal-node-id" value="node-plasma-asher-strip" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 font-mono text-slate-200 outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Work Package Title</label>
+          <input type="text" id="modal-title" value="Downstream Oxygen Plasma Photoresist Ashing" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200 outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Technical Description</label>
+          <textarea id="modal-desc" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200 outline-none focus:border-blue-500">Strip cross-linked positive photoresist using RF downstream oxygen plasma at 250W and 300 mTorr for wafer decontamination without lattice damage.</textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Generation</label>
+            <select id="modal-gen" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200 outline-none">
+              <option value="Gen 1 (mm)">Gen 1 (mm)</option>
+              <option value="Gen 2 (µm)">Gen 2 (µm)</option>
+              <option value="Gen 3 (nm)">Gen 3 (nm)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Category</label>
+            <input type="text" id="modal-category" value="Chemical Processing" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200 outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Prerequisite Node IDs (comma-separated)</label>
+          <input type="text" id="modal-prereqs" value="node-wet-bench-safety" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 font-mono text-slate-200 outline-none">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Target Module File</label>
+          <input type="text" id="modal-module" value="data/modules/04_wet_chemistry_gen1.json" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 font-mono text-slate-200 outline-none">
+        </div>
+
+        <!-- Council Verdict Container -->
+        <div id="modal-verdict-box" class="hidden p-4 rounded-xl border space-y-2 text-xs"></div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3 border-t border-slate-800 flex items-center justify-end gap-3 bg-slate-950/50">
+        <button id="btn-cancel-modal" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-md font-medium">Cancel</button>
+        <button id="btn-submit-review" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-md font-semibold transition flex items-center gap-1.5">
+          <span>✨</span>
+          <span>Review with AI Council</span>
+        </button>
+        <button id="btn-commit-node" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-md font-semibold transition hidden flex items-center gap-1.5">
+          <span>💾</span>
+          <span>Commit to Graph</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic (Pure Native ES6, Blazing Fast) -->
+  <script type="module">
+    import { DRAMDataEngine, DISCIPLINE_METADATA } from './data-engine.js';
+
+    const dataEngine = new DRAMDataEngine();
+
+    if (window.mermaid) {
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          darkMode: true,
+          background: '#090d16',
+          primaryColor: '#1e293b',
+          primaryTextColor: '#f8fafc',
+          primaryBorderColor: '#3b82f6',
+          lineColor: '#60a5fa'
+        }
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Application State
+    // -------------------------------------------------------------
+    let allNodes = [];
+    let allEdges = [];
+    let nodeMap = new Map();
+    let incomingMap = new Map();
+    let outgoingMap = new Map();
+    let selectedNodeId = null;
+    let navHistory = [];
+
+    // Filters State
+    let activeDiscipline = 'all';
+    let activeAction = 'all';
+    let activeStatus = 'all';
+    let activeGen = 'all';
+    let searchText = '';
+
+    // Pagination State
+    let currentPage = 1;
+    const PAGE_SIZE = 50;
+
+    // AI Council Review State
+    let currentVerdict = null;
+
+    // -------------------------------------------------------------
+    // DOM Elements
+    // -------------------------------------------------------------
+    const searchInput = document.getElementById('search-input');
+    const btnClearSearch = document.getElementById('btn-clear-search');
+    const selectDiscipline = document.getElementById('select-discipline');
+    const wbsListContainer = document.getElementById('wbs-list-container');
+    const filteredCountText = document.getElementById('filtered-count');
+    const pageIndicator = document.getElementById('page-indicator');
+    const btnPrevPage = document.getElementById('btn-prev-page');
+    const btnNextPage = document.getElementById('btn-next-page');
+    const btnFirstPage = document.getElementById('btn-first-page');
+    const btnLastPage = document.getElementById('btn-last-page');
+
+    // Drawer Elements
+    const specTitle = document.getElementById('spec-title');
+    const specId = document.getElementById('spec-id');
+    const specActionBadge = document.getElementById('spec-action-badge');
+    const specGenBadge = document.getElementById('spec-gen-badge');
+    const specDisciplineBadge = document.getElementById('spec-discipline-badge');
+    const specStatusSelect = document.getElementById('spec-status-select');
+    const specHours = document.getElementById('spec-hours');
+    const specPrimaryMetric = document.getElementById('spec-primary-metric');
+    const specCitationsCount = document.getElementById('spec-citations-count');
+    const specPowStatus = document.getElementById('spec-pow-status');
+    const specParamsGrid = document.getElementById('spec-params-grid');
+    const specCitationsList = document.getElementById('spec-citations-list');
+    const specSopMarkdown = document.getElementById('spec-sop-markdown');
+    const btnCopySop = document.getElementById('btn-copy-sop');
+
+    // Mini Graph Elements
+    const svgConnectionsLayer = document.getElementById('svg-connections-layer');
+    const svgNodesLayer = document.getElementById('svg-nodes-layer');
+    const btnHistoryBack = document.getElementById('btn-history-back');
+
+    // -------------------------------------------------------------
+    // Load High-Speed WBS Data
+    // -------------------------------------------------------------
+    async function initWBS() {
+      try {
+        console.log('[WBS Explorer] Initializing dataset...');
+        const dataset = await dataEngine.loadWBS();
+        allNodes = dataset.nodes || [];
+        allEdges = dataset.edges || [];
+        nodeMap = dataset.nodeMap || new Map();
+        incomingMap = dataset.incomingMap || new Map();
+        outgoingMap = dataset.outgoingMap || new Map();
+
+        // Update header counters
+        document.getElementById('stat-total').textContent = allNodes.length.toLocaleString();
+        const doneCount = allNodes.filter(n => n.status === 'done').length;
+        document.getElementById('stat-done').textContent = doneCount.toLocaleString();
+        document.getElementById('stat-edges').textContent = allEdges.length.toLocaleString();
+
+        // Select first node by default or master root
+        const rootNode = allNodes.find(n => n.id === 'node-dram-root') || allNodes[0];
+        if (rootNode) {
+          selectNode(rootNode.id, false);
+        }
+
+        renderTable();
+        refreshServerStatus();
+      } catch (err) {
+        console.error('Failed to initialize WBS Explorer:', err);
+        wbsListContainer.innerHTML = `<div class="p-6 text-center text-rose-400 font-mono text-xs">Error loading dataset: ${err.message}</div>`;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Filter & Paginate Nodes
+    // -------------------------------------------------------------
+    function getFilteredNodes() {
+      const q = searchText.toLowerCase().trim();
+      return allNodes.filter(n => {
+        // Discipline filter
+        if (activeDiscipline !== 'all' && n.moduleId !== activeDiscipline) {
+          return false;
+        }
+        // Action filter (Make / Buy)
+        if (activeAction !== 'all') {
+          const act = (n.action_type || n.actionType || '').toLowerCase();
+          if (act !== activeAction.toLowerCase()) return false;
+        }
+        // Status filter
+        if (activeStatus !== 'all' && (n.status || 'pending') !== activeStatus) {
+          return false;
+        }
+        // Generation filter
+        if (activeGen !== 'all' && !(n.generation || '').includes(activeGen)) {
+          return false;
+        }
+        // Keyword Search
+        if (q) {
+          const inLabel = (n.label || '').toLowerCase().includes(q);
+          const inId = (n.id || '').toLowerCase().includes(q);
+          const inMetric = (n.primaryMetric || '').toLowerCase().includes(q);
+          const inCategory = (n.category || '').toLowerCase().includes(q);
+          const inCitations = Array.isArray(n.citations) && n.citations.some(c => c.toLowerCase().includes(q));
+          if (!inLabel && !inId && !inMetric && !inCategory && !inCitations) {
+            return false;
+          }
+        }
+        return true;
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Render WBS Table Rows
+    // -------------------------------------------------------------
+    function renderTable() {
+      const filtered = getFilteredNodes();
+      const totalFiltered = filtered.length;
+      const totalPages = Math.max(1, Math.ceil(totalFiltered / PAGE_SIZE));
+
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = Math.min(startIndex + PAGE_SIZE, totalFiltered);
+      const pageNodes = filtered.slice(startIndex, endIndex);
+
+      filteredCountText.textContent = totalFiltered === 0 
+        ? 'No matching packages' 
+        : `Showing ${startIndex + 1}-${endIndex} of ${totalFiltered.toLocaleString()}`;
+      pageIndicator.textContent = `Page ${currentPage} / ${totalPages}`;
+
+      btnFirstPage.disabled = currentPage === 1;
+      btnPrevPage.disabled = currentPage === 1;
+      btnNextPage.disabled = currentPage === totalPages;
+      btnLastPage.disabled = currentPage === totalPages;
+
+      if (pageNodes.length === 0) {
+        wbsListContainer.innerHTML = `
+          <div class="p-12 text-center text-slate-500 font-mono text-xs">
+            <span class="text-2xl block mb-2">🔍</span>
+            No work packages match the current filters or query.
+            <button onclick="window.resetFilters()" class="mt-3 px-3 py-1 bg-slate-900 hover:bg-slate-800 text-blue-400 rounded border border-slate-800 text-xs block mx-auto">
+              Reset Filters
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      const rowsHtml = pageNodes.map((n, idx) => {
+        const isSelected = n.id === selectedNodeId;
+        const isMake = (n.action_type || n.actionType) === 'Make';
+        const status = n.status || 'pending';
+        const inCount = (incomingMap.get(n.id) || []).length;
+        const outCount = (outgoingMap.get(n.id) || []).length;
+
+        const statusDot = status === 'done'
+          ? '<span class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" title="Done"></span>'
+          : (status === 'in_progress'
+            ? '<span class="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0 animate-pulse" title="In Progress"></span>'
+            : (status === 'red_flag'
+              ? '<span class="w-2 h-2 rounded-full bg-rose-500 flex-shrink-0" title="Red Flag"></span>'
+              : '<span class="w-2 h-2 rounded-full bg-slate-500 flex-shrink-0" title="Pending"></span>'));
+
+        return `
+          <div 
+            class="wbs-row p-3 cursor-pointer transition flex items-start justify-between gap-3 text-xs ${
+              isSelected 
+                ? 'bg-slate-900 border-l-4 border-l-blue-500 shadow-md' 
+                : 'hover:bg-slate-900/50 bg-slate-950'
+            }"
+            data-node-id="${n.id}"
+            tabindex="0"
+          >
+            <!-- Left: Status & Action Badges -->
+            <div class="flex items-start gap-2.5 flex-1 min-w-0">
+              <div class="pt-0.5 flex-shrink-0">
+                ${statusDot}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                  <span class="px-1.5 py-0.5 text-[9px] font-bold rounded ${
+                    isMake ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800/60' : 'bg-cyan-950/80 text-cyan-400 border border-cyan-800/60'
+                  }">
+                    ${isMake ? 'MAKE' : 'BUY'}
+                  </span>
+                  <span class="text-[9px] text-blue-400/90 font-medium px-1.5 py-0.5 rounded bg-blue-950/50 border border-blue-900/40">
+                    ${escapeHtml(n.generation || 'Gen 1')}
+                  </span>
+                  <span class="text-[10px] text-slate-400 font-mono">
+                    ${escapeHtml(n.id)}
+                  </span>
+                </div>
+                <!-- Fully readable Title with multi-line word wrapping and tooltip -->
+                <h4 class="font-semibold text-white text-xs leading-snug break-words" title="${escapeHtml(n.label || n.id)}">
+                  ${escapeHtml(n.label || n.id)}
+                </h4>
+                <div class="flex items-center gap-2 text-[10px] text-slate-400 font-mono mt-1">
+                  <span class="text-slate-400">${escapeHtml(n.category || n.discipline || '')}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Causality Link Counts & Hours -->
+            <div class="flex flex-col items-end gap-1.5 text-[10px] flex-shrink-0 pt-0.5">
+              <span class="font-mono text-emerald-400 font-semibold text-xs">
+                ${n.estimated_hours || 40}h
+              </span>
+              <div class="flex items-center gap-1">
+                <span class="text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800 text-[10px]" title="${inCount} prerequisites">
+                  ↑ ${inCount}
+                </span>
+                <span class="text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800 text-[10px]" title="${outCount} dependents">
+                  ↓ ${outCount}
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      wbsListContainer.innerHTML = rowsHtml;
+
+      // Attach row click listeners
+      wbsListContainer.querySelectorAll('.wbs-row').forEach(row => {
+        row.addEventListener('click', () => {
+          const id = row.getAttribute('data-node-id');
+          selectNode(id, true);
+        });
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Select Active Work Package & Render Right Pane
+    // -------------------------------------------------------------
+    window.selectNode = function(id, pushHistory = true) {
+      if (!nodeMap.has(id)) return;
+      if (pushHistory && selectedNodeId && selectedNodeId !== id) {
+        navHistory.push(selectedNodeId);
+        btnHistoryBack.classList.remove('hidden');
+      }
+
+      selectedNodeId = id;
+      const node = nodeMap.get(id);
+
+      // Re-render table active row highlighting without rebuilding everything
+      wbsListContainer.querySelectorAll('.wbs-row').forEach(row => {
+        const isCur = row.getAttribute('data-node-id') === id;
+        row.className = `wbs-row p-3 cursor-pointer transition flex items-center justify-between gap-3 text-xs ${
+          isCur ? 'bg-slate-900 border-l-4 border-l-blue-500 shadow-md' : 'hover:bg-slate-900/50 bg-slate-950'
+        }`;
+      });
+
+      // Render Spec & Markdown Drawer
+      renderSpecDrawer(node);
+
+      // Render Mini Local Neighborhood SVG Graph
+      renderNeighborhoodGraph(node);
+    };
+
+    // -------------------------------------------------------------
+    // Render Spec Drawer (Bottom Right)
+    // -------------------------------------------------------------
+    function renderSpecDrawer(node) {
+      const isMake = (node.action_type || node.actionType) === 'Make';
+      specTitle.textContent = node.label || node.id;
+      specId.textContent = node.id;
+      specActionBadge.textContent = isMake ? '🔨 MAKE (R&D)' : '🛒 BUY (COTS)';
+      specActionBadge.className = `px-2 py-0.5 text-[10px] font-bold rounded uppercase tracking-wider ${
+        isMake ? 'bg-emerald-950 border border-emerald-800 text-emerald-400' : 'bg-cyan-950 border border-cyan-800 text-cyan-400'
+      }`;
+      specGenBadge.textContent = node.generation || 'Gen 1 (mm)';
+      specDisciplineBadge.textContent = node.discipline || 'Semiconductor Discipline';
+      specStatusSelect.value = node.status || 'pending';
+      specHours.textContent = `${node.estimated_hours || 40} hrs`;
+      specPrimaryMetric.textContent = node.primaryMetric || 'N/A';
+      
+      const pow = typeof node.proof_of_work === 'string' ? JSON.parse(node.proof_of_work || '{}') : (node.proof_of_work || {});
+      specPowStatus.textContent = pow.status || 'Documented';
+      const specPowLinks = document.getElementById('spec-pow-links');
+      if (specPowLinks) {
+        let linksHtml = '';
+        if (pow.repo && pow.repo.startsWith('http')) {
+          linksHtml += `<a href="${pow.repo}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline flex items-center gap-0.5" title="${pow.repo}"><span>📦</span>Repo</a>`;
+        }
+        if (pow.video && pow.video.startsWith('http')) {
+          linksHtml += `<a href="${pow.video}" target="_blank" rel="noopener noreferrer" class="text-rose-400 hover:text-rose-300 underline flex items-center gap-0.5 ml-1" title="${pow.video}"><span>▶</span>Video</a>`;
+        }
+        specPowLinks.innerHTML = linksHtml;
+      }
+
+      // Quantitative Parameters Grid
+      let params = {};
+      if (node.metrics_target) {
+        if (typeof node.metrics_target === 'string') {
+          try { params = JSON.parse(node.metrics_target); } catch(e) { params = { "Target": node.metrics_target }; }
+        } else {
+          params = node.metrics_target;
+        }
+      } else {
+        params = { "Primary Target": node.primaryMetric || "Functional Specification Validated" };
+      }
+
+      specParamsGrid.innerHTML = Object.entries(params).map(([key, val]) => `
+        <div class="bg-slate-900/90 p-2 rounded-lg border border-slate-800">
+          <span class="text-slate-400 text-[10px] block truncate">${escapeHtml(key)}</span>
+          <span class="text-slate-100 font-medium truncate block">${escapeHtml(String(val))}</span>
+        </div>
+      `).join('');
+
+      // Citations List
+      const citations = Array.isArray(node.citations) ? node.citations : [];
+      specCitationsCount.textContent = `${citations.length} ${citations.length === 1 ? 'Source' : 'Sources'}`;
+      if (citations.length === 0) {
+        specCitationsList.innerHTML = `<li class="text-slate-500 italic">Baseline empirical literature chunk</li>`;
+      } else {
+        specCitationsList.innerHTML = citations.map(c => `
+          <li class="flex items-center gap-1.5 bg-slate-900/60 px-2 py-1 rounded border border-slate-800/80">
+            <span class="text-purple-400">📖</span>
+            <span class="truncate">${escapeHtml(c)}</span>
+          </li>
+        `).join('');
+      }
+
+      // Render Markdown SOP
+      const rawSop = node.sop_content || `# Standard Operating Procedure: ${node.label}\n\nWork package parameter extraction and quality verification procedure compliant with 8-80h PM scope.`;
+      if (window.marked) {
+        let html = marked.parse(rawSop);
+        // Replace mermaid fenced code blocks with <div class="mermaid">
+        html = html.replace(/<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g, '<div class="mermaid my-3 p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-center overflow-x-auto">$1</div>');
+        specSopMarkdown.innerHTML = html;
+      } else {
+        specSopMarkdown.textContent = rawSop;
+      }
+
+      // Render KaTeX Math across SOP markdown, parameters grid, and primary metric
+      if (window.renderMathInElement) {
+        try {
+          renderMathInElement(specSopMarkdown, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+          renderMathInElement(specParamsGrid, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });
+          renderMathInElement(specPrimaryMetric, {
+            delimiters: [
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });
+        } catch(err) {
+          console.warn('[KaTeX] render error:', err);
+        }
+      }
+
+      // Render Mermaid Diagrams if present
+      if (window.mermaid) {
+        try {
+          mermaid.run({
+            nodes: specSopMarkdown.querySelectorAll('.mermaid')
+          });
+        } catch(err) {
+          console.warn('[Mermaid] render warning:', err);
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Render Mini Local Neighborhood Graph (Top Right SVG)
+    // -------------------------------------------------------------
+    function renderNeighborhoodGraph(node) {
+      const prereqs = incomingMap.get(node.id) || [];
+      const dependents = outgoingMap.get(node.id) || [];
+
+      // Clear existing layers
+      svgConnectionsLayer.innerHTML = '';
+      svgNodesLayer.innerHTML = '';
+
+      const svgContainer = document.getElementById('neighborhood-canvas-container');
+      const width = svgContainer.clientWidth || 600;
+      const height = svgContainer.clientHeight || 260;
+
+      const maxRenderCount = Math.max(prereqs.length, dependents.length, 1);
+      const cardW = Math.max(190, Math.min(250, Math.floor((width - 90) / 3)));
+      const cardH = 66; // comfortable height for ID + full 2-line wrapped title
+      const cardSpacing = 14;
+
+      // Compute total required height so all cards fit or scroll smoothly
+      const totalContentHeight = Math.max(height - 20, maxRenderCount * (cardH + cardSpacing) + 20);
+      
+      const svgElem = document.getElementById('neighborhood-svg');
+      svgElem.setAttribute('viewBox', `0 0 ${width} ${totalContentHeight}`);
+      svgElem.setAttribute('height', `${totalContentHeight}`);
+
+      // Coordinate Layout Columns
+      const col1X = 16;
+      const activeCardW = cardW + 24;
+      const activeCardH = cardH + 12;
+      const col2X = Math.round((width - activeCardW) / 2);
+      const col3X = width - cardW - 16;
+
+      const centerY = (totalContentHeight / 2) - (activeCardH / 2);
+
+      // 1. Draw Active Node (Center)
+      const activeIsMake = (node.action_type || node.actionType) === 'Make';
+      const activeStatus = node.status || 'pending';
+      const activeStatusDot = activeStatus === 'done' ? 'bg-emerald-400' : (activeStatus === 'in_progress' ? 'bg-amber-400 animate-pulse' : 'bg-blue-400');
+      
+      const activeCardG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      activeCardG.setAttribute('class', 'svg-node-card svg-node-active');
+      activeCardG.innerHTML = `
+        <foreignObject x="${col2X}" y="${centerY}" width="${activeCardW}" height="${activeCardH}">
+          <div xmlns="http://www.w3.org/1999/xhtml" 
+               class="w-full h-full bg-slate-900 border-2 border-blue-500 rounded-xl p-2.5 flex flex-col justify-between shadow-xl shadow-blue-500/20 select-none cursor-pointer"
+               title="${escapeHtml(node.label || node.id)}">
+            <div class="flex items-center justify-between gap-1 text-[9px] font-mono">
+              <span class="text-blue-400 font-bold truncate">${escapeHtml(node.id)}</span>
+              <span class="px-1.5 py-0.5 rounded text-[8px] font-bold ${activeIsMake ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-cyan-950 text-cyan-400 border border-cyan-800'}">
+                ${activeIsMake ? 'MAKE' : 'BUY'}
+              </span>
+            </div>
+            <div class="font-bold text-white text-xs leading-snug line-clamp-2 break-words" title="${escapeHtml(node.label || node.id)}">
+              ${escapeHtml(node.label || node.id)}
+            </div>
+          </div>
+        </foreignObject>
+      `;
+      svgNodesLayer.appendChild(activeCardG);
+
+      // 2. Draw Prerequisites (Left Column)
+      const renderedPrereqs = prereqs;
+      const prereqTotalH = renderedPrereqs.length * (cardH + cardSpacing) - cardSpacing;
+      const prereqStartY = Math.max(12, (totalContentHeight - prereqTotalH) / 2);
+
+      if (renderedPrereqs.length === 0) {
+        const emptyG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        emptyG.innerHTML = `
+          <foreignObject x="${col1X}" y="${centerY + 6}" width="${cardW}" height="${cardH}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="w-full h-full bg-slate-950/80 border border-dashed border-slate-700/80 rounded-lg p-2.5 flex items-center justify-center text-center">
+              <span class="text-slate-500 text-xs italic">Root Milestone (No Prerequisites)</span>
+            </div>
+          </foreignObject>
+        `;
+        svgNodesLayer.appendChild(emptyG);
+      } else {
+        renderedPrereqs.forEach((pr, i) => {
+          const pNode = pr.sourceNode || { id: pr.sourceId, label: pr.sourceId, status: 'done' };
+          const py = prereqStartY + (i * (cardH + cardSpacing));
+          const pStatus = pNode.status || 'pending';
+          const pStatusDot = pStatus === 'done' ? 'bg-emerald-400' : (pStatus === 'in_progress' ? 'bg-amber-400' : 'bg-slate-400');
+
+          // Bezier connection curve to Active Node
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          const startX = col1X + cardW;
+          const startY = py + (cardH / 2);
+          const endX = col2X;
+          const endY = centerY + (activeCardH / 2);
+          const cpX1 = startX + 35;
+          const cpX2 = endX - 35;
+
+          path.setAttribute('d', `M ${startX} ${startY} C ${cpX1} ${startY}, ${cpX2} ${endY}, ${endX} ${endY}`);
+          path.setAttribute('fill', 'none');
+          path.setAttribute('stroke', '#3b82f6');
+          path.setAttribute('stroke-width', '1.5');
+          path.setAttribute('marker-end', 'url(#arrow-prereq)');
+          svgConnectionsLayer.appendChild(path);
+
+          // Card
+          const cardG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          cardG.setAttribute('class', 'svg-node-card');
+          cardG.innerHTML = `
+            <foreignObject x="${col1X}" y="${py}" width="${cardW}" height="${cardH}">
+              <div xmlns="http://www.w3.org/1999/xhtml" 
+                   class="w-full h-full bg-slate-950/90 hover:bg-slate-900 border border-slate-800 hover:border-blue-500 rounded-lg p-2 flex flex-col justify-between transition cursor-pointer select-none shadow-sm"
+                   title="${escapeHtml(pNode.label || pNode.id)}">
+                <div class="flex items-center justify-between gap-1 text-[9px] font-mono">
+                  <span class="text-slate-400 font-bold truncate">${escapeHtml(pNode.id)}</span>
+                  <span class="w-2 h-2 rounded-full ${pStatusDot} flex-shrink-0"></span>
+                </div>
+                <div class="font-semibold text-slate-100 text-[11px] leading-snug line-clamp-2 break-words" title="${escapeHtml(pNode.label || pNode.id)}">
+                  ${escapeHtml(pNode.label || pNode.id)}
+                </div>
+              </div>
+            </foreignObject>
+          `;
+          cardG.onclick = () => window.selectNode(pNode.id, true);
+          svgNodesLayer.appendChild(cardG);
+        });
+      }
+
+      // 3. Draw Dependents (Right Column)
+      const renderedDeps = dependents;
+      const depTotalH = renderedDeps.length * (cardH + cardSpacing) - cardSpacing;
+      const depStartY = Math.max(12, (totalContentHeight - depTotalH) / 2);
+
+      if (renderedDeps.length === 0) {
+        const emptyG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        emptyG.innerHTML = `
+          <foreignObject x="${col3X}" y="${centerY + 6}" width="${cardW}" height="${cardH}">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="w-full h-full bg-slate-950/80 border border-dashed border-slate-700/80 rounded-lg p-2.5 flex items-center justify-center text-center">
+              <span class="text-slate-500 text-xs italic">Terminal Goal (End of Branch)</span>
+            </div>
+          </foreignObject>
+        `;
+        svgNodesLayer.appendChild(emptyG);
+      } else {
+        renderedDeps.forEach((dp, i) => {
+          const dNode = dp.targetNode || { id: dp.targetId, label: dp.targetId, status: 'done' };
+          const dy = depStartY + (i * (cardH + cardSpacing));
+          const dStatus = dNode.status || 'pending';
+          const dStatusDot = dStatus === 'done' ? 'bg-emerald-400' : (dStatus === 'in_progress' ? 'bg-amber-400' : 'bg-slate-400');
+
+          // Bezier connection curve from Active Node to Dependent
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          const startX = col2X + activeCardW;
+          const startY = centerY + (activeCardH / 2);
+          const endX = col3X;
+          const endY = dy + (cardH / 2);
+          const cpX1 = startX + 35;
+          const cpX2 = endX - 35;
+
+          path.setAttribute('d', `M ${startX} ${startY} C ${cpX1} ${startY}, ${cpX2} ${endY}, ${endX} ${endY}`);
+          path.setAttribute('fill', 'none');
+          path.setAttribute('stroke', '#10b981');
+          path.setAttribute('stroke-width', '1.5');
+          path.setAttribute('marker-end', 'url(#arrow-dep)');
+          svgConnectionsLayer.appendChild(path);
+
+          // Card
+          const cardG = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          cardG.setAttribute('class', 'svg-node-card');
+          cardG.innerHTML = `
+            <foreignObject x="${col3X}" y="${dy}" width="${cardW}" height="${cardH}">
+              <div xmlns="http://www.w3.org/1999/xhtml" 
+                   class="w-full h-full bg-slate-950/90 hover:bg-slate-900 border border-slate-800 hover:border-emerald-500 rounded-lg p-2 flex flex-col justify-between transition cursor-pointer select-none shadow-sm"
+                   title="${escapeHtml(dNode.label || dNode.id)}">
+                <div class="flex items-center justify-between gap-1 text-[9px] font-mono">
+                  <span class="text-slate-400 font-bold truncate">${escapeHtml(dNode.id)}</span>
+                  <span class="w-2 h-2 rounded-full ${dStatusDot} flex-shrink-0"></span>
+                </div>
+                <div class="font-semibold text-slate-100 text-[11px] leading-snug line-clamp-2 break-words" title="${escapeHtml(dNode.label || dNode.id)}">
+                  ${escapeHtml(dNode.label || dNode.id)}
+                </div>
+              </div>
+            </foreignObject>
+          `;
+          cardG.onclick = () => window.selectNode(dNode.id, true);
+          svgNodesLayer.appendChild(cardG);
+        });
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Event Listeners & Interaction
+    // -------------------------------------------------------------
+    // History back button
+    btnHistoryBack.addEventListener('click', () => {
+      if (navHistory.length > 0) {
+        const prevId = navHistory.pop();
+        if (navHistory.length === 0) btnHistoryBack.classList.add('hidden');
+        window.selectNode(prevId, false);
+      }
+    });
+
+    // Search input with instant filtering
+    searchInput.addEventListener('input', (e) => {
+      searchText = e.target.value;
+      btnClearSearch.classList.toggle('hidden', !searchText);
+      currentPage = 1;
+      renderTable();
+    });
+
+    btnClearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      searchText = '';
+      btnClearSearch.classList.add('hidden');
+      currentPage = 1;
+      renderTable();
+    });
+
+    // Discipline dropdown
+    selectDiscipline.addEventListener('change', (e) => {
+      activeDiscipline = e.target.value;
+      currentPage = 1;
+      renderTable();
+    });
+
+    // Filter pills (Action Make/Buy)
+    document.querySelectorAll('.filter-pill-action').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill-action').forEach(b => {
+          b.className = 'filter-pill-action px-2 py-0.5 rounded text-[10px] font-medium text-slate-400 hover:bg-slate-800';
+        });
+        btn.className = 'filter-pill-action active px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white';
+        activeAction = btn.getAttribute('data-action');
+        currentPage = 1;
+        renderTable();
+      });
+    });
+
+    // Filter pills (Status)
+    document.querySelectorAll('.filter-pill-status').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill-status').forEach(b => {
+          b.className = 'filter-pill-status px-2 py-0.5 rounded text-[10px] font-medium text-slate-400 hover:bg-slate-800';
+        });
+        btn.className = 'filter-pill-status active px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white';
+        activeStatus = btn.getAttribute('data-status');
+        currentPage = 1;
+        renderTable();
+      });
+    });
+
+    // Filter pills (Generation)
+    document.querySelectorAll('.filter-pill-gen').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill-gen').forEach(b => {
+          b.className = 'filter-pill-gen px-1.5 py-0.5 rounded text-[10px] font-medium text-slate-400 hover:bg-slate-800';
+        });
+        btn.className = 'filter-pill-gen active px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white';
+        activeGen = btn.getAttribute('data-gen');
+        currentPage = 1;
+        renderTable();
+      });
+    });
+
+    // Pagination handlers
+    btnFirstPage.addEventListener('click', () => { currentPage = 1; renderTable(); });
+    btnLastPage.addEventListener('click', () => { 
+      const filtered = getFilteredNodes();
+      currentPage = Math.ceil(filtered.length / PAGE_SIZE); 
+      renderTable(); 
+    });
+    btnPrevPage.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderTable(); } });
+    btnNextPage.addEventListener('click', () => { currentPage++; renderTable(); });
+
+    // Status selector change inside drawer
+    specStatusSelect.addEventListener('change', (e) => {
+      if (!selectedNodeId || !nodeMap.has(selectedNodeId)) return;
+      const node = nodeMap.get(selectedNodeId);
+      node.status = e.target.value;
+      renderTable();
+      renderNeighborhoodGraph(node);
+    });
+
+    // Copy SOP button
+    btnCopySop.addEventListener('click', () => {
+      if (!selectedNodeId || !nodeMap.has(selectedNodeId)) return;
+      const node = nodeMap.get(selectedNodeId);
+      const sop = node.sop_content || '';
+      navigator.clipboard.writeText(sop).then(() => {
+        btnCopySop.textContent = '✓ Copied!';
+        setTimeout(() => { btnCopySop.textContent = '📋 Copy SOP'; }, 2000);
+      });
+    });
+
+    // Export PR Button
+    document.getElementById('btn-export-pr').addEventListener('click', () => {
+      dataEngine.exportModule(allNodes.map(n => ({ id: n.id, data: n })), allEdges, activeDiscipline);
+    });
+
+    // Reload Button
+    document.getElementById('btn-reload').addEventListener('click', () => {
+      initWBS();
+    });
+
+    // Check Backend Server Status (/api/status) & Adapt to GitHub Pages Static Hosting
+    async function refreshServerStatus() {
+      const isStaticEnv = window.location.hostname.endsWith('github.io') || 
+                          window.location.protocol === 'file:' || 
+                          window.location.search.includes('static=true');
+
+      const btnConvene = document.getElementById('btn-convene-modal');
+      const badgeText = document.getElementById('backend-status-text');
+      const badgeContainer = document.getElementById('backend-status-badge');
+
+      if (isStaticEnv) {
+        // Automatically hide backend-dependent AI Council button on static hosting
+        if (btnConvene) btnConvene.classList.add('hidden');
+        if (badgeContainer) {
+          badgeContainer.innerHTML = `
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <span id="backend-status-text" class="text-cyan-300 font-mono text-[11px]">Static Mode (GitHub Pages)</span>
+          `;
+          badgeContainer.title = "Running in pure static mode. All 1,003 nodes and DAG loaded from precomputed JSON SSOT.";
+        }
+        return;
+      }
+
+      const status = await dataEngine.getStatus();
+      if (badgeText && status) {
+        badgeText.textContent = `Server: Online (${status.chroma_chunks || 0} chunks, ${allNodes.length} nodes)`;
+      } else if (badgeText) {
+        badgeText.textContent = `Static Archive (Offline)`;
+        if (btnConvene) {
+          btnConvene.classList.add('opacity-50');
+          btnConvene.title = 'AI Council review/commit requires local FastAPI backend';
+        }
+      }
+    }
+
+    // Keyboard Navigation (ArrowUp / ArrowDown)
+    window.addEventListener('keydown', (e) => {
+      if (['ArrowUp', 'ArrowDown'].includes(e.key) && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        const filtered = getFilteredNodes();
+        if (filtered.length === 0) return;
+        const curIdx = filtered.findIndex(n => n.id === selectedNodeId);
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const nextIdx = Math.min(curIdx + 1, filtered.length - 1);
+          window.selectNode(filtered[nextIdx].id, true);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const prevIdx = Math.max(curIdx - 1, 0);
+          window.selectNode(filtered[prevIdx].id, true);
+        }
+      }
+    });
+
+    // Reset Filters helper
+    window.resetFilters = function() {
+      searchInput.value = '';
+      searchText = '';
+      btnClearSearch.classList.add('hidden');
+      activeDiscipline = 'all';
+      selectDiscipline.value = 'all';
+      activeAction = 'all';
+      activeStatus = 'all';
+      activeGen = 'all';
+      currentPage = 1;
+      renderTable();
+    };
+
+    // -------------------------------------------------------------
+    // AI Council Modal Handlers
+    // -------------------------------------------------------------
+    const councilModal = document.getElementById('council-modal');
+    const btnConvene = document.getElementById('btn-convene-modal');
+    const btnCloseModal = document.getElementById('btn-close-modal');
+    const btnCancelModal = document.getElementById('btn-cancel-modal');
+    const btnSubmitReview = document.getElementById('btn-submit-review');
+    const btnCommitNode = document.getElementById('btn-commit-node');
+    const modalVerdictBox = document.getElementById('modal-verdict-box');
+
+    btnConvene.addEventListener('click', () => {
+      councilModal.classList.remove('hidden');
+      modalVerdictBox.classList.add('hidden');
+      btnCommitNode.classList.add('hidden');
+    });
+
+    [btnCloseModal, btnCancelModal].forEach(btn => {
+      btn.addEventListener('click', () => {
+        councilModal.classList.add('hidden');
+      });
+    });
+
+    btnSubmitReview.addEventListener('click', async () => {
+      btnSubmitReview.disabled = true;
+      btnSubmitReview.innerHTML = '<span class="animate-spin">⏳</span><span>Reviewing...</span>';
+      modalVerdictBox.classList.remove('hidden');
+      modalVerdictBox.innerHTML = '<div class="text-blue-400 font-mono">Convening Systems Engineer, Laya PM, and Gemini Domain Expert...</div>';
+
+      const candidate = {
+        node_id: document.getElementById('modal-node-id').value.trim(),
+        title: document.getElementById('modal-title').value.trim(),
+        description: document.getElementById('modal-desc').value.trim(),
+        generation: document.getElementById('modal-gen').value,
+        category: document.getElementById('modal-category').value.trim(),
+        prerequisite_node_ids: document.getElementById('modal-prereqs').value.split(',').map(s => s.trim()).filter(Boolean)
+      };
+
+      try {
+        const res = await dataEngine.reviewCandidateNode(candidate);
+        currentVerdict = res;
+        if (res.approved) {
+          modalVerdictBox.className = 'p-4 rounded-xl border border-emerald-700/80 bg-emerald-950/40 text-emerald-300 space-y-2 text-xs';
+          modalVerdictBox.innerHTML = `
+            <div class="font-bold flex items-center gap-1.5 text-emerald-400 text-sm">
+              <span>✓</span> AI COUNCIL APPROVED (${res.verdict})
+            </div>
+            <div><strong>Make/Buy:</strong> ${res.node.action_type} | <strong>Effort:</strong> ${res.node.estimated_hours}h</div>
+            <div><strong>Citations:</strong> ${res.node.citations?.join(', ') || 'ChromaDB Verified'}</div>
+            <div class="font-mono text-[11px] text-slate-400">Ready to commit to ${document.getElementById('modal-module').value}</div>
+          `;
+          btnCommitNode.classList.remove('hidden');
+        } else {
+          modalVerdictBox.className = 'p-4 rounded-xl border border-rose-700/80 bg-rose-950/40 text-rose-300 space-y-1 text-xs';
+          modalVerdictBox.innerHTML = `
+            <div class="font-bold flex items-center gap-1.5 text-rose-400 text-sm">
+              <span>✕</span> REJECTED at ${res.stage}
+            </div>
+            <div>${res.reason}</div>
+          `;
+          btnCommitNode.classList.add('hidden');
+        }
+      } catch (err) {
+        modalVerdictBox.className = 'p-4 rounded-xl border border-rose-700/80 bg-rose-950/40 text-rose-300 text-xs';
+        modalVerdictBox.textContent = `Error: ${err.message}`;
+      } finally {
+        btnSubmitReview.disabled = false;
+        btnSubmitReview.innerHTML = '<span>✨</span><span>Review with AI Council</span>';
+      }
+    });
+
+    btnCommitNode.addEventListener('click', async () => {
+      if (!currentVerdict || !currentVerdict.node) return;
+      btnCommitNode.disabled = true;
+      btnCommitNode.textContent = 'Committing...';
+      const targetModule = document.getElementById('modal-module').value.trim();
+
+      try {
+        await dataEngine.commitApprovedNode(currentVerdict.node, currentVerdict.proposed_edges || [], targetModule);
+        councilModal.classList.add('hidden');
+        initWBS();
+      } catch (err) {
+        alert('Commit failed: ' + err.message);
+      } finally {
+        btnCommitNode.disabled = false;
+        btnCommitNode.innerHTML = '<span>💾</span><span>Commit to Graph</span>';
+      }
+    });
+
+    // -------------------------------------------------------------
+    // Helper Utilities
+    // -------------------------------------------------------------
+    function truncate(str, len = 24) {
+      if (!str) return '';
+      return str.length > len ? str.slice(0, len - 2) + '..' : str;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function escapeXml(str) {
+      return escapeHtml(str);
+    }
+
+    // Window Resize Handler to redraw SVG connections cleanly
+    window.addEventListener('resize', () => {
+      if (selectedNodeId && nodeMap.has(selectedNodeId)) {
+        renderNeighborhoodGraph(nodeMap.get(selectedNodeId));
+      }
+    });
+
+    // Initialize application
+    initWBS();
+  </script>
+</body>
+</html>

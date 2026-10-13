@@ -1,0 +1,87 @@
+alignment_test_for_local_agent:
+  meta:
+    purpose: "Đánh giá mức độ thấu hiểu Kiến trúc (Architecture) và Triết lý (Philosophy) của Local AI Agent trước khi cho phép khởi tạo dự án."
+    instruction_for_agent: "Hãy đọc kỹ 3 file Master Blueprint YAML. Dựa vào đó, hãy trả lời các câu hỏi tình huống dưới đây. Không trả lời chung chung, hãy trích dẫn đúng triết lý hoặc công nghệ đã được quy định trong Blueprint."
+
+  categories:
+    # ---------------------------------------------------------
+    # 1. TRIẾT LÝ VẬN HÀNH (PHILOSOPHY & ROLES)
+    # ---------------------------------------------------------
+    1_roles_and_boundaries:
+      Q1: "Nếu tôi (Human Architect) ra lệnh: 'Hãy dùng vòng lặp for đẻ ra ngay 500 bài toán (nodes) đầu tiên cho hệ thống'. Dựa trên nguyên tắc 'Just-In-Time Generation' và 'Bottom-Up Execution', bạn sẽ phản hồi và hành động như thế nào?"
+      Agent_Answer: >-
+        Tôi sẽ từ chối chạy vòng lặp sinh 500 nodes và cảnh báo Human Architect về 2 nguyên tắc cốt lõi:
+        1. Vi phạm 'Bottom-Up Execution': Blueprint nghiêm cấm việc ngồi vẽ 1,000 bài toán rồi mới bắt tay vào code. Thi công phải bắt đầu từ dưới lên với 3 nodes đầu tiên để chạm tay vào thực tế và phá vỡ hội chứng mơ hồ (Blueprint Vertigo).
+        2. Vi phạm 'Just-In-Time Generation' (Lazy Loading cho AI): Để tránh lãng phí Token, nghẽn DOM và rơi vào bẫy 'Spaghetti Graph', đồ thị chỉ được phép đẻ nhánh sâu khi người dùng thực sự click/zoom vào một Node cụ thể (Semantic Zooming / Nested Graphs).
+        Hành động đề xuất: Chỉ khởi tạo bộ khung tổng thể cấp 1-2 (BFS) và tập trung hoàn thiện module 3 nodes đầu tiên trước khi mở rộng.
+
+      Q2: "Trong hệ thống Multi-Agent, ai là người nắm quyền quyết định cuối cùng về việc vẽ mũi tên (Edge) nối từ Node A sang Node B? Là Agent Chuyên gia, Agent Kỹ sư Hệ thống, hay Human?"
+      Agent_Answer: >-
+        Người nắm quyền quyết định cuối cùng tuyệt đối là Human (Solo Systems Architect / Tổng công trình sư).
+        Theo nguyên tắc 'Architect vs. Technician': Con người làm Kiến trúc sư nắm giữ bộ khung và ranh giới hệ thống; AI chỉ đóng vai trò Kỹ thuật viên cục bộ.
+        Agent Kỹ sư Hệ thống (Systems Engineer) chỉ có quyền kiểm tra tính hợp lệ toán học của các con trỏ (Edges), điều kiện tiên quyết (Prerequisites) và đảm bảo tính phi chu trình (DAG) bằng thuật toán Kahn/NetworkX, hoàn toàn KHÔNG có quyền tự ý vẽ lại bộ khung tổng thể nếu chưa có sự phê duyệt của Human.
+
+    # ---------------------------------------------------------
+    # 2. KIẾN TRÚC DỮ LIỆU & RAG (DATA & KNOWLEDGE)
+    # ---------------------------------------------------------
+    2_database_architecture:
+      Q3: "Tại sao chúng ta KHÔNG lưu các thuộc tính như trạng thái (pending/done) và tọa độ (x,y) của React Flow vào ChromaDB/VectorDB? Kế hoạch phân chia nhiệm vụ giữa KùzuDB/SQLite và ChromaDB là gì?"
+      Agent_Answer: >-
+        Lý do: ChromaDB là cơ sở dữ liệu vector chỉ tối ưu cho tìm kiếm độ tương đồng ngữ nghĩa (Cosine/Embedding similarity) trên văn bản phi cấu trúc. Nó không hỗ trợ quan hệ cấu trúc đồ thị (Graph Traversals, Recursive CTEs), không có tính toàn vẹn giao dịch ACID, và cực kỳ kém hiệu quả nếu dùng để lưu trữ trạng thái biến động hay tọa độ hiển thị DOM UI.
+        Phân chia nhiệm vụ:
+        - SQLite / KùzuDB (Graph & Relational Engine): Lưu trữ dữ liệu có cấu trúc gồm Node Schema, Edge Schema, tọa độ (x,y), trạng thái vòng đời (pending, in_progress, done, red_flag) và thực hiện truy vấn đệ quy leo ngược cây đồ thị (Context Travel Up).
+        - ChromaDB (Local Vector Store): Lưu trữ và đánh chỉ mục vector cho các tài liệu tri thức bán dẫn (papers, patents, TDS/MSDS hóa chất) phục vụ trích xuất RAG và đính kèm citation cho Domain Expert.
+
+      Q4: "Làm thế nào để Sub-agent tránh bị 'ảo giác' (hallucination) khi điền thông số nồng độ Axit HF vào SOP? Nó phải thực hiện 2 thao tác bắt buộc nào trước và trong khi chốt kết quả?"
+      Agent_Answer: >-
+        Để triệt tiêu ảo giác, Sub-agent bắt buộc phải thực hiện đủ 2 thao tác:
+        1. Thao tác trước khi xử lý ('Context Travel Up'): Sub-agent phải chạy đệ quy (Recursive CTE) ngược lên Node Gốc để thu thập toàn bộ bối cảnh cha-ông (như thế hệ công nghệ Gen 1 mm hay Gen 2 µm, độ dày màng SiO2 cần ăn mòn, loại chất cản quang đang dùng) nhằm chống lại chứng 'thiển cận' (Myopia).
+        2. Thao tác trong khi chốt kết quả ('RAG Lookup & Mandatory Citation'): Đối chiếu trực tiếp với kho tài liệu hóa chất trong ChromaDB (như công thức BOE 6:1, tốc độ ăn mòn ở 25°C là ~100 nm/phút) và BẮT BUỘC phải đính kèm Citation (Nguồn tài liệu, trang, tác giả/hãng sản xuất) cho mọi con số đưa ra. Con số nào không có Citation trong VectorDB sẽ bị Hội đồng từ chối thông qua.
+
+    # ---------------------------------------------------------
+    # 3. QUẢN TRỊ RỦI RO & BẾ TẮC (RISKS & DEADLOCKS)
+    # ---------------------------------------------------------
+    3_system_deadlocks:
+      Q5: "Nếu Agent Chuyên gia và Agent Chuỗi cung ứng tranh cãi liên tục 5 vòng về việc mua thiết bị, LangGraph sẽ bị treo. Blueprint quy định cơ chế gì để xử lý tình huống này (Human-in-the-loop)?"
+      Agent_Answer: >-
+        Blueprint quy định cơ chế 'Báo động đỏ (Breakpoint)' thuộc nguyên tắc Human-in-the-Loop:
+        Khi các Agent tranh luận quá 3 vòng (hoặc chạm trần chi phí token), hệ thống lập tức cưỡng chế dừng vòng lặp tự động (Halt Loop), đánh dấu Node ở trạng thái cảnh báo 'red_flag' và kích hoạt Breakpoint ngắt quyền tự động để thông báo cho Solo Systems Architect (Human).
+        Con người sẽ trực tiếp xem xét bản ghi tranh luận, đưa ra phán quyết can thiệp (Make hay Buy), sau đó mới giải phóng điểm ngắt để hệ thống chạy tiếp.
+
+      Q6: "Trong đồ thị, nếu mục tiêu là chế tạo bàn trượt 'Sai số Nanomet', tại sao việc tạo một Node duy nhất mang tên 'Chế tạo hệ thống cơ khí Nanomet' lại vi phạm Blueprint? Cơ chế nào sẽ phải kích hoạt?"
+      Agent_Answer: >-
+        Lý do vi phạm:
+        1. Mắc hội chứng 'Bước nhảy lượng tử' (Quantum Leap Syndrome): Blueprint nghiêm cấm nhảy cóc công nghệ lên thẳng Nanomet khi chưa có năng lực nền tảng.
+        2. Vi phạm 'Nguyên tắc 8-80 giờ': Một cỗ máy nano là bài toán khổng lồ hàng nghìn giờ, không thể là một Node đơn lẻ (Analysis Paralysis).
+        Cơ chế bắt buộc kích hoạt:
+        - Kích hoạt lộ trình thế hệ công nghệ (Generational Roadmap TRL): Bắt buộc hạ bậc xuống làm chủ tuần tự từ Gen 1 (mm) -> Gen 2 (µm) -> Gen 3 (nm).
+        - Phân rã WBS: Tách bài toán thành các cụm module con đạt chuẩn 8-80h (Khung nhôm định hình, bàn trượt vít me bi, đệm giảm chấn, mạch điều khiển bước, đầu đọc quang học).
+        - Khai thác Spin-off: Hoàn thiện bàn trượt Gen 1/Gen 2 để nghiệm thu và thương mại hóa thu hồi vốn nuôi dự án trước khi tiến lên sai số nanomet.
+
+    # ---------------------------------------------------------
+    # 4. THỰC TẾ HÓA PHẦN CỨNG (HARDWARE REALITY)
+    # ---------------------------------------------------------
+    4_hardware_and_procurement:
+      Q7: "Agent Chuyên gia đề xuất nhánh công việc: 'Thiết kế bản vẽ vi điều khiển lõi ARM' để dùng cho máy phủ màng. Agent Chuỗi cung ứng sẽ phản ứng như thế nào dựa trên quy tắc Make/Buy?"
+      Agent_Answer: >-
+        Agent Chuỗi cung ứng sẽ ngay lập tức BÁC BỎ (VETO) đề xuất này.
+        Căn cứ theo triết lý 'Pragmatism over Purity' (Thực dụng thay vì thuần khiết) và quy tắc Make/Buy:
+        - Tuyệt đối không sáng tạo lại chiếc bánh xe. Các linh kiện thương mại bán sẵn (COTS) như vi điều khiển ARM, ESP32, động cơ bước, driver công suất bắt buộc phải BUY (mua sẵn với giá vài USD).
+        - Năng lực tự chế tạo (MAKE - R&D) chỉ được tập trung cho các bí quyết công nghệ lõi và cơ cấu chuyên dụng không thể mua sẵn giá rẻ: thuật toán điều khiển quay spin-coat, ngàm kẹp wafer hút chân không, khung nhôm chống rung và quy trình hóa chất.
+
+      Q8: "Làm sao để hệ thống trên phần mềm biết được một công việc vật lý (ví dụ: in 3D xong cái ngàm nhựa) đã thực sự hoàn thành ngoài đời thực (Bits to Atoms)?"
+      Agent_Answer: >-
+        Hệ thống kiểm soát qua 2 chốt chặn kỹ thuật số bắc cầu sang vật lý (Bits-to-Atoms Bridge):
+        1. Tiêu chí nghiệm thu máy móc (Acceptance Criteria): Mọi Node cấp Lá có hành động [Make] phải có thông số đo lường công nghiệp cụ thể (ví dụ: kích thước đo bằng thước kẹp điện tử caliper sai số không vượt quá ±0.1mm, lắp khít wafer không rơ lắc).
+        2. Bằng chứng thực thi (Proof of Work - Chống múa võ mồm): Để chuyển trạng thái Node sang 'Done' trên nhánh chính (Main branch), người đóng góp BẮT BUỘC phải đính kèm:
+           - Link Video nghiệm thu thực tế ghi lại quá trình đo đạc và vận hành.
+           - Link GitHub repository chứa file CAD 3D/Firmware đã chế tạo và chạy thành công ngoài đời thực. Không có bằng chứng này, Node mãi mãi ở trạng thái in_progress.
+
+    # ---------------------------------------------------------
+    # 5. BƯỚC ĐI ĐẦU TIÊN (EXECUTION)
+    # ---------------------------------------------------------
+    5_first_execution_step:
+      Q9: "Sau khi bạn (Local Agent) đã hiểu toàn bộ kiến trúc khổng lồ này, nhiệm vụ LẬP TRÌNH ĐẦU TIÊN mà bạn phải thực hiện ngay hôm nay là gì? (Gợi ý: Đúc viên gạch đầu tiên)."
+      Agent_Answer: >-
+        Nhiệm vụ lập trình đầu tiên là: Tạo một Sandbox siêu nhỏ (Micro-Sandbox) bằng 1 file HTML tĩnh chứa React Flow, nạp sẵn 3 Node đại diện cho Gen 1, Gen 2 và 1 Edge nối chúng.
+        Nguyên tắc cốt lõi: Không dùng AI tự động đẻ nhánh ở bước này. Mục tiêu là kiểm chứng giao diện, khả năng zoom/pan, đóng mở drawer xem chi tiết và luồng dữ liệu đồ thị để lập tức phá vỡ hội chứng sợ hãi bản vẽ trừu tượng ('Blueprint Vertigo') và chạm tay vào sản phẩm thực tế ngay trong ngày đầu tiên.

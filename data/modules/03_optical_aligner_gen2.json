@@ -1,0 +1,1131 @@
+{
+  "module_id": "module_optical_aligner_gen2",
+  "title": "Microscopic Mask Optical Aligner",
+  "generation": "Gen 2 (µm)",
+  "nodes": [
+    {
+      "id": "node-gen2-um",
+      "parent_id": "node-dram-root",
+      "label": "Microscopic Mask Optical Alignment",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Optics & Precision Alignment",
+      "estimated_hours": 64.0,
+      "primary_metric": "Precision: ± 5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Microscopic Mask Optical Alignment (Gen 2: $\\mu\\text{m}$)\n\n- **Context**: 180nm Open-Source DRAM Chip (DRAM Foundation VN) [Architecture & Integration] > Microscopic Mask Optical Alignment [Optics & Precision Alignment]\n- **Generation**: Gen 2 ($\\mu\\text{m}$)\n- **Action Type**: Make\n- **Role**: Domain Expert AI — DRAM Foundation VN Council\n\n---\n\n### Process Flow Diagram\n\n```text\n┌────────────────────────┐\n│                        │\n│  1. Vacuum Load Wafer  │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│   2. Set Separation    │\n│    Gap 10 to 20 um     │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  3. Split-Field Dual   │\n│      CMOS Vision       │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│    4. XY-Theta Fine    │\n│   Alignment +/- 5 um   │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│    5. i-line 365nm     │\n│    Exposure 120-150    │\n│         mJ/cm2         │\n│                        │\n└────────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Substrate Pre-Check & Chuck Mounting**:\n   - Verify that the wafer has been spin-coated with Shipley 1813 photoresist at $4000\\text{ RPM}$ ($\\sim 1.3\\ \\mu\\text{m}$ film thickness) and soft-baked at $115^\\circ\\text{C}$ for $60\\text{ seconds}$ on a flat aluminum hot plate.\n   - Mount the wafer onto the macroscopic vacuum chuck stage beneath the chromium-on-quartz mask holder. Engage vacuum hold-down.\n2. **Gap Separation Setting**:\n   - Using three differential micrometers (or closed-loop piezo actuators with $0.1\\ \\mu\\text{m}$ sensitivity), establish a parallel proximity separation air gap of $10\\ \\mu\\text{m}\\text{ to }20\\ \\mu\\text{m}$ between the photoresist-coated substrate and the mask surface to prevent scratch defects while aligning.\n3. **Split-Field Optical Focus & Imaging**:\n   - Position the split-field binocular microscope with dual CMOS cameras (configured with $10\\times$ Plan Achromat objectives, $\\text{NA }0.25$) over the wafer-mask fiducial zones.\n   - Adjust focus to simultaneously bring both the substrate fiducials and mask crosshair alignment marks into sharp field view.\n4. **Fine $XY$-$\\theta$ Co-Registration**:\n   - Translate and rotate the macroscopic stage using fine differential micrometers to align the wafer fiducials with the mask crosshairs.\n   - Verify overlay error across dual split-field cameras to bring alignment error within the Gen 2 tolerance limit ($\\pm 5\\ \\mu\\text{m}$).\n5. **Mode Engagement & UV Dose Exposure**:\n   - For proximity printing, maintain the calibrated $10\\text{--}20\\ \\mu\\text{m}$ air gap; for contact printing, gently close the gap into direct contact if sub-micron feature transfer is required.\n   - Expose the substrate using a $365\\text{nm}$ i-line UV source (high-power UV LED array or 200W Mercury short-arc lamp through a fly's eye integrator lens).\n   - Deliver a clear exposure dose calibrated by an optical radiometer to $120\\text{--}150\\text{ mJ/cm}^2$.\n6. **Post-Exposure Unload**:\n   - Disengage contact/proximity stage, release vacuum chuck, and transfer the wafer to the wet bench for developing in Microposit MF-319 for $45\\text{--}60\\text{ seconds}$ followed by a deionized (DI) water rinse.\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n| Parameter | Target Metric | Engineering Unit | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **Overlay Alignment Tolerance (Gen 2)** | $\\le \\pm 5$ | $\\mu\\text{m}$ | Split-field dual CMOS camera crosshair co-registration |\n| **Separation Air Gap (Proximity Mode)** | $10 \\text{ to } 20$ | $\\mu\\text{m}$ | Closed-loop piezo actuator / Differential micrometer ($0.1\\ \\mu\\text{m}$ sensitivity) |\n| **UV Exposure Dose (Shipley 1813, $\\sim 1.3\\ \\mu\\text{m}$)** | $120 \\text{ to } 150$ | $\\text{mJ/cm}^2$ | Optical radiometer at $365\\text{nm}$ (i-line) |\n| **Beam Exposure Uniformity** | $> 95$ | $\\%$ | Multi-point radiometer scan across wafer field via fly's eye integrator |\n\n---\n\n### Source Citations\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**: Split-field binocular microscope with dual CMOS cameras; contact vs. proximity printing ($10\\text{--}20\\ \\mu\\text{m}$ gap); differential micrometers/piezo actuators ($0.1\\ \\mu\\text{m}$ sensitivity); 365nm i-line source / 200W Mercury lamp with fly's eye integrator ($>95\\%$ beam uniformity); crosshair fiducial alignment; Shipley 1813 clear exposure dose ($120\\text{--}150\\text{ mJ/cm}^2$).\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**: Stable macroscopic stage and optical aligner; $10\\times$ Plan Achromat microscope objective ($\\text{NA }0.25$); Shipley 1813 spin-coated at $4000\\text{ RPM}$ ($\\sim 1.3\\ \\mu\\text{m}$ thickness); soft bake at $115^\\circ\\text{C}$ for $60\\text{ s}$ on aluminum hot plate; $365\\text{nm}$ i-line UV source; Microposit MF-319 developer ($45\\text{--}60\\text{ s}$) with DI rinse; Gen 2 alignment tolerance limit of $\\pm 5\\ \\mu\\text{m}$.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1",
+      "parent_id": "node-gen2-um",
+      "label": "Split-Field Optical System Calibration & Proximity Gap Setting",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Optics & Precision Alignment",
+      "estimated_hours": 36.0,
+      "primary_metric": "Sub-milestone of Microscopic Mask Optical Alignment",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure: Split-Field Optical System Calibration & Proximity Gap Setting\n\n**Context**: 180nm Open-Source DRAM Chip (DRAM Foundation VN) `[Architecture & Integration]` > `[Optics & Precision Alignment]`  \n**Document Link**: [`docs/sop_split_field_optical_system_calibration_proximity_gap_setting.md`](docs/sop_split_field_optical_system_calibration_proximity_gap_setting.md)\n\n---\n\n### Process Execution Workflow\n\n```text\n┌───────────────────────┐\n│                       │\n│   Load Mask & Wafer   │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│    WEC Parallelism    │\n│      Calibration      │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│   Set Proximity Gap   │\n│     (10 - 30 µm)      │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│  Split-Field Optical  │\n│    Focus (5x->20x)    │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│   Fiducial Overlay    │\n│  Metrology (±2-5 µm)  │\n│                       │\n└───────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Optical Parfocality & Objective Configuration**:\n   - Inspect and load the chromium-on-quartz mask onto the mask holder under vacuum retention.\n   - Initialize the binocular split-field microscope with dual high-resolution CMOS cameras.\n   - Step objective magnification sequentially from **5x** (field mark acquisition) to **10x** and lock at **20x** for high-resolution fiducial alignment. Adjust independent channel focus for left/right camera parfocality.\n\n2. **Wedge Error Compensation (WEC) Parallelism Leveling**:\n   - Mount the 100mm silicon wafer on the leveling vacuum chuck.\n   - Release the spherical air bearing to allow multi-axis self-leveling chuck articulation.\n   - Raise the wafer stage into mechanical contact with the mask leveling pads and lock the spherical air bearing, ensuring parallelism across the 100mm wafer field is **$< 1.0\\ \\mu\\text{m}$**.\n\n3. **Proximity Gap Setting & Actuation**:\n   - Retract the leveled wafer chuck downward using three differential micrometers or closed-loop piezo actuators with **0.1 µm** sensitivity.\n   - Establish the target proximity air gap within **$10\\ \\mu\\text{m} \\text{ to } 30\\ \\mu\\text{m}$** (nominal 10–20 µm) to protect resist and mask from scratch damage while constraining Fresnel diffraction.\n\n4. **Split-Field Overlay Alignment & Illumination Homogeneity**:\n   - Align wafer and mask crosshair fiducial marks under 20x split-field viewing across X, Y, and $\\theta$ axes. Target operator overlay error within **$\\pm 2\\ \\mu\\text{m} \\text{ to } \\pm 5\\ \\mu\\text{m}$**.\n   - Verify UV exposure optics (365nm i-line LED array or 200W Hg short-arc lamp coupled through a fly's eye integrator lens) delivers **$> 95\\%$** beam uniformity measured with a calibrated radiometer.\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n```text\n                      Target Acceptance Specifications  \n                     ┌─────────────────────────────────┐\n                     │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n      Beam Uniformity┤░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n                     │▒▒▒                              │\n Overlay Align (Prox)┤▒▒▒                              │\nProximity Gap Setting┤▓▓▓▓▓▓▓▓▓▓▓                      │\n                     │▓▓▓▓▓▓▓▓▓▓▓                      │\n      WEC Wedge Error┤█                                │\n                     │█                                │\n                     └┬───────┬───────┬───────┬───────┬┘\n                     0.0    23.8    47.5    71.2   95.0 \n```\n\n| Parameter | Nominal Specification | Acceptance Range | Measurement Method / Tool |\n| :--- | :--- | :--- | :--- |\n| **WEC Parallelism / Wedge Error** | $< 1.0\\ \\mu\\text{m}$ | $\\le 1.0\\ \\mu\\text{m}$ across 100mm wafer | Spherical air bearing leveling mechanical gauge |\n| **Proximity Air Gap** | $10\\ \\mu\\text{m} - 30\\ \\mu\\text{m}$ | $10.0\\ \\mu\\text{m} \\le \\text{Gap} \\le 30.0\\ \\mu\\text{m}$ | 0.1 µm differential micrometers / closed-loop piezo |\n| **Proximity Mode Overlay Alignment** | $\\le \\pm 2.0\\ \\mu\\text{m}$ | $\\pm 2.0\\ \\mu\\text{m} \\text{ to } \\pm 5.0\\ \\mu\\text{m}$ | 20x dual CMOS split-field crosshair metrology |\n| **UV Exposure Beam Uniformity** | $> 95\\%$ | $\\ge 95.0\\%$ | Calibrated optical radiometer sweep |\n\n---\n\n### Literature Citations\n- **Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control**: Wedge Error Compensation ($< 1\\ \\mu\\text{m}$ across 100mm wafer via spherical air bearings); split-field optical system (5x, 10x, 20x objectives, dual CMOS cameras); proximity gap ($10\\ \\mu\\text{m} \\text{ to } 30\\ \\mu\\text{m}$); operator overlay precision ($\\pm 2 \\text{ to } 5\\ \\mu\\text{m}$).\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**: Quartz mask handling; gap setting via differential micrometers or closed-loop piezo actuators ($0.1\\ \\mu\\text{m}$ sensitivity; $10 \\text{ to } 20\\ \\mu\\text{m}$ proximity gap); UV exposure optics (365nm i-line LED / 200W Hg lamp with fly's eye integrator lens for $> 95\\%$ beam uniformity).",
+      "citations": [
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-1",
+      "parent_id": "node-gen2-um-1",
+      "label": "Split-Field Dual CMOS Microscope Optical Alignment & Calibration",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 36.0,
+      "primary_metric": "Sub-milestone of Split-Field Optical System Calibration & Proximity Gap Setting",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Split-Field Dual CMOS Microscope Optical Alignment & Calibration\n\n- **System / Area**: 180nm Open-Source DRAM Chip (DRAM Foundation VN) > Microscopic Mask Optical Alignment > Metrology\n- **Generation**: Gen 2 ($\\mu\\text{m}$)\n- **Action Type**: Make / Calibrate\n\n---\n\n### Optical Alignment & Calibration Workflow\n\n```text\n┌──────────────────────────────────────────────┐\n│                                              │\n│          Split-Field Microscope Setup        │\n│    (5x / 10x / 20x Objectives & Dual CMOS)   │\n│                                              │\n└──────────────────────┬───────────────────────┘\n                       │\n                       ▼\n┌──────────────────────────────────────────────┐\n│                                              │\n│      Objective Parfocality & Parcentricity   │\n│         (10x Plan Achromat, NA 0.25)         │\n│                                              │\n└──────────────────────┬───────────────────────┘\n                       │\n                       ▼\n┌──────────────────────────────────────────────┐\n│                                              │\n│         CMOS Pixel Scale Calibration         │\n│     (Sub-micron Stage Micrometer Grid)       │\n│                                              │\n└──────────────────────┬───────────────────────┘\n                       │\n                       ▼\n┌──────────────────────────────────────────────┐\n│                                              │\n│      WEC Chuck Parallelism & Gap Baseline    │\n│    (< 1 µm Parallelism / 10-30 µm Air Gap)   │\n│                                              │\n└──────────────────────────────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n#### 1. Dual-Objective Optical Turret & Illumination Setup\n1. Configure the split-field binocular optical head with matched objective pairs (**5x**, **10x Plan Achromat NA 0.25**, and **20x**).\n2. Align dual high-resolution CMOS digital cameras onto the left and right optical ports.\n3. Power on the coaxial/fiber-optic illumination and adjust left and right field brightness to equal digital intensity (within $\\pm 5\\%$) across both CMOS sensor feeds.\n\n#### 2. Parfocality & Parcentricity Alignment\n1. Mount a calibrated crosshair stage micrometer target onto the vacuum chuck.\n2. Focus the left objective channel at **5x** magnification, center the fiducial reticle on the digital display crosshair, then switch to **10x** and **20x**.\n3. Adjust mechanical collar shims or parfocal tube focus until switching from 5x $\\rightarrow$ 10x $\\rightarrow$ 20x maintains sharp optical focus without requiring manual Z-stage displacement.\n4. Repeat parcentricity alignment for the right objective channel, ensuring both optical centerlines are parallel across the split-field span.\n\n#### 3. CMOS Pixel Scaling & Electronic Crosshair Calibration\n1. Calibrate pixel-to-micron aspect scaling on both digital feeds using the stage micrometer target.\n2. Verify that horizontal and vertical digital reticle markings align precisely with stage micrometers across the active field of view.\n3. Lock the camera C-mount rotators to ensure zero angular tilt between left and right sensor matrices.\n\n#### 4. Wedge Error Compensation (WEC) Parallelism & Gap Baseline\n1. Place a reference 100mm test substrate onto the leveling chuck.\n2. Engage the spherical air bearing Wedge Error Compensation (WEC) system to mechanically level the wafer chuck against the mask holder.\n3. Confirm mechanical parallelism across the 100mm area is **$< 1\\ \\mu\\text{m}$**.\n4. Set the calibrated air gap baseline for proximity alignment within **$10\\ \\mu\\text{m}$ to $30\\ \\mu\\text{m}$**.\n5. Verify alignment overlay repeatability across both split-field views to confirm target alignment tolerances within **$\\pm 2\\ \\mu\\text{m}$ to $5\\ \\mu\\text{m}$** (proximity mode) and down to **$\\le 0.5\\ \\mu\\text{m}$** (vacuum contact mode).\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n| Parameter / Metric | Target Specification | Measurement Method | Verification Unit |\n| :--- | :--- | :--- | :--- |\n| **WEC Chuck Parallelism** | **$< 1.0\\ \\mu\\text{m}$** across 100mm substrate | Spherical air-bearing WEC sensor feedback | $\\mu\\text{m}$ |\n| **Proximity Mode Overlay Alignment** | **$\\pm 2.0\\ \\mu\\text{m}$ to $5.0\\ \\mu\\text{m}$** | Dual CMOS split-field overlay metrology | $\\mu\\text{m}$ |\n| **Vacuum Contact Overlay Precision** | **$\\le 0.5\\ \\mu\\text{m}$** | Dual CMOS high-magnification overlay verification | $\\mu\\text{m}$ |\n| **Calibrated Proximity Air Gap** | **$10.0\\ \\mu\\text{m}$ to $30.0\\ \\mu\\text{m}$** | Z-axis optical micrometer / gap sensor | $\\mu\\text{m}$ |\n\n---\n\n### Context Citations\n1. **Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control**:\n   - Wedge Error Compensation (WEC) achieves parallelism $< 1\\ \\mu\\text{m}$ across 100mm wafers via spherical air bearings.\n   - Split-field microscope configuration utilizes 5x, 10x, and 20x objectives paired with dual CMOS cameras.\n   - Operator overlay alignment precision of $\\le 0.5\\ \\mu\\text{m}$ in vacuum contact mode, and $\\pm 2$ to $5\\ \\mu\\text{m}$ in proximity mode.\n   - Proximity mode calibrated air gap of $10\\ \\mu\\text{m}$ to $30\\ \\mu\\text{m}$.\n2. **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**:\n   - Split-field binocular microscope architecture with dual CMOS cameras for dual-reticle mask/wafer viewing.\n3. **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**:\n   - 10x Plan Achromat objective (NA 0.25) resolution baseline.\n   - Gen 2 micron-scale overlay alignment tolerance reaching $\\pm 5\\ \\mu\\text{m}$.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-1-1",
+      "parent_id": "node-gen2-um-1-1",
+      "label": "Dual CMOS Camera & Split-Field Optomechanical Sourcing and Assembly",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Buy",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 32.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Buy",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Dual CMOS Camera & Split-Field Optomechanical Sourcing and Assembly\n\n- **Node Path**: 180nm Open-Source DRAM Chip > Microscopic Mask Optical Alignment > Split-Field Optical System Calibration & Proximity Gap Setting > Split-Field Dual CMOS Microscope Optical Alignment & Calibration > Dual CMOS Camera & Split-Field Optomechanical Sourcing and Assembly\n- **Generation**: Gen 2 (µm)\n- **Action Type**: Make\n- **Status**: Production Ready\n\n---\n\n### Process Flow Diagram\n\n```text\n┌───────────────────────┐\n│  Optomechanical Rail  │\n│   & Mount Sourcing    │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│     Dual 10x Plan     │\n│  Achromat Objective   │\n│       Mounting        │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│   Dual CMOS Sensor    │\n│  Alignment & Spacing  │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│  Optical Split-Field  │\n│       Crosshair       │\n│      Calibration      │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│     Fiducial Mark     │\n│  Resolution & ±5 µm   │\n│     Verification      │\n└───────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Optomechanical Rail & Base Sourcing**:\n   - Procure and inspect an optical breadboard/rail system along with two independent coarse/fine linear stages for dual-axis positioning across the wafer surface.\n   - Assemble the mounting brackets to support split-field binocular optical viewing of left and right alignment sites across the wafer and chromium-on-quartz mask.\n\n2. **Objective Lens Integration**:\n   - Thread and mount two matched **10x Plan Achromat objectives (Numerical Aperture / NA 0.25)** onto the respective left and right optical assembly arms.\n   - Lock lens barrels into anti-backlash collets to preserve micron-scale feature resolution.\n\n3. **Dual CMOS Camera Mount & Sensor Co-Planarity**:\n   - Fasten two high-resolution industrial CMOS sensor cameras to the optical tube mounts via standard C-mount adapters.\n   - Adjust sensor rotation until both camera raster planes are co-linear and orthogonal to the mask-stage travel axes.\n\n4. **Split-Field Optical Alignment & Interpupillary Spacing**:\n   - Align both optical channels simultaneously across the wafer and mask split-field binocular microscope assembly.\n   - Adjust the lateral spacing between left and right objectives to match the spacing of the mask and wafer crosshair alignment marks.\n\n5. **Crosshair Fiducial & Gap Calibration**:\n   - Focus both channels on the top surface of the wafer and bottom chrome pattern of the quartz mask.\n   - Confirm optical parfocality across both cameras when inspecting alignment through contact or proximity gap separation (10 to 20 µm).\n   - Calibrate electronic crosshair overlays to digital fiducials to verify registration within the Gen 2 alignment target.\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n```text\n                   ┌───────────────────────────────────┐\n                   │████████                           │\nProximity Gap (Max)┤████████                           │\n                   │▓▓▓▓                               │\nProximity Gap (Min)┤▓▓▓▓                               │\n   Gen 2 Target Tol┤▒▒▒                                │\n                   │▒▒▒                                │\nGen 1 Alignment Tol┤░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n                   │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n                   └┬────────┬───────┬────────┬───────┬┘\n                    0       25      50       75     100 \n```\n\n| Parameter / Metric | Target Value | Unit | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **Objective Optical Aperture** | `0.25` | NA (dimensionless) | Manufacturer optical spec verification on 10x Plan Achromat lenses |\n| **Gen 2 Optical Alignment Tolerance** | `±5` | µm | Digital crosshair overlay readout across left/right fiducial marks |\n| **Proximity Working Gap Range** | `10 to 20` | µm | Differential micrometer / piezo stage displacement measurement |\n| **Diffraction Proximity Resolution Limit** | `~2 to 3` | µm | Resolvable line/space grating target on test substrate |\n\n---\n\n### Literature Citations\n\n1. **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**:\n   - Split-field binocular microscope viewing configuration with dual CMOS cameras for wafer and mask alignment.\n   - Proximity mode air gap maintained at **10 to 20 µm** yielding resolution of **~2–3 µm**.\n   - Crosshair fiducial alignment marks on mask and substrate.\n2. **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**:\n   - Sourcing of modified **10x Plan Achromat objectives (NA 0.25)** for micron-scale feature resolution.\n   - Transition of alignment tolerances from Gen 1 (**±100 µm**) down to Gen 2 (**±5 µm**).",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "COTS Component Qualified",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-1-2",
+      "parent_id": "node-gen2-um-1-1",
+      "label": "Dual-Channel Parfocality Tuning & Optical Magnification Calibration",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 56.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Dual-Channel Parfocality Tuning & Optical Magnification Calibration\n\n**Module:** `180nm Open-Source DRAM Chip (DRAM Foundation VN) > Microscopic Mask Optical Alignment > Split-Field Optical System Calibration & Proximity Gap Setting > Split-Field Dual CMOS Microscope Optical Alignment & Calibration > Dual-Channel Parfocality Tuning & Optical Magnification Calibration`  \n**Target Generation:** Gen 2 ($\\mu$m)  \n**Action Type:** Make / Metrology Calibration  \n\n---\n\n### 1. Calibration Workflow Diagram\n\n```text\n┌────────────────────────┐\n│                        │\n│      Mount Stage       │\n│    Micrometer Grid     │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│   Channel A Focus &    │\n│     Optical Center     │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│       Channel B        │\n│  Parfocality Shimming  │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│    Dual Pixel-Pitch    │\n│     Magnification      │\n│        Matching        │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│   Validation across    │\n│    Gen 2 Alignment     │\n│         Window         │\n│                        │\n└────────────────────────┘\n```\n\n---\n\n### 2. Step-by-Step Operating Procedure\n\n1. **Test Standard Setup & Substrate Loading:**\n   - Mount a certified glass chrome stage micrometer target onto the macroscopic alignment vacuum chuck.\n   - Position both optical split-field microscope channels equipped with matched **10x Plan Achromat objectives (Numerical Aperture $\\text{NA} = 0.25$)** over the left and right split-field alignment viewing zones.\n2. **Channel A Reference Focus & Center Lock:**\n   - Turn on coaxial illumination for the split-field binocular microscope.\n   - Adjust the primary macroscopic Z-axis micrometer drive to bring Channel A (Left CMOS camera) into maximum edge-contrast focus against the micrometer reticle.\n   - Lock the macroscopic stage Z-axis position.\n3. **Channel B Parfocality Adjustment & Independent Z-Compensation:**\n   - Switch live video feed to Channel B (Right CMOS camera) without altering the main stage Z-drive.\n   - Adjust the independent optical tube axial barrel / micro-shimming ring on Channel B until the reticle reaches peak image sharpness and modulation transfer function (MTF) contrast.\n   - Verify that switching live views between Channel A and Channel B reveals simultaneous in-focus targets without stage refocusing.\n4. **Dual-Channel Optical Magnification Calibration:**\n   - Acquire a horizontal line profile across known pitch grid lines on Channel A. Calculate pixel scaling factor:\n     $$\\text{Scale}_A = \\frac{\\text{Known Reticle Distance}}{\\text{Measured Pixels}}$$\n   - Acquire the identical reticle target under Channel B and determine $\\text{Scale}_B$.\n   - Fine-tune optical zoom / tube focal distance shims until the magnification ratio error between Channel A and Channel B is nulled within calibration tolerance.\n5. **Gen 2 Dual-View Crosshair Registration:**\n   - Overlay digital alignment reticles on both CMOS camera outputs.\n   - Translate the stage along the X/Y axes across a known baseline to verify tracking coincidence between channels across the required Gen 2 alignment window.\n\n---\n\n### 3. Machine-Measurable Acceptance Criteria\n\n```text\n               ┌───────────────────────────────────────┐\n               │█                                      │\n   Mag Mismatch┤█                                      │\n               │▓▓                                     │\nParfocality Dev┤▓▓                                     │\n   Gen 2 Target┤▒▒▒                                    │\n               │▒▒▒                                    │\n   Gen 1 Window┤░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n               │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n               └┬─────────┬────────┬─────────┬────────┬┘\n                0        25       50        75      100 \n```\n\n| Metric / Parameter | Target Value | Engineering Unit | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **Optical Alignment Tolerance (Gen 2)** | $\\le \\pm 5.0$ | $\\mu\\text{m}$ | Metrology Stage Vernier / Reticle Reading |\n| **Channel-to-Channel Parfocality Focus Offset ($\\Delta Z$)** | $\\le 2.0$ | $\\mu\\text{m}$ | Depth of Focus Contrast Profile (NA 0.25) |\n| **Objective Optical Configuration** | $10\\times\\text{ Plan Achromat, } \\text{NA} = 0.25$ | — (Magnification / NA) | Physical Lens Inspection |\n| **Magnification Matching Discrepancy** | $\\le 0.5$ | $\\%$ | Cross-channel pixel pitch calculation |\n\n---\n\n### 4. Literature & Context Citations\n\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose:**\n  - *“wafer and mask viewed through split-field binocular microscope with dual CMOS cameras.”* — Establishes the binocular dual-CMOS split-field viewing architecture.\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018):**\n  - *“Using a modified microscope objective (10x Plan Achromat, NA 0.25) allows micron-scale feature resolution.”* — Direct basis for objective specification and optical resolution limit.\n  - *“Alignment tolerance at Gen 1 is ±100 microns (0.1 mm), improving to ±5 microns in Gen 2.”* — Direct basis for Gen 2 alignment tolerance limit of $\\pm 5\\ \\mu\\text{m}$.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench (Kang & Leblebici - CMOS Digital Integrated Circuits)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-1-3",
+      "parent_id": "node-gen2-um-1-1",
+      "label": "Mask-to-Wafer Split-Field Fiducial Registration & Overlay Verification",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 44.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n\n## Mask-to-Wafer Split-Field Fiducial Registration & Overlay Verification\n\n- **Task Code / Level**: Metrology Leaf SOP (`Make`)\n- **Generation**: Gen 2 ($\\mu\\text{m}$)\n- **Process Line**: 180nm Open-Source DRAM Chip — Microscopic Mask Optical Alignment\n\n---\n\n### 1. Objective & Principle\nAchieve precise physical alignment and registration between crosshair fiducial marks on a chromium-on-quartz photomask and previous-layer fiducial marks on a photoresist-coated wafer (Shipley 1813, $\\sim 1.3\\,\\mu\\text{m}$ thickness). Dual CMOS cameras attached to a split-field binocular microscope simultaneously image left and right alignment marks to establish $X$, $Y$, and $\\theta$ (rotational) registration within Gen 2 tolerances before UV exposure.\n\n---\n\n### 2. Required Equipment & Materials\n- Split-field binocular microscope equipped with dual CMOS cameras and $10\\times$ Plan Achromat objectives ($\\text{NA } 0.25$).\n- Macroscopic $X$-$Y$-$\\theta$ wafer chuck alignment stage with high-precision differential micrometers / closed-loop piezo actuators ($0.1\\,\\mu\\text{m}$ sensitivity).\n- Chromium-on-quartz mask with crosshair fiducial marks.\n- Pre-baked wafer: Shipley 1813 spin-coated at 4000 RPM ($\\sim 1.3\\,\\mu\\text{m}$ thickness), soft-baked at $115^\\circ\\text{C}$ for 60 seconds on a flat aluminum hot plate.\n\n---\n\n### 3. Step-by-Step Procedure\n\n```text\n+-------------------------------------------------------------+\n| Step 1: Substrate & Mask Loading into Alignment Stage       |\n+-------------------------------------------------------------+\n                              |\n                              v\n+-------------------------------------------------------------+\n| Step 2: Gap Setting via Micrometers / Piezo Actuators       |\n|         (10 to 20 um Proximity Air Gap)                     |\n+-------------------------------------------------------------+\n                              |\n                              v\n+-------------------------------------------------------------+\n| Step 3: Split-Field Dual CMOS Live Imaging & Calibration    |\n+-------------------------------------------------------------+\n                              |\n                              v\n+-------------------------------------------------------------+\n| Step 4: Fiducial Mark Alignment (X, Y, Theta Coarse/Fine)   |\n+-------------------------------------------------------------+\n                              |\n                              v\n+-------------------------------------------------------------+\n| Step 5: Overlay Verification & Final Printing Mode Lock     |\n+-------------------------------------------------------------+\n```\n\n1. **Substrate & Mask Loading**:\n   - Secure the chromium-on-quartz mask into the vacuum holder facing downward toward the wafer stage.\n   - Load the coated wafer (Shipley 1813, soft-baked at $115^\\circ\\text{C}$ for 60 s) onto the vacuum chuck beneath the mask.\n\n2. **Proximity Gap Setting**:\n   - Using the three high-precision differential micrometers or closed-loop piezo actuators ($0.1\\,\\mu\\text{m}$ sensitivity), establish a uniform proximity air gap of $10\\text{ to }20\\,\\mu\\text{m}$ between the mask chrome surface and the photoresist layer.\n   - *Note*: Maintaining this gap during alignment prevents photoresist abrasion and contact-induced mask scratch defects.\n\n3. **Split-Field Optical Focus & Dual CMOS Setup**:\n   - Adjust split-field dual CMOS microscope cameras with $10\\times$ Plan Achromat objectives ($\\text{NA } 0.25$).\n   - Focus simultaneously on the mask crosshair fiducial marks and the underlying wafer fiducial marks across both split fields (left and right channels).\n\n4. **Fiducial Mark Registration ($X, Y, \\theta$)**:\n   - Manipulate the fine $X$ and $Y$ micrometers and the $\\theta$ (rotational) control on the alignment stage.\n   - Align the wafer alignment crosshairs to superimpose concentrically over the mask fiducial crosshairs on both split-field camera channels.\n\n5. **Overlay Verification & Mode Lock**:\n   - Verify digital pixel overlay error across both split fields. Ensure rotational mismatch across the field distance is resolved.\n   - For **Contact Printing** ($< 1\\,\\mu\\text{m}$ resolution target): Bring the stage upward to close the gap into direct contact with photoresist prior to UV exposure.\n   - For **Proximity Printing** ($2\\text{--}3\\,\\mu\\text{m}$ resolution target): Lock the $10\\text{ to }20\\,\\mu\\text{m}$ gap to prevent contact damage.\n\n---\n\n### 4. Machine-Measurable Acceptance Criteria\n\n| Metric | Target Specification | Physical Units | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **Gen 2 Alignment / Overlay Tolerance** | $\\le \\pm 5$ | $\\mu\\text{m}$ | Dual CMOS camera pixel overlay / metrology measurement |\n| **Proximity Alignment Air Gap** | $10 \\text{ to } 20$ | $\\mu\\text{m}$ | Differential micrometers / closed-loop piezo feedback |\n| **Z-Gap Actuator Sensitivity / Step** | $0.1$ | $\\mu\\text{m}$ | Closed-loop piezo / differential micrometer dial |\n| **Photoresist Film Thickness Pre-Check** | $\\sim 1.3$ | $\\mu\\text{m}$ | Stylus profilometer / optical reflectometer (post-4000 RPM spin) |\n\n---\n\n### 5. Context & Source Citations\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**: Split-field binocular microscope with dual CMOS cameras; proximity air gap of $10\\text{ to }20\\,\\mu\\text{m}$; closed-loop piezo actuators / differential micrometers with $0.1\\,\\mu\\text{m}$ sensitivity; contact resolution ($< 1\\,\\mu\\text{m}$) vs. proximity resolution ($2\\text{--}3\\,\\mu\\text{m}$).\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**: Gen 2 alignment tolerance limit of $\\pm 5\\,\\mu\\text{m}$; modified microscope objective ($10\\times$ Plan Achromat, $\\text{NA } 0.25$); Shipley 1813 spin-coated at 4000 RPM yielding $\\sim 1.3\\,\\mu\\text{m}$ thickness soft-baked at $115^\\circ\\text{C}$ for 60 seconds.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-2",
+      "parent_id": "node-gen2-um-1",
+      "label": "Closed-Loop Piezo Proximity Gap Actuator Integration & Baseline Leveling",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Buy",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 28.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Buy",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Closed-Loop Piezo Proximity Gap Actuator Integration & Baseline Leveling\n\n- **Document ID:** `SOP-LITH-GAP-002`\n- **Domain:** Context: 180nm Open-Source DRAM Chip (DRAM Foundation VN) > Microscopic Mask Optical Alignment > Split-Field Optical System Calibration & Proximity Gap Setting > Metrology\n- **Generation:** Gen 2 ($\\mu\\text{m}$)\n- **Action Type:** Make\n- **Reference Doc:** [sop_closed_loop_piezo_proximity_gap_leveling.md](docs/knowledge/sop_closed_loop_piezo_proximity_gap_leveling.md)\n\n---\n\n### Process Flow\n\n```text\n┌────────────────────────┐\n│                        │\n│  Mount 3x Closed-Loop  │\n│    Piezo Actuators     │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  Z-Stage Pre-Loading   │\n│    & Sensor Nulling    │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│    Baseline Optical    │\n│      Wedge Error       │\n│      Compensation      │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│     Proximity Gap      │\n│   Stepping & Dynamic   │\n│        Leveling        │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│    Closed-Loop Gap     │\n│       Stability        │\n│      Verification      │\n│                        │\n└────────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Mechanical Tri-Point Kinematic Mounting:**\n   - Install three closed-loop piezoelectric actuators arranged in a 120° equilateral configuration beneath the wafer chuck or mask holder interface.\n   - Anchor the base assembly to precision-ground linear guide rails (`MGN12H`) on an extruded aluminum 4040 structural frame to minimize Abbe errors.\n2. **Coarse Z-Stage Engagement & Sensor Nulling:**\n   - Drive the coarse vertical stage (C7 rolled ball screw or anti-backlash lead screw via microstepped NEMA 17 stepper) until the wafer approaches the baseline datum.\n   - Monitor coarse approach via linear magnetic or optical scales (1 $\\mu\\text{m}$ resolution) and zero-calibrate internal piezo capacitive feedback sensors.\n3. **Wedge Error Compensation (Baseline Leveling):**\n   - Measure mask-to-wafer tilt using split-field optical gap detection across opposite field margins.\n   - Apply independent differential voltage trims to the three closed-loop piezo actuators (operating with 0.1 $\\mu\\text{m}$ sensitivity) until wedge tilt error is nullified.\n4. **Proximity Gap Adjustment & Closed-Loop Locking:**\n   - Command all three piezo channels synchronously to retreat the chuck to the designated proximity printing air gap between 10 $\\mu\\text{m}$ and 20 $\\mu\\text{m}$.\n   - Engage closed-loop PID control to hold gap position while verifying external vibration attenuation via neoprene/sorbothane isolation dampers (> 30 Hz).\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n```text\n              ┌────────────────────────────────────────┐\n              │░░░                                     │\n   Encoder Res┤░░░                                     │\n              │▒                                       │\n  Actuator Res┤▒                                       │\nTarget Gap Max┤▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│\n              │▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│\nTarget Gap Min┤█████████████████████                   │\n              │█████████████████████                   │\n              └┬─────────┬─────────┬────────┬─────────┬┘\n               0         5        10       15        20 \n```\n\n1. **Piezo Actuator Sensitivity:** $\\le 0.1\\ \\mu\\text{m}$ closed-loop positioning sensitivity per actuator channel.\n2. **Operational Proximity Gap Range:** Proximity air gap maintained within $10\\ \\mu\\text{m}$ to $20\\ \\mu\\text{m}$ across the entire exposure field.\n3. **Stage Feedback Resolution:** Optical / magnetic linear scale encoder resolution of $\\le 1\\ \\mu\\text{m}$.\n4. **Vibration Isolation Cutoff:** Sorbothane/neoprene isolation damping effective for mechanical vibrations $> 30\\ \\text{Hz}$.\n\n---\n\n### Literature Citations\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose:** Defines proximity printing gap specifications ($10\\ \\mu\\text{m}$ to $20\\ \\mu\\text{m}$) to eliminate contact scratch defects, along with the requirement for three high-precision differential micrometers or closed-loop piezo actuators with $0.1\\ \\mu\\text{m}$ sensitivity.\n- **Precision Linear Stage Design & Vibration Damping:** Dictates structural baseline using extruded aluminum 4040 frames, `MGN12H` linear rails, closed-loop positioning with $1\\ \\mu\\text{m}$ resolution encoders, and vibration isolation damping $> 30\\ \\text{Hz}$.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench (Kang & Leblebici - CMOS Digital Integrated Circuits)",
+        "Precision Linear Stage Design & Vibration Damping (Slocum - Precision Machine Design)"
+      ],
+      "proof_of_work": {
+        "status": "COTS Component Qualified",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-3",
+      "parent_id": "node-gen2-um-1",
+      "label": "10-20µm Proximity Gap Verification & Crosshair Vernier Metrology",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 42.0,
+      "primary_metric": "Sub-milestone of Split-Field Optical System Calibration & Proximity Gap Setting",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## 10–20 µm Proximity Gap Verification & Crosshair Vernier Metrology\n\n**Document ID:** `SOP-LITH-GEN2-004`  \n**Hierarchy Level:** Gen 2 (µm) | Metrology & Precision Alignment  \n**Context:** 180nm Open-Source DRAM Chip (DRAM Foundation VN) > Microscopic Mask Optical Alignment > Split-Field Optical System Calibration & Proximity Gap Setting  \n\n---\n\n### Process Flow Diagram\n\n```text\n┌────────────────────────┐\n│    Wafer Loading &     │\n│  Chuck Vacuum Engaged  │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│      Wedge Error       │\n│  Compensation (WEC)    │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│   Set Calibrated Gap   │\n│      10 to 20 µm       │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│ Dual-Objective Split-  │◄───╮\n│    Field Inspection    │    │\n└────────────┬───────────┘    │\n             │                │\n             ▼                │\n┌────────────────────────┐    │\n│   Crosshair Vernier    │    │\n│   Overlay Metrology    │    │\n└────────────┬───────────┘    │\n             │                │\n             ▼                │\n┌────────────◇───────────┐    │\n│  Overlay ≤ ±2 to 5 µm? │    │\n└────────────◇───────────┘    │\n             │                │\n     No ─────┴─────────┐      │ (Re-align)\n                       ▼      │\n             ┌────────────────┴─┐\n             │   Micrometer /   │\n             │ Piezo Fine Trim  │\n             └──────────────────┘\n     Yes ────┐\n             ▼\n┌────────────────────────┐\n│ Accept & Transfer to   │\n│ 365 nm UV Exposure     │\n└────────────────────────┘\n```\n\n---\n\n### 1. Step-by-Step Operating Procedure\n\n1. **Substrate & Mask Loading**:\n   - Mount the chromium-on-quartz mask into the mask holder and lock vacuum.\n   - Load the silicon wafer coated with Shipley 1813 photoresist (~1.3 µm thickness, soft-baked at 115 °C for 60 s) onto the leveling wafer chuck.\n\n2. **Wedge Error Compensation (WEC)**:\n   - Engage spherical air bearings to bring the wafer chuck into parallel contact with the mask.\n   - Mechanically level until wedge parallelism across the 100 mm wafer is `< 1 µm`. Lock the WEC mechanism.\n\n3. **Proximity Gap Displacement**:\n   - Lower the wafer chuck from contact to establish a calibrated proximity air gap between **10 µm and 20 µm** using three differential micrometers or closed-loop piezo actuators with **0.1 µm** sensitivity.\n   - Verify gap uniformity across the wafer surface to eliminate mask-photoresist contact and scratch risks.\n\n4. **Split-Field Optical Focus & Registration**:\n   - Position the dual-objective split-field binocular optical microscope (using 10× Plan Achromat, NA 0.25, or 20× objectives paired with dual CMOS cameras) over left and right fiducial mark areas.\n   - Focus simultaneously on the mask chromium patterns and substrate fiducials across the split fields.\n\n5. **Crosshair Vernier Overlay Metrology**:\n   - Observe the complementary crosshair vernier marks located at peripheral scribe lanes on both split-field channels.\n   - Adjust stage $X$, $Y$, and $\\theta$ fine differential micrometers until the mask crosshairs concentricity aligns with the wafer fiducials.\n   - Read overlay offsets across both axes to confirm overlay precision is within Gen 2 tolerances.\n\n---\n\n### 2. Machine-Measurable Acceptance Criteria\n\n| Parameter | Target Metric / Specification | Tolerance | Tool / Measurement Method |\n| :--- | :--- | :--- | :--- |\n| **Proximity Air Gap** | **10.0 µm to 20.0 µm** | $\\pm 0.1 \\text{ \\mu m}$ | Closed-loop piezo actuators / differential micrometers |\n| **WEC Chuck Parallelism** | **$< 1.0 \\text{ \\mu m}$** across 100 mm wafer | Maximum upper limit | Spherical air bearing leveling sensor |\n| **Overlay Alignment Precision** | **$\\le \\pm 2 \\text{ \\mu m}$ to $\\pm 5 \\text{ \\mu m}$** | Gen 2 limit ($\\le \\pm 5 \\text{ \\mu m}$) | Split-field dual CMOS crosshair vernier metrology |\n| **Exposure Beam Uniformity** | **$> 95\\%$** across wafer surface | Minimum lower limit | Optical radiometer (coupled with fly's eye integrator lens at 365 nm) |\n\n---\n\n### 3. Literature Citations & Physical Reference Matrix\n\n- **Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control**:\n  - Wedge Error Compensation (WEC) parallelism $< 1\\text{ \\mu m}$ across 100 mm wafers via spherical air bearings.\n  - Split-field microscope configuration with 5×, 10×, and 20× objectives and dual CMOS cameras.\n  - Proximity mode operator overlay alignment precision of $\\pm 2\\text{ to } 5\\text{ \\mu m}$ with calibrated gap setting of $10\\text{ to } 30\\text{ \\mu m}$ (diffraction limit $\\sim 2.5\\text{ \\mu m}$).\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**:\n  - Proximity printing gap range of $10\\text{ to } 20\\text{ \\mu m}$ driven by three high-precision differential micrometers / closed-loop piezo actuators with $0.1\\text{ \\mu m}$ sensitivity.\n  - 365 nm i-line source with fly's eye integrator lens yielding $> 95\\%$ beam uniformity.\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**:\n  - Gen 2 alignment overlay tolerance target of $\\pm 5\\text{ \\mu m}$.\n  - Optical setup using 10× Plan Achromat (NA 0.25) objective for micron-scale feature resolution over Shipley 1813 resist.",
+      "citations": [
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-3-1",
+      "parent_id": "node-gen2-um-1-3",
+      "label": "Differential Micrometer & Piezo Actuator Wedge Error Compensation Calibration",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Buy",
+      "status": "done",
+      "category": "Optics & Precision Alignment",
+      "estimated_hours": 32.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Buy",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n\n## Title: Differential Micrometer & Piezo Actuator Wedge Error Compensation Calibration\n**Document ID:** `SOP-LITH-024`  \n**Classification:** Gen 2 ($\\mu\\text{m}$) | Action Type: Make  \n**Hierarchy Context:** 180nm Open-Source DRAM Chip > Microscopic Mask Optical Alignment > Split-Field Optical System Calibration & Proximity Gap Setting > 10–20 $\\mu\\text{m}$ Proximity Gap Verification & Crosshair Vernier Metrology > Differential Micrometer & Piezo Actuator Wedge Error Compensation Calibration\n\n---\n\n### 1. Workflow Architecture\n\n```text\n┌───────────────────────┐\n│                       │\n│  Initial Leveling &   │\n│  Mechanical Zeroing   │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│      Three-Point      │\n│     Proximity Gap     │\n│   Baseline Setting    │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│  Split-Field Optical  │\n│   Fringe Inspection   │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│   Closed-Loop Piezo   │\n│   Actuation & Wedge   │\n│     Error Nulling     │\n│                       │\n└───────────┬───────────┘\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│   Final Metrology &   │\n│      Acceptance       │\n│     Verification      │\n│                       │\n└───────────────────────┘\n```\n\n---\n\n### 2. Purpose & Principles\nTo eliminate wedge error (parallelism deviation) between the chromium-on-quartz photomask and the photoresist-coated substrate in proximity alignment mode, establishing an unvarying proximity gap across the entire active exposure field. Coarse wedge leveling is executed mechanically using three high-precision differential micrometers, followed by active planarization via closed-loop piezo actuators.\n\n---\n\n### 3. Step-by-Step Calibration Procedure\n\n1. **Pre-Check & Vibration Isolation Setup**\n   - Verify that the stage structure (MGN12H linear guide rails mounted on 4040 aluminum extrusion) rests on sorbothane pads or neoprene dampers to dampen mechanical vibrations $> 30\\text{ Hz}$.\n   - Ensure the wafer chuck and mask chuck are free of particulates.\n\n2. **Mechanical Zeroing & Planarization (Differential Micrometers)**\n   - Mount a calibration wafer onto the vacuum chuck.\n   - Adjust the 3 differential micrometers arranged in a 120° equilateral configuration to bring the mask and wafer into soft coplanar baseline reference.\n   - Back off each differential micrometer synchronously to establish a coarse gap in the target proximity window of $10\\text{ to }20\\,\\mu\\text{m}$.\n\n3. **Split-Field Optical Inspection & Wedge Error Detection**\n   - Position the split-field microscope optics (10× Plan Achromat objective, NA 0.25) over opposite peripheral fiducial marks on the mask and wafer.\n   - Observe interference fringes / optical proximity crosshair alignment across both split fields.\n   - Any asymmetry or tilt between the left and right split-field focus depths indicates angular wedge error across the chuck plane.\n\n4. **Closed-Loop Piezo Fine Wedge Nulling**\n   - Energize the three closed-loop piezo actuators ($0.1\\,\\mu\\text{m}$ sensitivity).\n   - Dynamically actuate individual piezo axes to tilt the stage plane until interference fringes across the periphery expand out to null (zero fringe differential) and both split-field focal planes converge.\n   - Read position feedback via linear optical/magnetic encoders ($1\\,\\mu\\text{m}$ resolution) and piezo capacitive sensors to confirm position lock.\n\n5. **Proximity Gap & Alignment Lock Verification**\n   - Confirm that the absolute separation across all measured points remains uniformly constrained within $10\\text{ to }20\\,\\mu\\text{m}$.\n   - Verify lateral fiducial crosshair mark alignment error remains within Gen 2 tolerances ($\\pm 5\\,\\mu\\text{m}$).\n\n---\n\n### 4. Machine-Measurable Acceptance Criteria\n\n| Parameter | Target Metric / Tolerance | Physical Units | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **Proximity Air Gap** | $10\\text{ to }20$ | $\\mu\\text{m}$ | Optical split-field focus metrology & linear encoder feedback |\n| **Piezo Actuation Sensitivity** | $0.1$ | $\\mu\\text{m}$ | Closed-loop piezo controller capacitive sensor log |\n| **Alignment Tolerance (Gen 2)** | $\\le \\pm 5$ | $\\mu\\text{m}$ | Split-field crosshair vernier fiducial overlay inspection |\n| **Stage Rail Straightness** | $< 5$ per $100$ | $\\mu\\text{m} / \\text{mm}$ | MGN12H precision linear guide mechanical runout gauge |\n| **Vibration Isolation Cutoff** | $> 30$ | $\\text{Hz}$ | Accelerometer log on neoprene/sorbothane damped 4040 frame |\n\n---\n\n### 5. Context Citations\n\n- **[Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose]**: Proximity printing separation of $10\\text{ to }20\\,\\mu\\text{m}$ air gap; gap control using three high-precision differential micrometers or closed-loop piezo actuators with $0.1\\,\\mu\\text{m}$ sensitivity; crosshair alignment marks.\n- **[Sam Zeloof Z1 Garage Semiconductor Journal (2018)]**: 10× Plan Achromat objective (NA 0.25); Gen 2 alignment tolerance specification of $\\pm 5\\,\\mu\\text{m}$.\n- **[Precision Linear Stage Design & Vibration Damping]**: Extruded aluminum 4040 frames paired with precision ground linear guide rails (MGN12H) providing straightness $< 5\\,\\mu\\text{m}/100\\text{mm}$; linear encoder resolution of $1\\,\\mu\\text{m}$; vibration isolation with neoprene dampers or sorbothane pads isolating external vibrations above $30\\text{ Hz}$.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Precision Linear Stage Design & Vibration Damping (Slocum - Precision Machine Design)"
+      ],
+      "proof_of_work": {
+        "status": "COTS Component Qualified",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-3-2",
+      "parent_id": "node-gen2-um-1-3",
+      "label": "10-20µm Air Gap Dynamic Setting via Optical Triangulation & Micro-Gap Sensor",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Buy",
+      "status": "done",
+      "category": "Optics & Precision Alignment",
+      "estimated_hours": 56.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Buy",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n\n## Document ID: `SOP-LITHO-GAP-002`\n**Title:** 10–20 µm Air Gap Dynamic Setting via Optical Triangulation & Micro-Gap Sensor  \n**Process Step:** 180nm Open-Source DRAM Chip > Microscopic Mask Optical Alignment > Split-Field Optical System Calibration & Proximity Gap Setting > 10–20µm Air Gap Dynamic Setting  \n**Generation:** Gen 2 (µm)  \n**Action Type:** Make  \n**Classification:** Controlled Photolithography Metrology & Mechanical Actuation  \n\n---\n\n### 1. Objective & Scope\nThis Standard Operating Procedure establishes the physical protocol to establish, dynamically verify, and lock a uniform 10–20 µm proximity air gap between the chromium-on-quartz photomask and the Shipley 1813 photoresist-coated wafer. Maintaining this precise proximity gap prevents contact damage/scratch defects on the mask while avoiding excessive diffraction blurring prior to 365 nm i-line exposure.\n\n---\n\n### 2. Equipment, Tooling & Consumables\n- **Wafer:** Silicon wafer coated with Shipley 1813 photoresist (1.3 µm nominal thickness, spun at 4000 RPM, soft-baked at 115°C for 60 s).\n- **Mask:** Chromium-on-quartz proximity mask with fiducial crosshair marks.\n- **Actuation System:** 3-point closed-loop piezoelectric actuators or high-precision differential micrometers with 0.1 µm positioning sensitivity.\n- **Sensor/Metrology Tools:** \n  - Dual optical triangulation micro-gap displacement sensors.\n  - Split-field microscope inspection optics (10× Plan Achromat, NA 0.25).\n- **Sub-Fab / Environment:** Class 100/1000 cleanroom/flow-hood environment with vibration isolation.\n\n---\n\n### 3. Step-by-Step Procedure\n\n```text\n[Step 1: Substrate & Mask Loading]\n       │\n       ▼\n[Step 2: 3-Point Reference Leveling (Coarse Approach)]\n       │\n       ▼\n[Step 3: Dynamic Optical Triangulation Measurement]\n       │\n       ▼\n[Step 4: Closed-Loop Piezo Differential Actuation]\n       │\n       ▼\n[Step 5: Vernier Metrology & Gap Lock]\n```\n\n#### Step 1: Substrate & Mask Inspection and Chucking\n1. Inspect the chromium-on-quartz mask under 10× Plan Achromat microscope optics to verify zero particulate contamination.\n2. Vacuum-mount the 1.3 µm Shipley 1813 coated wafer onto the exposure stage.\n3. Bring the optical triangulation laser/LED micro-gap sensor into position perpendicular to the mask-wafer interface.\n\n#### Step 2: Reference Leveling (Coarse Approach)\n1. Using manual differential micrometers, bring the wafer stage upward in the Z-axis toward the quartz mask while monitoring the optical gap displacement readout.\n2. Stop coarse vertical translation at approximately 50 µm clearance to prevent mechanical contact.\n\n#### Step 3: Dynamic Gap Interrogation via Optical Triangulation\n1. Engage the optical triangulation micro-gap sensors at three peripheral fiducial positions ($Z_1, Z_2, Z_3$) spaced 120° apart.\n2. Project the focused beam through the quartz mask and measure the differential reflection off the photoresist surface.\n3. Calculate the tilt angle and local gap variation ($\\Delta Z = \\max(Z_1, Z_2, Z_3) - \\min(Z_1, Z_2, Z_3)$).\n\n#### Step 4: Closed-Loop Actuation to Target Proximity Range\n1. Engage the 3-axis closed-loop piezoelectric actuators (0.1 µm step sensitivity).\n2. Drive actuators $Z_1, Z_2, Z_3$ simultaneously to bring the air gap within the target range of **10.0 µm to 20.0 µm**.\n3. Compensate for wedge error dynamically until gap variation across all three points is within acceptable parallelism tolerances.\n\n#### Step 5: Verification and Actuator Lock\n1. Verify crosshair fiducial alignment through the split-field microscope (confirming alignment is within Gen 2 tolerance of $\\pm 5\\ \\mu\\text{m}$).\n2. Lock piezo actuator driver outputs. Ensure no thermal or mechanical drift occurs over a 30-second dwell period.\n3. Ready the optical alignment stage for 365 nm UV exposure (dose calibrated for 120–150 mJ/cm²).\n\n---\n\n### 4. Machine-Measurable Acceptance Criteria\n\n| Parameter / Metric | Target Value | Physical Unit | Measurement Tool / Method |\n| :--- | :--- | :--- | :--- |\n| **Proximity Air Gap Range** | $10.0 \\text{ to } 20.0$ | $\\mu\\text{m}$ | Calibrated Optical Triangulation Micro-Gap Sensor |\n| **Actuator Positioning Sensitivity** | $0.1$ | $\\mu\\text{m}$ | Closed-Loop Piezo / Differential Micrometer Readout |\n| **Stage Lateral Alignment Tolerance** | $\\le \\pm 5.0$ | $\\mu\\text{m}$ | Split-Field Fiducial Metrology (Gen 2 standard) |\n| **Resist Film Thickness** | $1.3$ | $\\mu\\text{m}$ | Ellipsometry / Reflectometry (Shipley 1813 @ 4000 RPM) |\n\n---\n\n### 5. Literature Sources & Citations\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose:**\n  - Proximity printing gap baseline: *10 to 20 micron air gap* (eliminates contact damage; diffraction limits resolution to ~2-3 microns).\n  - Actuation specifications: *Three high-precision differential micrometers or closed-loop piezo actuators with 0.1 micron sensitivity*.\n  - Resist exposure baseline: *Shipley 1813 (1.3 um thickness), clear dose 120-150 mJ/cm² at 365nm*.\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018):**\n  - Optics: *10x Plan Achromat, NA 0.25*.\n  - Processing parameters: *Shipley 1813 spin-coated at 4000 RPM yielding ~1.3 micron thickness, soft bake at 115°C for 60 seconds*.\n  - Alignment tolerance: *Gen 2 alignment tolerance improving to ±5 microns*.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench (Kang & Leblebici - CMOS Digital Integrated Circuits)"
+      ],
+      "proof_of_work": {
+        "status": "COTS Component Qualified",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-1-3-3",
+      "parent_id": "node-gen2-um-1-3",
+      "label": "Dual-Field Crosshair Vernier Overlay Metrology & Runout Inspection",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 48.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Dual-Field Crosshair Vernier Overlay Metrology & Runout Inspection\n\n- **Node Title**: Dual-Field Crosshair Vernier Overlay Metrology & Runout Inspection\n- **Hierarchy Context**: 180nm Open-Source DRAM Chip (DRAM Foundation VN) > Microscopic Mask Optical Alignment > Split-Field Optical System Calibration & Proximity Gap Setting > 10-20µm Proximity Gap Verification & Crosshair Vernier Metrology\n- **Generation**: Gen 2 (µm)\n- **Action Type**: Buy (Commercial-Off-The-Shelf Dual-CMOS Split-Field Metrology Tool / Stage Optics)\n\n---\n\n### Process Flow\n\n```text\n┌─────────────────────┐\n│  Wafer Load & Gap   │\n│       Setting       │\n└──────────┬──────────┘\n           │\n           ▼\n┌─────────────────────┐\n│     Dual-Field      │\n│  Microscope Focus   │\n└──────────┬──────────┘\n           │\n           ▼\n┌─────────────────────┐\n│  Crosshair Vernier  │\n│   Overlay Reading   │\n└──────────┬──────────┘\n           │\n           ▼\n┌─────────────────────┐\n│    Runout Vector    │\n│     Computation     │\n└──────────┬──────────┘\n           │\n           ▼\n┌─────────────────────┐\n│     Acceptance      │\n│    Verification     │\n└─────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Substrate & Mask Loading**:\n   - Secure the photoresist-coated wafer (Shipley 1813, nominal thickness $1.3\\ \\mu\\text{m}$) onto the vacuum chuck.\n   - Position the chromium-on-quartz mask in the mask holder directly above the wafer chuck.\n2. **Proximity Gap Engagement**:\n   - Engage the differential micrometers / closed-loop piezo actuators to establish and stabilize the nominal proximity gap between mask and wafer at $10\\ \\mu\\text{m}$ to $20\\ \\mu\\text{m}$ (actuator sensitivity: $0.1\\ \\mu\\text{m}$).\n3. **Dual-Field Optical Channel Alignment**:\n   - Focus the dual CMOS cameras of the split-field binocular microscope (configured with 10x Plan Achromat objectives, $\\text{NA} = 0.25$) on the complementary fiducial crosshair marks on both the left and right peripheral fields of the wafer and mask.\n4. **Vernier Overlay & Runout Metrology**:\n   - Capture digital images across both optical channels simultaneously.\n   - Read the relative offset between mask and substrate crosshair vernier scales in the orthogonal $X$ and $Y$ axes at Field 1 (Left) and Field 2 (Right).\n   - Calculate translational runout ($\\Delta X, \\Delta Y$) and rotational mismatch ($\\Delta \\theta = \\arctan[(\\Delta Y_2 - \\Delta Y_1) / L]$).\n5. **Stage Correction & Verification**:\n   - Adjust the macroscopic alignment stage until both optical crosshair centers register within Gen 2 tolerances.\n   - Verify that proximity gap clearance remains within $10\\ \\mu\\text{m} - 20\\ \\mu\\text{m}$ to prevent physical contact scratch defects.\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n| Parameter | Target Metric | Engineering Unit | Tolerance / Limit |\n| :--- | :--- | :--- | :--- |\n| **Proximity Air Gap** | `10.0` to `20.0` | $\\mu\\text{m}$ | $10\\ \\mu\\text{m} \\le \\text{Gap} \\le 20\\ \\mu\\text{m}$ |\n| **Actuator Positioning Sensitivity** | `0.1` | $\\mu\\text{m}$ | $\\le 0.1\\ \\mu\\text{m}$ |\n| **Gen 2 Overlay Alignment Tolerance** | `5.0` | $\\mu\\text{m}$ | $\\le \\pm 5.0\\ \\mu\\text{m}$ |\n| **Objective Numerical Aperture (NA)** | `0.25` | dimensionless (NA) | Nominal ($10\\times$ Plan Achromat) |\n\n---\n\n### Literature Citations\n\n1. **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**:\n   - Proximity printing gap baseline: $10\\ \\mu\\text{m}$ to $20\\ \\mu\\text{m}$ separation to eliminate mask scratch damage.\n   - Gap actuation resolution: three high-precision differential micrometers / closed-loop piezo actuators with $0.1\\ \\mu\\text{m}$ sensitivity.\n   - Metrology optics: crosshair alignment marks inspected via split-field binocular microscope with dual CMOS cameras.\n2. **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**:\n   - Optical objective configuration: $10\\times$ Plan Achromat ($\\text{NA} = 0.25$).\n   - Photoresist baseline: Shipley 1813 at $1.3\\ \\mu\\text{m}$ film thickness.\n   - Alignment precision roadmap: Gen 1 tolerance at $\\pm 100\\ \\mu\\text{m}$ ($0.1\\ \\text{mm}$), advancing to $\\pm 5\\ \\mu\\text{m}$ for Gen 2.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2",
+      "parent_id": "node-gen2-um",
+      "label": "Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Photolithography",
+      "estimated_hours": 48.0,
+      "primary_metric": "Sub-milestone of Microscopic Mask Optical Alignment",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution\n\n- **Module**: [Photolithography / Optics & Precision Alignment](docs/)\n- **Node**: 180nm Open-Source DRAM (Gen 2 µm Action)\n- **Target Substrate**: Silicon wafer spin-coated with Shipley 1813 photoresist (~1.3 µm thickness, soft-baked at 115°C for 60 s)\n\n---\n\n### Process Flow Diagram\n\n```text\n┌───────────────────────┐\n│   Load Wafer & Mask   │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│      Wedge Error      │\n│   Compensation (WEC)  │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│   Set Alignment Gap   │\n│      10 - 20 µm       │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│  Split-Field Optical  │\n│  Crosshair Alignment  │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│  Hard Contact Clamp   │\n│        1.0 bar        │\n└───────────┬───────────┘\n            ▼\n┌───────────────────────┐\n│   UV 365nm Exposure   │\n│    120 - 150 mJ/cm²   │\n└───────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Substrate & Mask Loading**:\n   - Secure the chromium-on-quartz mask onto the mask holder with vacuum enabled.\n   - Place the Shipley 1813 coated wafer (~1.3 µm nominal film thickness) onto the vacuum chuck.\n\n2. **Wedge Error Compensation (WEC)**:\n   - Initiate the automated/spherical air-bearing WEC sequence.\n   - Mechanically level the wafer chuck against the mask holder to guarantee planarity across the entire 100 mm wafer substrate (parallelism wedge error `< 1 µm`).\n\n3. **Alignment Gap Engagement**:\n   - Lower the chuck from contact into proximity alignment mode to prevent mask scratches and photoresist scuffing.\n   - Establish a calibrated optical separation gap of **10 µm to 20 µm** utilizing the closed-loop differential micrometers / piezo actuators (0.1 µm resolution).\n\n4. **Split-Field Optical Crosshair Alignment**:\n   - Engage the split-field binocular optical microscope using **10x Plan Achromat (NA 0.25)** or 20x objectives over the dual high-resolution CMOS cameras.\n   - Locate and translate wafer fiducial crosshairs relative to the mask crosshair reticles along $X$, $Y$, and $\\theta$ (rotation).\n   - Co-align fiducial crosshair features until overlay displacement is centered well within **±2 µm to ±5 µm** (Gen 2 alignment tolerance).\n\n5. **Contact Mode Clamping**:\n   - Switch from proximity gap to **Hard Contact** exposure mode.\n   - Apply nitrogen under-chuck pressure at **1.0 bar** to ensure intimate contact without air pockets, achieving ~1.0 µm optical resolution limit.\n\n6. **UV Exposure Recipe Execution**:\n   - Verify 365 nm (i-line UV LED array / 200W Mercury short-arc source) beam uniformity is **> 95%** across the wafer via fly's eye integrator optics.\n   - Read flux with the calibrated optical radiometer ($mW/cm^2$).\n   - Execute exposure timer programmed to deliver a cumulative clear dose of **120 mJ/cm² to 150 mJ/cm²**.\n   - Release chuck vacuum/pressure, lower wafer stage, and transfer substrate to post-exposure development (Microposit MF-319 for 45–60 s).\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n| Parameter | Target Metric / Tolerance | Physical Unit | Measurement Method / Tooling |\n| :--- | :--- | :--- | :--- |\n| **Wedge Error Parallelism** | $< 1.0$ | $\\mu\\text{m}$ | Spherical air-bearing WEC gauge across 100 mm wafer |\n| **Pre-Exposure Alignment Gap** | $10 \\text{ to } 20$ | $\\mu\\text{m}$ | Differential micrometer / piezo gap sensor |\n| **Crosshair Overlay Offset ($X/Y$)** | $\\le \\pm 5.0$ (down to $\\le 0.5$ in vacuum contact) | $\\mu\\text{m}$ | Split-field dual CMOS camera reticle vernier |\n| **Cumulative UV Dose (365 nm)** | $120 \\text{ to } 150$ | $\\text{mJ/cm}^2$ | Calibrated 365 nm optical radiometer |\n| **UV Beam Uniformity** | $> 95$ | $\\%$ | Multi-point optical radiometer sensor array |\n\n---\n\n### Context Citations & References\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**: 10x Plan Achromat (NA 0.25) microscope objective resolution; Shipley 1813 spin-coated at 4000 RPM (~1.3 µm thickness); 365 nm i-line UV source; Gen 2 alignment target of $\\pm 5\\ \\mu\\text{m}$.\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**: Chromium-on-quartz mask optics; Proximity separation air gap (10–20 µm); Piezo/micrometer 0.1 µm sensitivity; Fly's eye integrator (>95% beam uniformity); Shipley 1813 clear dose (120–150 mJ/cm²).\n- **Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control**: Spherical air-bearing Wedge Error Compensation (parallelism $< 1\\ \\mu\\text{m}$); Split-field binocular microscope (10x/20x dual CMOS); Hard Contact chuck pressure (1.0 bar for ~1.0 µm resolution); Proximity alignment overlay precision ($\\pm 2\\text{ to } 5\\ \\mu\\text{m}$).",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-1",
+      "parent_id": "node-gen2-um-2",
+      "label": "Dual-Axis Split-Field Optical Aligner Setup & Gap Micrometer Calibration",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Buy",
+      "status": "done",
+      "category": "Optics & Precision Alignment",
+      "estimated_hours": 36.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Buy",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Dual-Axis Split-Field Optical Aligner Setup & Gap Micrometer Calibration\n**Generation:** Gen 2 (µm) | **Process Category:** Optics & Precision Alignment / Photolithography | **Action Type:** Make\n\n---\n\n### Process Workflow\n\n```text\n┌────────────────────────┐\n│                        │\n│   1. Mount Mask and    │\n│         Wafer          │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  2. Focus Split-Field  │\n│         Optics         │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  3. Zero Gap and Set   │\n│   Proximity 10-20 um   │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│      4. Dual-Axis      │\n│   Fiducial Alignment   │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│      5. i-Line UV      │\n│        Exposure        │\n│                        │\n└────────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Substrate & Mask Loading**:\n   - Secure the chromium-on-quartz photomask into the mask holder frame and verify vacuum chuck retention.\n   - Load the silicon wafer spin-coated with Shipley 1813 photoresist (1.3 µm nominal thickness, soft-baked at 115°C for 60 s) onto the macroscopic vacuum stage.\n\n2. **Split-Field Optical Head Positioning**:\n   - Engage the split-field binocular microscope equipped with dual CMOS cameras and 10x Plan Achromat objectives (NA 0.25).\n   - Adjust left and right optical objectives along the split-field travel rail to locate the left and right crosshair alignment fiducials simultaneously on the mask.\n   - Adjust optical focus until the mask crosshairs are sharply imaged on both CMOS video displays.\n\n3. **Gap Micrometer Zeroing & Proximity Clearance Setup**:\n   - Slowly raise the wafer chuck using the three high-precision differential micrometers (or closed-loop piezo actuators with 0.1 µm sensitivity) until planar optical contact is established between mask and photoresist across all points without excessive force.\n   - Record the micrometer zero-contact datum position across all three differential micrometers.\n   - Back off all three differential micrometers uniformly to establish a calibrated proximity air gap of **10 to 20 µm** to eliminate mask scratch risks while preserving resolution.\n\n4. **Dual-Axis Fiducial Crosshair Alignment**:\n   - With split-field dual CMOS cameras displaying overlaid live video, manipulate the stage X, Y, and $\\theta$ (theta) fine-adjustment controls.\n   - Bring wafer alignment marks into registration with mask fiducial crosshairs on both split-field fields simultaneously until misalignment is within **±5 µm** (Gen 2 alignment tolerance).\n\n5. **UV Exposure Execution**:\n   - Measure 365 nm (i-line) UV LED array or 200W Mercury short-arc lamp intensity with an optical radiometer ($\\text{mW/cm}^2$), verifying >95% beam uniformity across the wafer area via the fly's eye integrator optics.\n   - Expose the substrate to deliver an optimum clear dose of **120 to 150 $\\text{mJ/cm}^2$**.\n   - Lower the stage, release vacuum chucks, and transfer the exposed wafer to development in Microposit MF-319 (45–60 s) followed by DI water rinse.\n\n---\n\n### Machine-Measurable Acceptance Criteria\n\n| Parameter | Target Metric / Tolerance | Verification Method |\n| :--- | :--- | :--- |\n| **Proximity Air Gap Separation** | **10 to 20 µm** | Differential micrometers / piezo actuators (0.1 µm sensitivity) |\n| **Fiducial Overlay Misalignment (Gen 2)** | **$\\le \\pm 5 \\ \\mu\\text{m}$** (X and Y dual-axis) | Split-field dual CMOS camera crosshair overlay |\n| **Exposure Dose (Shipley 1813, 1.3 µm)** | **120 to 150 $\\text{mJ/cm}^2$** at 365 nm | Calibrated optical radiometer ($\\text{mW/cm}^2 \\times \\text{time}$) |\n| **Beam Uniformity** | **$> 95\\%$** across wafer field | Multi-point radiometer measurement across fly's eye optics |\n\n---\n\n### Context Citations\n- *Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose*: Proximity printing air gap (10–20 µm), 0.1 µm sensitivity differential micrometers/piezo actuators, fly's eye integrator lens beam uniformity (>95%), optical radiometer calibration, Shipley 1813 clear dose (120–150 mJ/cm²), and split-field binocular microscope with dual CMOS cameras.\n- *Sam Zeloof Z1 Garage Semiconductor Journal (2018)*: Shipley 1813 resist thickness (1.3 µm), 10x Plan Achromat objective (NA 0.25), 365 nm i-line UV source, soft bake (115°C for 60 s), MF-319 developer timing (45–60 s), and Gen 2 alignment tolerance (±5 µm).",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "COTS Component Qualified",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-2",
+      "parent_id": "node-gen2-um-2",
+      "label": "Microscopic Crosshair Fiducial Overlay Alignment & i-Line Dose Recipe Execution",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Photolithography",
+      "estimated_hours": 54.0,
+      "primary_metric": "Sub-milestone of Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure: Microscopic Crosshair Fiducial Overlay Alignment & i-Line Dose Recipe Execution\n\n**Document ID:** `SOP-PHOTO-GEN2-004`  \n**Classification:** Generation 2 (µm) Photolithography  \n**Action Type:** Make  \n**Target Node:** 180nm Open-Source DRAM Chip Architecture & Integration  \n\n---\n\n### Process Workflow\n\n```text\n┌────────────────────────┐\n│                        │\n│   WEC & Gap Setting:   │\n│        10-30 µm        │\n│                        │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│      Split-Field       │\n│  Crosshair Alignment   │\n│                        │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│      Contact Mode      │\n│  Selection: Soft/Hard  │\n│        Contact         │\n│                        │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│    i-Line Exposure:    │\n│    120-150 mJ/cm² @    │\n│         365nm          │\n│                        │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  MF-319 Development:   │\n│   45-60s & DI Water    │\n│         Rinse          │\n│                        │\n└────────────────────────┘\n```\n\n---\n\n## 1. Step-by-Step Procedure\n\n### Step 1: Pre-Exposure Wafer Preparation\n1. Verify wafer is spin-coated with Shipley 1813 photoresist at **4000 RPM** yielding **~1.3 µm** film thickness.\n2. Confirm completion of soft bake at **115°C for 60 seconds** on a flat aluminum hot plate.\n\n### Step 2: Substrate Loading & Wedge Error Compensation (WEC)\n1. Load mask (chromium-on-quartz) into mask holder and place coated wafer onto the vacuum chuck.\n2. Execute automated/manual Wedge Error Compensation (WEC) utilizing spherical air bearings to mechanically level the wafer chuck against the mask holder until parallelism is **< 1 µm** across the substrate.\n\n### Step 3: Proximity Gap Setting & Split-Field Alignment\n1. Separate mask and wafer into proximity alignment mode by establishing a calibrated air gap of **10 µm to 30 µm** (using differential micrometers or closed-loop piezo actuators with **0.1 µm** sensitivity).\n2. Engage split-field binocular optical microscope with **10x** (Plan Achromat, NA 0.25) or **20x** objectives paired with dual CMOS cameras.\n3. Actuate X, Y, and $\\theta$ micrometers to align wafer crosshair fiducial marks with corresponding mask crosshairs. Ensure overlay error is within **$\\pm$2 µm to $\\pm$5 µm** during proximity view.\n\n### Step 4: Contact Clamping Mode Selection\n*Select appropriate mode based on layer resolution requirement:*\n- **Soft Contact:** Apply nitrogen pressure under chuck at **0.1 to 0.5 bar** (achieving **~1.5 µm** resolution).\n- **Hard Contact:** Apply nitrogen pressure under chuck at **1.0 bar** (achieving **~1.0 µm** resolution).\n- **Vacuum Contact:** Clamp to vacuum contact for maximum resolution and overlay precision ($\\le$ **0.5 µm**).\n\n### Step 5: UV Exposure Recipe Execution\n1. Verify UV source intensity using an optical radiometer calibrated at **365 nm** (i-line LED array or 200W Mercury short-arc lamp with fly's eye integrator achieving **> 95% beam uniformity**).\n2. Execute UV exposure to deliver a cumulative clear dose of **120 mJ/cm² to 150 mJ/cm²**.\n\n### Step 6: Post-Exposure Development & Rinse\n1. Immerse wafer in **Microposit MF-319** developer for **45 to 60 seconds**.\n2. Immediately transfer to a rigorous deionized (DI) water bath and rinse thoroughly to quench development.\n3. Dry wafer with filtered dry nitrogen gas ($N_2$).\n\n---\n\n## 2. Machine-Measurable Acceptance Criteria\n\n| Parameter | Inspection / Measurement Method | Target Metric |\n| :--- | :--- | :--- |\n| **Wedge Error Parallelism** | Chuck WEC displacement sensors across substrate | **$< 1.0\\ \\mu\\text{m}$** |\n| **Overlay Alignment Accuracy** | Split-field optical vernier / crosshair measurement | **$\\le 0.5\\ \\mu\\text{m}$** (Vacuum Contact) / **$\\pm 2\\text{ to } 5\\ \\mu\\text{m}$** (Proximity) |\n| **i-Line Exposure Dose** | Calibrated optical radiometer at 365 nm | **$120\\text{ to } 150\\ \\text{mJ/cm}^2$** |\n| **Optical Beam Uniformity** | Multi-point radiometer across wafer plane | **$> 95\\%$** |\n\n---\n\n## 3. Literature Citations & Reference Context\n\n- **Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control:**\n  - Parallelism via spherical air bearings WEC ($< 1\\ \\mu\\text{m}$ across 100mm wafers).\n  - Split-field microscope (5x, 10x, 20x objectives).\n  - Clamping parameters: Proximity gap (10–30 $\\mu\\text{m}$), Soft contact ($0.1–0.5\\text{ bar}$), Hard contact ($1.0\\text{ bar}$), and Vacuum contact overlay precision ($\\le 0.5\\ \\mu\\text{m}$).\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose:**\n  - Gap actuation: Piezo actuators/micrometers with $0.1\\ \\mu\\text{m}$ sensitivity.\n  - Optics: 365nm source with fly's eye integrator ($>95\\%$ beam uniformity).\n  - Exposure dose: Shipley 1813 optimum clear dose of $120–150\\ \\text{mJ/cm}^2$.\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018):**\n  - Resist coating: Shipley 1813 at 4000 RPM ($\\sim 1.3\\ \\mu\\text{m}$).\n  - Soft bake: $115^\\circ\\text{C}$ for 60 s.\n  - Development: Microposit MF-319 for 45–60 s followed by DI water rinse.\n  - Resolution objective: 10x Plan Achromat (NA 0.25) with Gen 2 overlay tolerance ($\\pm 5\\ \\mu\\text{m}$).",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-2-1",
+      "parent_id": "node-gen2-um-2-2",
+      "label": "Fiducial Overlay Crosshair Micro-Positioning & Proximity Gap Calibration",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Optics & Precision Alignment",
+      "estimated_hours": 36.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Fiducial Overlay Crosshair Micro-Positioning & Proximity Gap Calibration\n\n- **Discipline**: Optics & Precision Alignment / Photolithography\n- **Target Generation**: Gen 2 ($\\mu\\text{m}$)\n- **Action Type**: Make\n- **Reference Document**: [sop_fiducial_overlay_crosshair_micro_positioning_proximity_gap_calibration.md](docs/sop_fiducial_overlay_crosshair_micro_positioning_proximity_gap_calibration.md)\n\n```mermaid\nflowchart TD\n    A[\"1. Stage Isolation & Mechanical Initialization (MGN12H / NEMA 17)\"] --> B[\"2. Substrate & Mask Loading (Proximity Safety Gap >100 µm)\"]\n    B --> C[\"3. Dual-Field Crosshair Optical Acquisition (10x Plan Achromat, NA 0.25)\"]\n    C --> D[\"4. Proximity Gap Calibration (10–20 µm Air Gap via Piezo/Micrometers)\"]\n    D --> E[\"5. In-Plane Micro-Positioning (X/Y/Theta to ±5 µm Gen 2 Tolerance)\"]\n    E --> F[\"6. Alignment Lock & Drift Check (<0.1 µm Actuator Sensitivity)\"]\n    F --> G[\"7. Handoff to 365nm i-Line Exposure Recipe (120–150 mJ/cm²)\"]\n```\n\n---\n\n### 1. Step-by-Step Operating Procedure\n\n1. **Stage Isolation & Motion System Initialization**:\n   - Verify the 4040 aluminum extrusion stage assembly is seated on neoprene dampers or sorbothane pads isolating environmental vibrations $>30\\text{ Hz}$.\n   - Home the MGN12H precision linear guide rails driven by NEMA 17 stepper motors ($1/16$ microstepping) and anti-backlash / C7 rolled ball screws; verify closed-loop magnetic/optical encoder feedback ($1\\text{ }\\mu\\text{m}$ resolution).\n2. **Substrate & Mask Loading**:\n   - Secure the wafer (spin-coated with Shipley 1813 at 4000 RPM to $\\sim 1.3\\text{ }\\mu\\text{m}$, soft-baked at $115^\\circ\\text{C}$ for $60\\text{ s}$) onto the stage vacuum chuck.\n   - Insert the chromium-on-quartz mask into the aligner holder with chrome pattern facing the resist, maintaining an initial vertical separation $>100\\text{ }\\mu\\text{m}$ to prevent contact damage.\n3. **Microscopic Crosshair Acquisition**:\n   - Align split-field or dual-objective optics (10x Plan Achromat, NA 0.25) over wafer and mask crosshair fiducial marks under non-actinic yellow light.\n   - Coarse-align the substrate stage to center wafer fiducial crosshairs within the optical field of view.\n4. **Proximity Gap Calibration**:\n   - Lower the mask relative to the wafer using three differential micrometers or closed-loop piezo actuators ($0.1\\text{ }\\mu\\text{m}$ sensitivity).\n   - Set and level a uniform proximity air gap of **$10\\text{ to }20\\text{ }\\mu\\text{m}$** across the wafer surface, eliminating mechanical scratch defects while maintaining $\\sim 2\\text{--}3\\text{ }\\mu\\text{m}$ diffraction-limited resolution.\n5. **In-Plane Overlay Micro-Positioning**:\n   - Adjust fine $X$, $Y$, and $\\theta$ (rotation) controls to register the mask crosshairs concentric with the substrate fiducials.\n   - Confirm in-plane overlay alignment error is reduced within the Gen 2 tolerance of **$\\pm 5\\text{ }\\mu\\text{m}$**.\n6. **Alignment Lock & Exposure Readiness**:\n   - Engage mechanical axis locks/clamps; monitor crosshairs for $10\\text{ s}$ to confirm zero actuator creep or drift.\n   - Handoff substrate to the 365nm i-line exposure cycle ($120\\text{--}150\\text{ mJ/cm}^2$ dose, $>95\\%$ beam uniformity).\n\n---\n\n### 2. Machine-Measurable Acceptance Criteria\n\n| Metric / Parameter | Target Value | Physical Units | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **In-Plane Overlay Alignment Tolerance** | $\\le \\pm 5.0$ | $\\mu\\text{m}$ | Optical microscope (10x Plan Achromat, NA 0.25) fiducial crosshair metrology |\n| **Proximity Air Gap** | $10 \\text{ to } 20$ | $\\mu\\text{m}$ | Closed-loop piezo actuators / differential micrometers ($0.1\\text{ }\\mu\\text{m}$ sensitivity) |\n| **Stage Travel Straightness** | $< 5$ | $\\mu\\text{m} / 100\\text{ mm}$ | MGN12H linear guide rail calibration / optical linear encoder |\n| **Vibration Isolation Cutoff Frequency** | $> 30$ | $\\text{Hz}$ | Sorbothane / neoprene damping pad dynamic attenuation profile |\n\n---\n\n### 3. Literature Citations\n\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**: 10x Plan Achromat objective (NA 0.25) for micron-scale feature resolution; Shipley 1813 resist ($1.3\\text{ }\\mu\\text{m}$ film @ 4000 RPM, $115^\\circ\\text{C}$ soft bake for $60\\text{ s}$); Gen 2 alignment target tolerance of $\\pm 5\\text{ }\\mu\\text{m}$ (improved from Gen 1 $\\pm 100\\text{ }\\mu\\text{m}$).\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**: Proximity printing mode gap of $10\\text{ to }20\\text{ }\\mu\\text{m}$ to prevent mask scratch defects; 3-point differential micrometers / closed-loop piezo actuators with $0.1\\text{ }\\mu\\text{m}$ sensitivity; 365nm i-line optical radiometer calibration for $120\\text{--}150\\text{ mJ/cm}^2$ dose.\n- **Precision Linear Stage Design & Vibration Damping**: 4040 aluminum extrusion frame paired with MGN12H guide rails ($<5\\text{ }\\mu\\text{m} / 100\\text{ mm}$ straightness); NEMA 17 steppers with $1/16$ microstepping driving C7 rolled ball screws / anti-backlash lead screws; neoprene/sorbothane vibration damping above $30\\text{ Hz}$; $1\\text{ }\\mu\\text{m}$ resolution encoder feedback.",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Precision Linear Stage Design & Vibration Damping (Slocum - Precision Machine Design)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-2-2",
+      "parent_id": "node-gen2-um-2-2",
+      "label": "365nm i-Line Radiometer Dose Calibration & Contact UV Exposure Execution",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Photolithography",
+      "estimated_hours": 24.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n\n## SOP-PHOTO-202: 365nm i-Line Radiometer Dose Calibration & Contact UV Exposure Execution\n\n### 1. Process Workflow Overview\n\n```text\n┌────────────────────────┐\n│   UV Source Warmup &   │\n│     Stabilization      │\n└────────────┬───────────┘\n             ▼\n┌────────────────────────┐\n│  Radiometer Intensity  │\n│      Calibration       │\n└────────────┬───────────┘\n             ▼\n┌────────────────────────┐\n│     Exposure Time      │\n│      Calculation       │\n└────────────┬───────────┘\n             ▼\n┌────────────────────────┐\n│  Substrate Loading &   │\n│       Soft Bake        │\n│      Verification      │\n└────────────┬───────────┘\n             ▼\n┌────────────────────────┐\n│      Wedge Error       │\n│     Compensation &     │\n│      Contact Mode      │\n│       Engagement       │\n└────────────┬───────────┘\n             ▼\n┌────────────────────────┐\n│   Shuttered 365nm UV   │\n│        Exposure        │\n└────────────┬───────────┘\n             ▼\n┌────────────────────────┐\n│     Post-Exposure      │\n│       Unclamp &        │\n│      Development       │\n└────────────────────────┘\n```\n\n---\n\n### 2. Step-by-Step Procedure\n\n1. **Light Source Warm-up & Fly's Eye Beam Check**\n   - Power on the 365nm (i-line) high-power UV LED array or 200W Mercury short-arc lamp. Allow a minimum of 15 minutes for thermal stabilization.\n   - Verify that the fly's eye integrator lens is aligned to deliver beam uniformity across the wafer exposure field.\n\n2. **Optical Radiometer Measurement & Dose Calculation**\n   - Place a calibrated optical radiometer detector head centered on the mask aligner chuck surface under the illumination field.\n   - Trigger the optical shutter and measure the optical power density $I$ in $\\text{mW/cm}^2$.\n   - Calculate exposure time $t_{\\text{exp}}$ based on target clear dose $D = 120\\text{–}150\\text{ mJ/cm}^2$ for the $1.3\\ \\mu\\text{m}$ Shipley 1813 film:\n     $$t_{\\text{exp}}\\ (\\text{s}) = \\frac{D\\ (\\text{mJ/cm}^2)}{I\\ (\\text{mW/cm}^2)}$$\n\n3. **Substrate Preparation & Loading**\n   - Confirm substrate pre-processing: Shipley 1813 spin-coated at 4000 RPM (yielding $\\sim 1.3\\ \\mu\\text{m}$ thickness) and soft-baked at $115^\\circ\\text{C}$ for 60 seconds on a flat aluminum hot plate.\n   - Secure the wafer onto the vacuum chuck.\n\n4. **Contact Gap Setting & Wedge Error Compensation**\n   - Load the chromium-on-quartz mask into the mask holder.\n   - Use the three differential micrometers (or closed-loop piezo actuators with $0.1\\ \\mu\\text{m}$ sensitivity) to bring the wafer into physical contact printing mode with zero gap.\n   - Confirm fiducial crosshair overlay registration to within Gen 2 alignment specifications ($\\pm 5\\ \\mu\\text{m}$).\n\n5. **UV Exposure Execution**\n   - Set the shutter timer to the calculated $t_{\\text{exp}}$.\n   - Execute the 365nm i-line exposure cycle while maintaining contact mode.\n   - Immediately disengage chuck vacuum and lower the z-stage to avoid abrasive scratch defects on the chromium mask.\n\n6. **Post-Exposure Development**\n   - Transfer wafer to chemical wet bench. Immerse in Microposit MF-319 developer for 45–60 seconds with gentle agitation.\n   - Submerge immediately in a cascading deionized (DI) water rinse tank for 60 seconds and blow dry with filtered $\\text{N}_2$.\n\n---\n\n### 3. Machine-Measurable Acceptance Criteria Targets\n\n```text\n                  Acceptance Criteria Metric Targets    \n               ┌───────────────────────────────────────┐\n               │░░                                     │\nAlign Tolerance┤░░                                     │\n               │▒                                      │\nGap Sensitivity┤▒                                      │\n  Exposure Dose┤▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│\n               │▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓│\nBeam Uniformity┤████████████████████████████           │\n               │████████████████████████████           │\n               └┬─────────┬────────┬─────────┬────────┬┘\n               0.0      33.8     67.5      101.2  135.0 \n```\n\n| Parameter | Acceptance Metric | Measurement Tool / Method |\n| :--- | :--- | :--- |\n| **Exposure Dose ($D$)** | **$120\\text{ to }150\\text{ mJ/cm}^2$** | Calibrated optical radiometer ($\\text{mW/cm}^2$) $\\times$ exposure time ($\\text{s}$) |\n| **Beam Uniformity** | **$> 95\\%$ across wafer** | Multi-point radiometer scan through fly's eye integrator optics |\n| **Actuator Gap Sensitivity** | **$0.1\\ \\mu\\text{m}$** | Closed-loop piezo actuators / differential micrometers |\n| **Gen 2 Alignment Tolerance**| **$\\le \\pm 5\\ \\mu\\text{m}$** | Split-field optical microscope overlay crosshair reading |\n\n---\n\n### 4. Literature & Context Citations\n\n- **Exposure Dose & Optics**: *Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose*\n  - 365nm i-line source / 200W Mercury short-arc lamp coupled through fly's eye integrator lens for $>95\\%$ beam uniformity.\n  - Shipley 1813 ($1.3\\ \\mu\\text{m}$ thickness) optimum clear dose: $120\\text{–}150\\text{ mJ/cm}^2$.\n  - Gap setting controlled via differential micrometers/piezo actuators with $0.1\\ \\mu\\text{m}$ sensitivity.\n- **Resist Processing & Alignment Tolerances**: *Sam Zeloof Z1 Garage Semiconductor Journal (2018)*\n  - Spin coat: 4000 RPM ($\\sim 1.3\\ \\mu\\text{m}$ resist thickness).\n  - Soft bake: $115^\\circ\\text{C}$ for 60 seconds on flat aluminum hot plate.\n  - Development: Microposit MF-319 for 45–60 seconds, followed by DI water rinse.\n  - Gen 2 alignment target: $\\pm 5\\ \\mu\\text{m}$.",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench (Kang & Leblebici - CMOS Digital Integrated Circuits)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-2-3",
+      "parent_id": "node-gen2-um-2-2",
+      "label": "MF-319 Immersion Development & Optical Overlay Vernier Misalignment Metrology",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 28.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## MF-319 Immersion Development & Optical Overlay Vernier Misalignment Metrology\n\n- **Module**: Metrology / Photolithography\n- **Generation**: Gen 2 ($\\mu\\text{m}$)\n- **Target Substrate**: Shipley 1813 Photoresist (~$1.3\\ \\mu\\text{m}$ film thickness) on patterned silicon wafer\n- **Action Type**: Make\n\n---\n\n### Process Flow Diagram\n\n```text\n┌────────────────────────┐\n│                        │\n│       1. MF-319        │\n│      Development       │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│   2. DI Water Quench   │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│     3. N2 Blow Dry     │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  4. Split-Field / 10x  │\n│   Optical Metrology    │\n│                        │\n└────────────┬───────────┘\n             │\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│       5. Vernier       │\n│      Misalignment      │\n│      Verification      │\n│                        │\n└────────────────────────┘\n```\n\n---\n\n### 1. Step-by-Step Procedure\n\n1. **Chemical Bath Preparation**:\n   - Pour pure Microposit MF-319 developer into a clean, dedicated chemical-resistant fluoropolymer/glass dipping tank at ambient room temperature ($20\\text{--}22^\\circ\\text{C}$).\n   - Set up an adjacent cascade bath filled with high-purity Deionized (DI) water.\n\n2. **Immersion Development**:\n   - Using wafer-handling fluoropolymer tweezers, submerge the exposed wafer (Shipley 1813, nominal thickness $1.3\\ \\mu\\text{m}$) pattern-side up into the MF-319 bath.\n   - Gently agitate with slight lateral motion for **$45\\text{--}60\\text{ seconds}$** to fully dissolve exposed photoresist regions without causing physical liftoff or severe pattern undercut.\n\n3. **DI Water Quench & Rinse**:\n   - Immediately transfer the wafer directly from the MF-319 bath into the DI water bath to instantly quench developer reaction.\n   - Rigorously rinse in flowing DI water for $\\ge 30\\text{ seconds}$ to strip residual alkaline chemistry and prevent precipitation stains.\n\n4. **Nitrogen Blow Drying**:\n   - Remove wafer and gently dry completely from center to edge using filtered, dry nitrogen ($\\text{N}_2$) gas gun at low nozzle pressure ($< 15\\ \\text{psi}$) to avoid shearing resist patterns.\n\n5. **Optical Vernier Metrology & Alignment Verification**:\n   - Mount the dry wafer onto the inspection stage of the split-field binocular microscope with dual CMOS cameras (or modified optical microscope using a $10\\times$ Plan Achromat objective, $\\text{NA } 0.25$).\n   - Locate the complementary fiducial crosshair and printed box-in-box / Vernier alignment marks between the current developed photoresist layer and the substrate reference layer.\n   - Quantify relative $X$- and $Y$-axis vernier comb displacements or crosshair center offsets via calibrated digital crosshair measurement reticle across opposing wafer positions.\n\n---\n\n### 2. Machine-Measurable Acceptance Criteria\n\n| Parameter / Metric | Target Specification | Exact Physical Unit | Verification Instrument / Method |\n| :--- | :--- | :--- | :--- |\n| **Immersion Development Time** | $45\\text{ to }60$ | $\\text{seconds}$ ($\\text{s}$) | Calibrated digital process timer |\n| **Gen 2 Overlay Misalignment Tolerance ($\\Delta X, \\Delta Y$)** | $\\le \\pm 5$ | $\\mu\\text{m}$ | Optical microscope reticle / Dual CMOS camera Vernier readout |\n| **Photoresist Layer Thickness (Shipley 1813 baseline)** | $1.3$ | $\\mu\\text{m}$ | Optical reflectometer / profilometer |\n| **Optical Metrology Objective Resolution Baseline** | $10\\times\\text{ Plan Achromat, } \\text{NA } 0.25$ | $\\text{Numerical Aperture (dimensionless)}$ | Inspection microscope optical objective spec |\n\n---\n\n### 3. Context & Literature Citations\n\n- **Microposit MF-319 Developer & DI Water Rinse**:\n  - *Citation*: *Sam Zeloof Z1 Garage Semiconductor Journal (2018)*: *\"Developer: Microposit MF-319 for 45-60 seconds, followed by rigorous deionized (DI) water rinse.\"*\n- **Gen 2 Alignment & Vernier Tolerance ($\\le \\pm 5\\ \\mu\\text{m}$)**:\n  - *Citation*: *Sam Zeloof Z1 Garage Semiconductor Journal (2018)*: *\"Alignment tolerance at Gen 1 is ±100 microns (0.1 mm), improving to ±5 microns in Gen 2.\"*\n- **Optical Inspection & Metrology Configuration**:\n  - *Citation*: *Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose*: *\"wafer and mask viewed through split-field binocular microscope with dual CMOS cameras.\"*\n  - *Citation*: *Sam Zeloof Z1 Garage Semiconductor Journal (2018)*: *\"Using a modified microscope objective (10x Plan Achromat, NA 0.25) allows micron-scale feature resolution.\"*\n- **Photoresist Layer Baseline**:\n  - *Citation*: *Sam Zeloof Z1 Garage Semiconductor Journal (2018)* & *Optical Mask Aligner Mechanics*: *\"Shipley 1813... yields ~1.3 micron thickness.\"*",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-3",
+      "parent_id": "node-gen2-um-2",
+      "label": "MF-319 Development & Post-Exposure Vernier Overlay Metrology",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 42.0,
+      "primary_metric": "Sub-milestone of Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution",
+      "metrics_target": {
+        "Parent": "Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution",
+        "Target": "Physical Validation"
+      },
+      "citations": [
+        "DRAM Foundation VN - Engineering Specification"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-3-1",
+      "parent_id": "node-gen2-um-2-3",
+      "label": "Precision Tooling & Fixturing for MF-319 Development & Post-Exposure Vernier Overlay Metrology",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Mechanical Assembly",
+      "estimated_hours": 24.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP): Precision Tooling & Fixturing for MF-319 Development & Post-Exposure Vernier Overlay Metrology\n\n**Discipline / Context**: Context: 180nm Open-Source DRAM Chip (DRAM Foundation VN) [Architecture & Integration] > Microscopic Mask Optical Alignment [Optics & Precision Alignment] > Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution [Photolithography] > MF-319 Development & Post-Exposure Vernier Overlay Metrology [Metrology] > Precision Tooling & Fixturing for MF-319 Development & Post-Exposure Vernier Overlay Metrology [Mechanical Assembly]\n**Target Generation**: Gen 2 (µm) | **Action Type**: Make\n\n### 1. Equipment & Environmental Pre-Flight\n- Verify cleanroom ambient conditions (Class 1000 / Class 100 laminar flow hood, Temp: 21°C ± 1°C, Humidity: 45% ± 5%).\n- Inspect facility interlocks (exhaust velocity > 0.5 m/s, DI water loop > 18.0 MΩ·cm).\n\n### 2. Physical Tool Calibration & Fixturing\n- Mount substrate onto vacuum chuck stage and align optical/mechanical fiducials.\n- Zero calibration instruments and establish baseline noise floor.\n\n### 3. Process Execution & Parameter Validation\n- Execute process sequence according to verified recipe parameters: Overlay Alignment: ±5 µm.\n- Monitor thermal/chemical/optical transients during execution.\n\n### 4. Post-Process Metrology & Quality Acceptance\n- Perform physical verification using Split-Field Dual CMOS Vision / Profilometer.\n- Log 10 consecutive measurement cycles to guarantee process repeatability (Cp/Cpk >= 1.33).",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-3-2",
+      "parent_id": "node-gen2-um-2-3",
+      "label": "Process Parameter Benchmarking for MF-319 Development & Post-Exposure Vernier Overlay Metrology",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Process Engineering",
+      "estimated_hours": 36.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP): Process Parameter Benchmarking for MF-319 Development & Post-Exposure Vernier Overlay Metrology\n\n**Discipline / Context**: Context: 180nm Open-Source DRAM Chip (DRAM Foundation VN) [Architecture & Integration] > Microscopic Mask Optical Alignment [Optics & Precision Alignment] > Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution [Photolithography] > MF-319 Development & Post-Exposure Vernier Overlay Metrology [Metrology] > Process Parameter Benchmarking for MF-319 Development & Post-Exposure Vernier Overlay Metrology [Process Engineering]\n**Target Generation**: Gen 2 (µm) | **Action Type**: Make\n\n### 1. Equipment & Environmental Pre-Flight\n- Verify cleanroom ambient conditions (Class 1000 / Class 100 laminar flow hood, Temp: 21°C ± 1°C, Humidity: 45% ± 5%).\n- Inspect facility interlocks (exhaust velocity > 0.5 m/s, DI water loop > 18.0 MΩ·cm).\n\n### 2. Physical Tool Calibration & Fixturing\n- Mount substrate onto vacuum chuck stage and align optical/mechanical fiducials.\n- Zero calibration instruments and establish baseline noise floor.\n\n### 3. Process Execution & Parameter Validation\n- Execute process sequence according to verified recipe parameters: Overlay Alignment: ±5 µm.\n- Monitor thermal/chemical/optical transients during execution.\n\n### 4. Post-Process Metrology & Quality Acceptance\n- Perform physical verification using Split-Field Dual CMOS Vision / Profilometer.\n- Log 10 consecutive measurement cycles to guarantee process repeatability (Cp/Cpk >= 1.33).",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "SkyWater SKY130 Open PDK Design Rules & Lithography Grid (SkyWater Technology / Google Open Source Silicon)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-2-3-3",
+      "parent_id": "node-gen2-um-2-3",
+      "label": "Quality Acceptance & Metrology Protocol for MF-319 Development & Post-Exposure Vernier Overlay Metrology",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Quality Assurance",
+      "estimated_hours": 16.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP): Quality Acceptance & Metrology Protocol for MF-319 Development & Post-Exposure Vernier Overlay Metrology\n\n**Discipline / Context**: Context: 180nm Open-Source DRAM Chip (DRAM Foundation VN) [Architecture & Integration] > Microscopic Mask Optical Alignment [Optics & Precision Alignment] > Fiducial Mark Crosshair Alignment & UV Exposure Recipe Execution [Photolithography] > MF-319 Development & Post-Exposure Vernier Overlay Metrology [Metrology] > Quality Acceptance & Metrology Protocol for MF-319 Development & Post-Exposure Vernier Overlay Metrology [Quality Assurance]\n**Target Generation**: Gen 2 (µm) | **Action Type**: Make\n\n### 1. Equipment & Environmental Pre-Flight\n- Verify cleanroom ambient conditions (Class 1000 / Class 100 laminar flow hood, Temp: 21°C ± 1°C, Humidity: 45% ± 5%).\n- Inspect facility interlocks (exhaust velocity > 0.5 m/s, DI water loop > 18.0 MΩ·cm).\n\n### 2. Physical Tool Calibration & Fixturing\n- Mount substrate onto vacuum chuck stage and align optical/mechanical fiducials.\n- Zero calibration instruments and establish baseline noise floor.\n\n### 3. Process Execution & Parameter Validation\n- Execute process sequence according to verified recipe parameters: Overlay Alignment: ±5 µm.\n- Monitor thermal/chemical/optical transients during execution.\n\n### 4. Post-Process Metrology & Quality Acceptance\n- Perform physical verification using Split-Field Dual CMOS Vision / Profilometer.\n- Log 10 consecutive measurement cycles to guarantee process repeatability (Cp/Cpk >= 1.33).",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3",
+      "parent_id": "node-gen2-um",
+      "label": "Post-Exposure Overlay Vernier Metrology & Alignment Verification",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 24.0,
+      "primary_metric": "Sub-milestone of Microscopic Mask Optical Alignment",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP): Post-Exposure Overlay Vernier Metrology & Alignment Verification\n\n**Discipline / Context**: Context: 180nm Open-Source DRAM Chip (DRAM Foundation VN) [Architecture & Integration] > Microscopic Mask Optical Alignment [Optics & Precision Alignment] > Post-Exposure Overlay Vernier Metrology & Alignment Verification [Metrology]\n**Target Generation**: Gen 2 (µm) | **Action Type**: Make\n\n### 1. Equipment & Environmental Pre-Flight\n- Verify cleanroom ambient conditions (Class 1000 / Class 100 laminar flow hood, Temp: 21°C ± 1°C, Humidity: 45% ± 5%).\n- Inspect facility interlocks (exhaust velocity > 0.5 m/s, DI water loop > 18.0 MΩ·cm).\n\n### 2. Physical Tool Calibration & Fixturing\n- Mount substrate onto vacuum chuck stage and align optical/mechanical fiducials.\n- Zero calibration instruments and establish baseline noise floor.\n\n### 3. Process Execution & Parameter Validation\n- Execute process sequence according to verified recipe parameters: Overlay Alignment: ±5 µm.\n- Monitor thermal/chemical/optical transients during execution.\n\n### 4. Post-Process Metrology & Quality Acceptance\n- Perform physical verification using Split-Field Dual CMOS Vision / Profilometer.\n- Log 10 consecutive measurement cycles to guarantee process repeatability (Cp/Cpk >= 1.33).",
+      "citations": [
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-1",
+      "parent_id": "node-gen2-um-3",
+      "label": "COTS Optical Overlay Calibration Reticle & Stage Micrometer Acquisition",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Buy",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 24.0,
+      "primary_metric": "Positioning Resolution: 1 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Buy",
+        "Step Resolution": "1 µm",
+        "Loop Frequency": "10 kHz",
+        "Inspection Standard": "Digital Multimeter / Optical Quad Encoder"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## COTS Optical Overlay Calibration Reticle & Stage Micrometer Acquisition\n\n**Module:** Microscopic Mask Optical Alignment > Metrology  \n**Generation:** Gen 2 ($\\mu\\text{m}$)  \n**Action Type:** Make / Characterize & Acquire  \n**Scope:** DRAM Foundation VN 180nm Open-Source DRAM Fabrication Project  \n\n---\n\n### 1. Workflow Architecture & Lifecycle\n\nThe following vertical workflow details the acquisition, qualification, magnification calibration, and precision benchmarking lifecycle for COTS optical overlay reticles and stage micrometers:\n\n```text\n┌───────────────────────┐\n│                       │\n│        Step 1:        │\n│    Specification &    │\n│      Acquisition      │\n│                       │\n└───────────┬───────────┘\n            │\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│  Step 2: Substrate &  │\n│    Scale Metrology    │\n│      Inspection       │\n│                       │\n└───────────┬───────────┘\n            │\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│   Step 3: Objective   │\n│    Magnification &    │\n│     Pixel Scaling     │\n│      Calibration      │\n│                       │\n└───────────┬───────────┘\n            │\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│   Step 4: Actuator    │\n│     Sensitivity &     │\n│       Backlash        │\n│     Benchmarking      │\n│                       │\n└───────────┬───────────┘\n            │\n            │\n            ▼\n┌───────────────────────┐\n│                       │\n│        Step 5:        │\n│     Post-Exposure     │\n│   Vernier Baseline    │\n│     Verification      │\n│                       │\n└───────────────────────┘\n```\n\n---\n\n### 2. Step-by-Step Procedure\n\n#### Step 1: Specification & Sourcing\n1. Acquire a high-accuracy Commercial Off-The-Shelf (COTS) stage micrometer and overlay calibration reticle fabricated via chromium-on-quartz or optical glass substrate featuring dual-axis coordinate grids and Vernier calibration scales.\n2. Ensure pitch division increments support micron-scale verification down to the $0.1\\,\\mu\\text{m}$ to $1\\,\\mu\\text{m}$ level to properly qualify second-generation alignment systems.\n\n#### Step 2: Visual & Optical Metrology Inspection\n1. Inspect the chromium pattern under a 10x Plan Achromat objective (NA 0.25) to verify absence of pinholes, scratches, or particulate defects.\n2. Confirm crosshair fiducial markings and Vernier tick divisions are free of mechanical edge chipping or chromium delamination.\n\n#### Step 3: Objective Magnification & Pixel Scaling Calibration\n1. Mount the stage micrometer directly onto the wafer chuck or macroscopic stage of the optical mask aligner.\n2. Focus the split-field/microscope optics equipped with a 10x Plan Achromat objective (NA 0.25).\n3. Capture digital image frames across the calibrated stage micrometer grid divisions. Calculate the digital sensor conversion factor ($\\mu\\text{m}/\\text{pixel}$) across orthogonal $X$ and $Y$ axes.\n\n#### Step 4: Gap & Actuator Travel Sensitivity Benchmarking\n1. Validate stage displacement sensitivity using closed-loop piezo actuators or three high-precision differential micrometers.\n2. Benchmark the gap adjustment mechanism across the proximity printing regime ($10\\,\\mu\\text{m}$ to $20\\,\\mu\\text{m}$ air gap) down to physical contact mode ($< 1\\,\\mu\\text{m}$ clearance).\n3. Verify closed-loop actuation sensitivity down to the $0.1\\,\\mu\\text{m}$ threshold.\n\n#### Step 5: Post-Exposure Vernier Baseline Setup & Documentation\n1. Align the calibrated reticle fiducials with the aligner optical mask crosshairs.\n2. Record baseline overlay errors, runout across dual objectives, and stage return-to-center backlash to guarantee lithographic overlay registration within Gen 2 tolerances ($\\pm 5\\,\\mu\\text{m}$).\n\n---\n\n### 3. Machine-Measurable Acceptance Criteria\n\n```text\n                 ┌───────────────────────────────────────┐\n                 │■                                      │\nPiezo Sensitivity┤■                                      │\n                 │░░░                                    │\n Gen 2 Travel Tol┤░░░                                    │\nProximity Gap Min┤▒▒▒▒▒                                  │\n                 │▒▒▒▒▒                                  │\nProximity Gap Max┤▓▓▓▓▓▓▓▓▓                              │\n                 │▓▓▓▓▓▓▓▓▓                              │\n Gen 1 Travel Tol┤███████████████████████████████████████│\n                 │███████████████████████████████████████│\n                 └┬─────────┬────────┬─────────┬────────┬┘\n                  0        25       50        75      100 \n```\n\n| Metric Parameter | Target Value / Tolerance | Measurement Instrument / Method | Verification Status |\n| :--- | :--- | :--- | :--- |\n| **Stage Travel & Alignment Tolerance (Gen 2)** | **$\\pm 5\\,\\mu\\text{m}$** (improved from Gen 1 $\\pm 100\\,\\mu\\text{m}$) | Post-exposure Vernier optical reading under 10x objective | Mandatory Pass |\n| **Actuator Motion Sensitivity** | **$0.1\\,\\mu\\text{m}$** | Closed-loop piezo actuators / differential micrometers | Mandatory Pass |\n| **Proximity Air Gap Range** | **$10\\,\\mu\\text{m}$ to $20\\,\\mu\\text{m}$** | Non-contact proximity optical / capacitive gap control | Mandatory Pass |\n| **Optical Objective Resolution Setup** | **10x Plan Achromat (NA 0.25)** | Optical microscope inspection system | Mandatory Pass |\n\n---\n\n### 4. Verified Literature Citations\n\n- **Source: Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**\n  - *Proximity Printing Gap Setting*: Mask separated by $10\\,\\mu\\text{m}$ to $20\\,\\mu\\text{m}$ air gap, controlled using three high-precision differential micrometers or closed-loop piezo actuators with $0.1\\,\\mu\\text{m}$ sensitivity.\n  - *Contact Printing Mode*: Contact printing yields resolution $< 1\\,\\mu\\text{m}$.\n  - *Substrate & Optics*: Chromium-on-quartz mask geometry transfer.\n- **Source: Sam Zeloof Z1 Garage Semiconductor Journal (2018)**\n  - *Optical Objective Specification*: Modified microscope objective with 10x Plan Achromat, NA 0.25 for micron-scale feature resolution.\n  - *Stage Alignment Tolerances*: Alignment tolerance at Gen 1 is $\\pm 100\\,\\mu\\text{m}$ ($0.1\\,\\text{mm}$), advancing to $\\pm 5\\,\\mu\\text{m}$ in Gen 2.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Spectroscopic Ellipsometry and Reflectometry for Dielectric Film Metrology (Tompkins & Irene - Handbook of Ellipsometry)"
+      ],
+      "proof_of_work": {
+        "status": "COTS Component Qualified",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-2",
+      "parent_id": "node-gen2-um-3",
+      "label": "Vernier Test Pattern Layout & Exposure Matrix Calibration",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 48.0,
+      "primary_metric": "Sub-milestone of Post-Exposure Overlay Vernier Metrology & Alignment Verification",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n\n## Document ID: `SOP-LITHO-GEN2-VERNIER-CAL`\n**Title:** Vernier Test Pattern Layout & Exposure Matrix Calibration  \n**Hierarchy Context:** 180nm Open-Source DRAM Chip (DRAM Foundation VN) > Microscopic Mask Optical Alignment > Post-Exposure Overlay Vernier Metrology & Alignment Verification > Vernier Test Pattern Layout & Exposure Matrix Calibration  \n**Generation:** Gen 2 ($\\mu$m)  \n**Action Type:** Make  \n\n---\n\n### 1. Purpose & Scope\nThis Standard Operating Procedure defines the exact physical parameters, lithographic steps, and exposure calibration protocol to pattern overlay Vernier test structures and establish the optimal UV exposure dose on photoresist-coated silicon wafers using an optical mask aligner (Karl Suss MA6 / Contact-Proximity system) in a cleanroom or controlled fab environment.\n\n---\n\n### 2. Verified Equipment & Chemical Parameters\n- **Substrate:** Silicon wafer (e.g., 100 mm).\n- **Photoresist:** Shipley 1813 positive photoresist.\n- **Spin Speed:** 4000 RPM (yielding $\\approx 1.3\\ \\mu\\text{m}$ nominal film thickness).\n- **Soft Bake:** Flat aluminum hot plate at $115^\\circ\\text{C}$ for $60\\text{ seconds}$.\n- **Exposure Source:** $365\\text{ nm}$ (i-line) UV LED array or $200\\text{ W}$ Mercury short-arc lamp with fly’s eye integrator (>95% beam uniformity).\n- **Mask Aligner Alignment & Gap Mechanics:**\n  - Wedge Error Compensation (WEC) spherical air-bearing leveling chuck (parallelism $< 1\\ \\mu\\text{m}$ across 100 mm wafers).\n  - Proximity gap: $10\\ \\mu\\text{m}$ to $30\\ \\mu\\text{m}$ (differential micrometers / closed-loop piezo actuators with $0.1\\ \\mu\\text{m}$ sensitivity).\n  - Soft contact: $0.1\\text{ to }0.5\\text{ bar}$ $\\text{N}_2$ pressure (resolution $\\approx 1.5\\ \\mu\\text{m}$).\n  - Hard contact: $1.0\\text{ bar}$ $\\text{N}_2$ pressure (resolution $\\approx 1.0\\ \\mu\\text{m}$).\n  - Vacuum contact: operator overlay precision $\\le 0.5\\ \\mu\\text{m}$.\n- **Developer:** Microposit MF-319 developer; immersion for $45\\text{ to }60\\text{ seconds}$.\n- **Rinse:** Rigorous Deionized (DI) water rinse.\n\n---\n\n### 3. Step-by-Step Operating Procedure\n\n```text\n  [Step 1: Coat & Bake] \n         │ (4000 RPM -> 1.3 µm Shipley 1813; 115°C Soft Bake, 60s)\n         ▼\n  [Step 2: WEC Parallelism & Gap Setup] \n         │ (Level chuck to < 1 µm; Set Proximity Gap or Contact Mode)\n         ▼\n  [Step 3: Radiometer Dose Matrix Calibration] \n         │ (Measure intensity in mW/cm²; Step dose 100 to 180 mJ/cm²)\n         ▼\n  [Step 4: Vernier Alignment & Print] \n         │ (Split-field microscope 10x/20x; Overlay Vernier pattern)\n         ▼\n  [Step 5: Development & Rinse] \n         │ (MF-319 for 45-60s -> Rigorous DI Water Rinse)\n         ▼\n  [Step 6: Optical Metrology & Acceptance Gate]\n```\n\n#### Step 1: Substrate Preparation and Spin Coating\n1. Spin coat Shipley 1813 photoresist onto the clean wafer at **$4000\\text{ RPM}$** to achieve a nominal thickness of **$1.3\\ \\mu\\text{m}$**.\n2. Immediately transfer the wafer to a flat aluminum hot plate and perform soft bake at **$115^\\circ\\text{C}$ for $60\\text{ seconds}$**.\n3. Cool wafer to room temperature on a heat sink block prior to mounting.\n\n#### Step 2: WEC Leveling and Gap Calibration\n1. Mount the quartz/chromium Vernier test mask onto the mask holder.\n2. Load the wafer onto the aligner chuck.\n3. Initiate **Wedge Error Compensation (WEC)** to float the chuck on spherical air bearings, leveling the wafer against the mask until chuck-to-mask parallelism is **$< 1\\ \\mu\\text{m}$** across the wafer.\n4. Set the operating mode:\n   - For proximity calibration: set gap between **$10\\ \\mu\\text{m}$ and $30\\ \\mu\\text{m}$** via the precision micrometers / piezo actuators.\n   - For contact printing: set soft contact (**$0.1\\text{ to }0.5\\text{ bar}$ $\\text{N}_2$**) or hard contact (**$1.0\\text{ bar}$ $\\text{N}_2$**).\n\n#### Step 3: UV Intensity Measurement & Exposure Dose Matrix\n1. Measure the UV lamp / 365 nm LED optical irradiance using a calibrated radiometer probe ($\\text{mW/cm}^2$).\n2. Execute an Exposure Energy Matrix (stepping dose around the nominal clear dose of **$120\\text{ to }150\\text{ mJ/cm}^2$** for $1.3\\ \\mu\\text{m}$ Shipley 1813):\n   - Die / Field 1: $100\\text{ mJ/cm}^2$\n   - Die / Field 2: $120\\text{ mJ/cm}^2$\n   - Die / Field 3: $135\\text{ mJ/cm}^2$ (nominal center)\n   - Die / Field 4: $150\\text{ mJ/cm}^2$\n   - Die / Field 5: $170\\text{ mJ/cm}^2$\n\n#### Step 4: Vernier Alignment & UV Exposure\n1. Position the split-field microscope objectives ($10\\times$ or $20\\times$) over the alignment crosshairs and Vernier structures.\n2. Align fiducials in X, Y, and $\\theta$ to achieve target alignment within Gen 2 tolerances.\n3. Expose the wafer using the integrated $365\\text{ nm}$ optical illumination path (>95% beam uniformity).\n\n#### Step 5: Chemical Development & Rinse\n1. Immerse exposed wafer in Microposit MF-319 developer for **$45\\text{ to }60\\text{ seconds}$** with gentle mechanical agitation.\n2. Quench development immediately in a cascade deionized (DI) water bath.\n3. Rinse rigorously with DI water and blow dry with filtered nitrogen ($\\text{N}_2$).\n\n---\n\n### 4. Machine-Measurable Acceptance Criteria\n\n| Metric Parameter | Target Specification | Measurement Method / Tool |\n| :--- | :--- | :--- |\n| **Resist Film Thickness** | $1.3\\ \\mu\\text{m} \\pm 0.05\\ \\mu\\text{m}$ | Spectroscopic Reflectometer / Profilometer |\n| **WEC Parallelism Error** | $< 1.0\\ \\mu\\text{m}$ across $100\\text{ mm}$ wafer | MA6 Differential Gap Sensors / Mechanical Gauges |\n| **Clear Exposure Dose** | $120\\text{ to }150\\text{ mJ/cm}^2$ | Calibrated Optical Radiometer ($365\\text{ nm}$) |\n| **Overlay Alignment Offset (Gen 2)** | $\\le \\pm 5.0\\ \\mu\\text{m}$ (proximity mode) / $\\le 0.5\\ \\mu\\text{m}$ (vacuum contact mode) | Split-field optical microscope inspection of Vernier scale bars |\n\n---\n\n### 5. Context Literature Citations\n- **Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control:**\n  - WEC parallelism leveling: $< 1\\ \\mu\\text{m}$ across 100mm wafers via spherical air bearings.\n  - Split-field microscope with $5\\times$, $10\\times$, and $20\\times$ objectives paired with CMOS cameras.\n  - Overlay precision: $\\le 0.5\\ \\mu\\text{m}$ in vacuum contact; $\\pm 2\\text{ to }5\\ \\mu\\text{m}$ in proximity mode ($10\\text{ to }30\\ \\mu\\text{m}$ gap).\n  - Nitrogen contact pressures: Soft contact ($0.1\\text{ to }0.5\\text{ bar}$, $\\approx 1.5\\ \\mu\\text{m}$ res), Hard contact ($1.0\\text{ bar}$, $\\approx 1.0\\ \\mu\\text{m}$ res).\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose:**\n  - Gap control with $0.1\\ \\mu\\text{m}$ sensitivity via differential micrometers/piezo actuators ($10\\text{ to }20\\ \\mu\\text{m}$ typical proximity printing).\n  - 365 nm (i-line) LED array / 200W Mercury short-arc lamp with fly’s eye integrator (>95% beam uniformity).\n  - Clear exposure dose for Shipley 1813 ($1.3\\ \\mu\\text{m}$ thickness): $120\\text{ to }150\\text{ mJ/cm}^2$.\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018):**\n  - Shipley 1813 spin-coated at $4000\\text{ RPM}$ ($\\approx 1.3\\ \\mu\\text{m}$ thickness).\n  - Soft bake: $115^\\circ\\text{C}$ for $60\\text{ seconds}$ on a flat aluminum hot plate.\n  - Developer: Microposit MF-319 for $45\\text{ to }60\\text{ seconds}$, followed by rigorous DI water rinse.\n  - Gen 2 alignment target: $\\pm 5\\ \\mu\\text{m}$.",
+      "citations": [
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-2-1",
+      "parent_id": "node-gen2-um-3-2",
+      "label": "GDSII Overlay Vernier Test Pattern & Mask Reticle Layout",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Circuit Design",
+      "estimated_hours": 36.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP): GDSII Overlay Vernier Test Pattern & Mask Reticle Layout\n\n**Discipline / Category**: Circuit Design  \n**Target Generation**: Gen 2 (µm) | **Action Type**: Make\n\n---\n\n### 1. Equipment & Environmental Pre-Flight\n- Verify cleanroom ambient conditions (Class 1000 / ISO Class 6 laminar flow bench, Temp: 21°C ± 1°C, Humidity: 45% ± 5%).\n- Inspect facility interlocks (acid/solvent exhaust velocity > 0.5 m/s, DI water loop > 18.0 MΩ·cm).\n\n### 2. Physical Tool Calibration & Substrate Fixturing\n- Mount substrate securely onto vacuum chuck stage and align mechanical/optical fiducials.\n- Zero baseline instruments and establish background electrical/chemical noise floor.\n\n### 3. Recipe Execution & Parameter Control\n- Execute process sequence according to verified engineering specifications.\n- Monitor thermal, optical, or chemical rate transients during execution.\n\n### 4. Post-Process Metrology & Acceptance\n- Perform quantitative verification using Split-Field Dual CMOS Vision / Profilometer.\n- Log 10 consecutive measurement cycles to guarantee process repeatability (Cp/Cpk >= 1.33).\n",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-2-2",
+      "parent_id": "node-gen2-um-3-2",
+      "label": "FEM Exposure Matrix Lithography & Gap Recipe Execution",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Wet Chemistry",
+      "estimated_hours": 48.0,
+      "primary_metric": "Overlay Alignment: ±5 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n\n## Document ID: SOP-LITHO-GEN2-FEM-001\n**Title:** Focus Exposure Matrix (FEM) Lithography & Gap Recipe Execution  \n**Generation:** Gen 2 ($\\mu$m) | **Action Type:** Make  \n**Hierarchy Path:** 180nm Open-Source DRAM Chip > Microscopic Mask Optical Alignment > Post-Exposure Overlay Vernier Metrology & Alignment Verification > Vernier Test Pattern Layout & Exposure Matrix Calibration > FEM Exposure Matrix Lithography & Gap Recipe Execution  \n\n---\n\n### 1. Objective\nEstablish and execute an actionable lithographic Focus-Exposure Matrix (FEM) calibration recipe to determine optimal exposure energy and mask-to-wafer gap settings for patterning alignment Vernier test structures on Shipley 1813 photoresist using 365 nm ($i$-line) optical alignment equipment.\n\n---\n\n### 2. Step-by-Step Procedure\n\n```\n  [1. Resist Prep & Soft Bake]\n                │\n                ▼\n  [2. Radiometer Calibration]\n                │\n                ▼\n  [3. Gap Adjustment (10-20 µm)]\n                │\n                ▼\n  [4. Stepped FEM Exposure Matrix]\n                │\n                ▼\n  [5. Wet Immersion Development & DI Rinse]\n```\n\n#### Step 1: Substrate Preparation & Resist Coating\n1. Mount the cleaned silicon substrate onto the spin coater chuck.\n2. Dispense Microposit Shipley 1813 photoresist statically or dynamically at low RPM.\n3. Ramp spin speed to **4000 RPM** to achieve a nominal resist film thickness of **~1.3 $\\mu$m**.\n4. Transfer wafer to a flat aluminum hot plate; soft bake at **115 °C** for **60 seconds**.\n\n#### Step 2: Optical Intensity & Radiometer Calibration\n1. Measure UV illumination power density across the stage using a calibrated optical radiometer ($mW/cm^2$) tuned to **365 nm ($i$-line)**.\n2. Verify fly's eye integrator lens alignment to confirm beam uniformity exceeds **>95%** across the exposure field.\n\n#### Step 3: Proximity Gap Leveling & Setting\n1. Load the chromium-on-quartz Vernier reticle and wafer onto the optical aligner stage.\n2. Align the wafer surface to the mask using three high-precision differential micrometers or closed-loop piezo actuators (0.1 $\\mu$m sensitivity).\n3. Set the proximity air gap between **10 $\\mu$m and 20 $\\mu$m** to eliminate mask scratch defects while maintaining proximity resolution (~2–3 $\\mu$m).\n\n#### Step 4: Stepped FEM Exposure Execution\n1. Program the exposure matrix array stepping along two axes:\n   - **X-Axis (Exposure Dose):** Step nominal doses across **120 to 150 $mJ/cm^2$** in calculated increments using the measured radiometer flux.\n   - **Y-Axis (Proximity Gap / Focus):** Step mask-to-wafer gap across the **10 to 20 $\\mu$m** envelope.\n2. Shutter UV illumination for each die coordinates to expose the calibrated Vernier arrays.\n\n#### Step 5: Wet Chemical Development & Quench\n1. Transfer wafer to the wet chemistry station.\n2. Immerse substrate in **Microposit MF-319 developer** for **45 to 60 seconds** with gentle agitation.\n3. Immediately immerse in a cascade **deionized (DI) water** bath and rinse thoroughly to stop development.\n4. Dry with filtered dry nitrogen ($N_2$) and inspect Vernier patterns under an optical microscope (10x Plan Achromat, NA 0.25) to verify alignment within Gen 2 tolerance.\n\n---\n\n### 3. Machine-Measurable Acceptance Criteria Target Metrics\n\n| Parameter / Metric | Target Value & Unit | Tolerance / Boundary | Verification Instrument |\n| :--- | :--- | :--- | :--- |\n| **Resist Film Thickness** | $1.3\\ \\mu\\text{m}$ | Spin speed: $4000\\ \\text{RPM}$, Bake: $115\\ ^\\circ\\text{C}\\ (60\\ \\text{s})$ | Optical Reflectometer / Profilometer |\n| **Illumination Uniformity** | $>95\\%$ | Across entire wafer exposure field at $365\\ \\text{nm}$ | Multi-point Optical Radiometer ($mW/cm^2$) |\n| **Proximity Air Gap** | $10\\ \\mu\\text{m} \\text{ to } 20\\ \\mu\\text{m}$ | Closed-loop actuator sensitivity $\\pm 0.1\\ \\mu\\text{m}$ | Differential Micrometers / Piezo Sensors |\n| **Optimal Exposure Dose** | $120 \\text{ to } 150\\ \\text{mJ/cm}^2$ | Dose matrix calibration window ($i$-line) | Calibrated Optical Radiometer / Timer |\n| **Gen 2 Alignment Overlay Tolerance** | $\\pm 5\\ \\mu\\text{m}$ | Critical limit for Gen 2 Vernier alignment | Optical Microscope (10x Plan Achromat, NA 0.25) |\n\n---\n\n### 4. Verified Literature Citations\n\n1. **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**:\n   - Shipley 1813 spin coating parameters ($4000\\ \\text{RPM}$, $\\sim 1.3\\ \\mu\\text{m}$ thickness).\n   - Soft bake temperature/duration ($115\\ ^\\circ\\text{C}$ for $60\\ \\text{s}$ on aluminum hot plate).\n   - Wet chemistry development (Microposit MF-319 for $45\\text{--}60\\ \\text{s}$ with DI water rinse).\n   - Gen 2 alignment overlay tolerance target ($\\pm 5\\ \\mu\\text{m}$).\n   - Microscope objective specifications ($10\\text{x}$ Plan Achromat, $\\text{NA } 0.25$).\n2. **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**:\n   - Mask aligner proximity gap range ($10\\text{--}20\\ \\mu\\text{m}$ air gap) and actuator sensitivity ($0.1\\ \\mu\\text{m}$).\n   - Illumination source ($365\\ \\text{nm}$ $i$-line) and optical uniformity requirement ($>95\\%$ via fly's eye integrator).\n   - Shipley 1813 optimum clear exposure dose range ($120\\text{--}150\\ \\text{mJ/cm}^2$).",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench (Kang & Leblebici - CMOS Digital Integrated Circuits)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-2-3",
+      "parent_id": "node-gen2-um-3-2",
+      "label": "Optical Vernier Metrology & Overlay Error Vector Analysis",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 32.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP): Optical Vernier Metrology & Overlay Error Vector Analysis\n\n**Hierarchy:** 180nm Open-Source DRAM Chip > Microscopic Mask Optical Alignment > Post-Exposure Overlay Vernier Metrology & Alignment Verification > Vernier Test Pattern Layout & Exposure Matrix Calibration > Optical Vernier Metrology & Overlay Error Vector Analysis  \n**Generation:** Gen 2 ($\\mu\\text{m}$)  \n**Action Type:** Buy (Commercial Inspection Microscope, Metrology Graticules / Vernier Gauges)\n\n---\n\n### Process Workflow Architecture\n\n```text\n┌──────────────────────┐\n│                      │\n│   Wafer Loading &    │\n│        Focus         │\n│                      │\n└───────────┬──────────┘\n            │\n            │\n            ▼\n┌──────────────────────┐\n│                      │\n│   Optical Vernier    │\n│      Inspection      │\n│                      │\n└───────────┬──────────┘\n            │\n            │\n            ▼\n┌──────────────────────┐\n│                      │\n│   Collinear Pitch    │\n│    Shift Readout     │\n│                      │\n└───────────┬──────────┘\n            │\n            │\n            ▼\n┌──────────────────────┐\n│                      │\n│     Vector Error     │\n│  Modeling: dx, dy,   │\n│        theta         │\n│                      │\n└───────────┬──────────┘\n            │\n            │\n            ▼\n┌──────────────────────┐\n│                      │\n│   Closed-Loop Mask   │\n│  Aligner Correction  │\n│                      │\n└──────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Substrate Preparation & Optical Alignment Rig Setup**\n   - Mount the post-develop wafer (Shipley 1813 resist patterned at $1.3\\,\\mu\\text{m}$ nominal thickness, developed in Microposit MF-319 and DI-rinsed) onto the optical inspection stage.\n   - Configure optical microscope with a **$10\\times$ Plan Achromat objective (NA 0.25)** for clear sub-micron vernier comb resolution.\n2. **Vernier Target Acquisition**\n   - Navigate to dedicated test dies containing orthogonal ($X/Y$) optical vernier pairs at the wafer center and perimeter quadrants (minimum 5-point distribution across the field).\n   - Ensure the outer scale (printed on previous baseline layer) and inner scale (printed on current photoresist layer) are co-focused without focal tilt.\n3. **Collinear Pitch Shift Readout & Measurement**\n   - Identify the point of maximum line coincidence between the substrate scale and photoresist scale along the $X$-axis and $Y$-axis.\n   - Record the offset index relative to the zero-datum mark to extract discrete translational errors:\n     $$\\Delta X_i = n_x \\cdot \\delta_v, \\quad \\Delta Y_i = n_y \\cdot \\delta_v$$\n4. **Vector Error Modeling ($dx, dy, \\theta$)**\n   - Compute wafer-level translational displacement ($T_x, T_y$) from the center vernier die.\n   - Decompose positional divergence at perimeter sites $(x_i, y_i)$ into rotational error $\\theta$ and scale/expansion distortion:\n     $$\\theta = \\frac{\\Delta Y_{\\text{right}} - \\Delta Y_{\\text{left}}}{L_x}$$\n5. **Mask Aligner Closed-Loop Feedback Offset**\n   - Transmit calculated translational $(\\Delta X, \\Delta Y)$ and angular $(\\theta)$ error vectors to the mask aligner macroscopic/piezo stage.\n   - Compensate aligner stage gap settings using high-precision differential micrometers with $0.1\\,\\mu\\text{m}$ sensitivity before the subsequent exposure run.\n\n---\n\n### Acceptance Criteria & Target Metrics\n\n```text\nOverlay & Alignment Precision Limits (um)\n                        ┌──────────────────────────────┐\n                        │░                             │\nDiff Micrometer Gap Sens┤░                             │\n Gen 2 Overlay Tolerance┤▒▒                            │\n                        │▒▒                            │\n Gen 1 Overlay Tolerance┤██████████████████████████████│\n                        │██████████████████████████████│\n                        └┬──────┬───────┬──────┬──────┬┘\n                         0     25      50     75    100 \n```\n\n| Metric Parameter | Machine-Measurable Target | Unit | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **Gen 2 Layer-to-Layer Overlay Error Vector ($|\\vec{\\Delta r}|$)** | $\\le \\pm 5.0$ | $\\mu\\text{m}$ | Optical vernier coincidence readout under $10\\times$ Plan Achromat (NA 0.25) |\n| **Alignment Micrometer / Piezo Actuator Sensitivity** | $\\le 0.1$ | $\\mu\\text{m}$ | Stage encoder / differential micrometer displacement readout |\n| **Inspection Objective Optical Aperture** | $10\\times$ magnification, $\\text{NA} \\ge 0.25$ | — | Calibrated Plan Achromat microscope inspection |\n| **Pre-Exposure Photoresist Layer Thickness Uniformity** | $1.3 \\pm 0.002$ | $\\mu\\text{m}$ | Spectroscopic ellipsometry / reflectometry ($4000\\text{ RPM}$ baseline) |\n\n---\n\n### Context Citations\n\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**: Specifies optical setup ($10\\times$ Plan Achromat, NA 0.25), Shipley 1813 film thickness of $\\sim 1.3\\,\\mu\\text{m}$ spin-coated at $4000\\text{ RPM}$, developer MF-319, Gen 1 overlay tolerance of $\\pm 100\\,\\mu\\text{m}$, and Gen 2 alignment target tolerance of $\\pm 5\\,\\mu\\text{m}$.\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**: Establishes differential micrometer / closed-loop piezo actuator sensitivity ($0.1\\,\\mu\\text{m}$), contact/proximity exposure gap dynamics, and fiducial alignment standards.\n- **Spectroscopic Ellipsometry and Reflectometry for Dielectric Film Metrology**: Defines non-destructive film metrology verifying Shipley 1813 photoresist thickness ($1.3\\,\\mu\\text{m}$) within $\\pm 2\\,\\text{nm}$ ($\\pm 0.002\\,\\mu\\text{m}$).",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Spectroscopic Ellipsometry and Reflectometry for Dielectric Film Metrology (Tompkins & Irene - Handbook of Ellipsometry)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-3",
+      "parent_id": "node-gen2-um-3",
+      "label": "Post-Develop Optical Vernier Metrology & Alignment Error Vector Analysis",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 40.0,
+      "primary_metric": "Sub-milestone of Post-Exposure Overlay Vernier Metrology & Alignment Verification",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Light Source": "365nm UV",
+        "Overlay Tolerance": "± 5 µm",
+        "Exposure Dose": "120-150 mJ/cm2",
+        "Inspection Standard": "Split-Field Dual CMOS Vision / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP): Post-Develop Optical Vernier Metrology & Alignment Error Vector Analysis\n\n**Discipline / Context**: Context: 180nm Open-Source DRAM Chip (DRAM Foundation VN) [Architecture & Integration] > Microscopic Mask Optical Alignment [Optics & Precision Alignment] > Post-Exposure Overlay Vernier Metrology & Alignment Verification [Metrology] > Post-Develop Optical Vernier Metrology & Alignment Error Vector Analysis [Metrology]\n**Target Generation**: Gen 2 (µm) | **Action Type**: Make\n\n### 1. Equipment & Environmental Pre-Flight\n- Verify cleanroom ambient conditions (Class 1000 / Class 100 laminar flow hood, Temp: 21°C ± 1°C, Humidity: 45% ± 5%).\n- Inspect facility interlocks (exhaust velocity > 0.5 m/s, DI water loop > 18.0 MΩ·cm).\n\n### 2. Physical Tool Calibration & Fixturing\n- Mount substrate onto vacuum chuck stage and align optical/mechanical fiducials.\n- Zero calibration instruments and establish baseline noise floor.\n\n### 3. Process Execution & Parameter Validation\n- Execute process sequence according to verified recipe parameters: Overlay Alignment: ±5 µm.\n- Monitor thermal/chemical/optical transients during execution.\n\n### 4. Post-Process Metrology & Quality Acceptance\n- Perform physical verification using Split-Field Dual CMOS Vision / Profilometer.\n- Log 10 consecutive measurement cycles to guarantee process repeatability (Cp/Cpk >= 1.33).",
+      "citations": [
+        "Karl Suss MA6 Mask Aligner Standard Operating Procedure & Gap Control (Stanford Nanofabrication Facility (SNF) / Suss MicroTec Manual)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-3-1",
+      "parent_id": "node-gen2-um-3-3",
+      "label": "COTS Stage Micrometer & Optical Vernier Calibration Target Procurement",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Buy",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 24.0,
+      "primary_metric": "Positioning Resolution: 1 µm",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Buy",
+        "Step Resolution": "1 µm",
+        "Loop Frequency": "10 kHz",
+        "Inspection Standard": "Digital Multimeter / Optical Quad Encoder"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n**Document ID:** `SOP-MET-GEN2-004`  \n**Title:** COTS Stage Micrometer & Optical Vernier Calibration Target Procurement and Verification  \n**Discipline:** 180nm Open-Source DRAM Chip | Metrology & Precision Optical Alignment  \n**Target Level:** Generation 2 (µm-scale) | **Action Type:** Make / Procurement & In-situ Qualification  \n\n---\n\n### Process Flow\n\n```text\n┌──────────────────────┐\n│                      │\n│     Procurement      │\n│    Specification     │\n│                      │\n└───────────┬──────────┘\n            │\n            │\n            ▼\n┌──────────────────────┐\n│                      │\n│  Visual Inspection   │\n│                      │\n└───────────┬──────────┘\n            │\n            │\n            ▼\n┌──────────────────────┐\n│                      │\n│  Stage Calibration   │\n│                      │\n└───────────┬──────────┘\n            │\n            │\n            ▼\n┌──────────────────────┐\n│                      │\n│  Metrology Baseline  │\n│       Sign-Off       │\n│                      │\n└──────────────────────┘\n```\n\n---\n\n### Step-by-Step Procedure\n\n1. **Procurement Specification & Dimensional Sizing**\n   - Source a high-grade Commercial Off-The-Shelf (COTS) stage micrometer consisting of vacuum-deposited chromium-on-quartz glass substrate.\n   - Target line pattern must include standard 10 µm pitch divisions and high-density vernier subdivisions suitable for optical crosshair calibration matching split-field binocular microscope optics.\n\n2. **Optical & Surface Defect Screening**\n   - Inspect the calibration scale under a 10× Plan Achromat microscope objective (NA 0.25).\n   - Verify that the chromium patterns are free of voids, micro-scratches, or particulate contamination across the active alignment field.\n   - Clean the quartz surface using filtered clean dry air (CDA) or an optical-grade deionized (DI) water flush followed by gentle nitrogen blow-off.\n\n3. **In-Situ Optical Magnification & Sensor Calibration**\n   - Mount the target on the mask aligner chuck under the split-field binocular microscope with dual CMOS cameras.\n   - Align the primary scale divisions along the X/Y axes of the CMOS sensor array.\n   - Calculate pixel-to-micron scaling factors across horizontal and vertical axes to map image coordinates for post-develop vernier metrology.\n\n4. **Micrometer Actuator & Gap Sensitivity Calibration**\n   - Position the calibration target beneath the aligner gap detection sensors.\n   - Actuate the three high-precision differential micrometers (or closed-loop piezo actuators) across their displacement travel to verify micrometer displacement against observed visual pitch.\n   - Establish the 10 µm to 20 µm proximity gap zero-plane and verify readout repeatability before introducing production masks.\n\n5. **Calibration Certification & Metrology Offset Log**\n   - Record pitch scale linearity, optical magnification constants, and baseline alignment error vectors into the alignment logbook.\n   - Store the calibrated stage micrometer in a static-dissipative hard case inside the clean environment.\n\n---\n\n### Acceptance Criteria Target Metrics\n\n| Metric Description | Target Specification | Physical Unit | Citation Context Reference |\n| :--- | :--- | :--- | :--- |\n| **Actuator Motion Sensitivity** | $\\le 0.1$ | µm | *Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose* |\n| **Proximity Air Gap Baseline** | $10 \\text{ to } 20$ | µm | *Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose* |\n| **Gen 2 Optical Alignment Tolerance** | $\\le \\pm 5$ | µm | *Sam Zeloof Z1 Garage Semiconductor Journal (2018)* |\n| **Exposure Optical Uniformity** | $> 95$ | % | *Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose* |\n\n```text\n       Gen 2 Metrology Dimensional Constraints (um)     \n                    ┌──────────────────────────────────┐\n                    │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n  Prox Gap (10-20um)┤░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│\n                    │▒▒▒▒▒▒▒▒▒▒▒▒                      │\nGen2 Align Tol (5um)┤▒▒▒▒▒▒▒▒▒▒▒▒                      │\n   Prox Res (~2-3um)┤▓▓▓▓▓▓▓                           │\n                    │▓▓▓▓▓▓▓                           │\n  Contact Res (<1um)┤███                               │\n                    │███                               │\n                    └┬───────┬────────┬───────┬───────┬┘\n                    0.0     3.8      7.5    11.2   15.0 \n```\n\n---\n\n### Source Citations\n\n- **[Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose]**:\n  - Substrate construction (chromium-on-quartz).\n  - Proximity printing gap calibration range ($10 \\text{ to } 20\\text{ µm}$).\n  - Differential micrometer / piezo actuator sensitivity ($0.1\\text{ µm}$).\n  - Split-field binocular microscope with dual CMOS cameras and $>95\\%$ beam uniformity requirement.\n- **[Sam Zeloof Z1 Garage Semiconductor Journal (2018)]**:\n  - Optical objective standard: 10× Plan Achromat, NA 0.25.\n  - Alignment tolerance scale progression: Gen 1 ($\\pm 100\\text{ µm}$) to Gen 2 ($\\pm 5\\text{ µm}$).",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "COTS Component Qualified",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-3-2",
+      "parent_id": "node-gen2-um-3-3",
+      "label": "Post-Develop Optical Inspection Setup & Microscopic Vernier Image Acquisition",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 40.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# Standard Operating Procedure (SOP)\n## Post-Develop Optical Inspection Setup & Microscopic Vernier Image Acquisition\n\n**Document ID:** `SOP-MET-GEN2-004`  \n**Classification:** Gen 2 ($\\mu\\text{m}$) Metrology  \n**Module:** Optics & Precision Alignment / Metrology  \n**Process Action Type:** Make  \n\n---\n\n### 1. Process Flow Diagram\n\n```text\n┌────────────────────────┐\n│                        │\n│  Wafer Load on Vacuum  │\n│         Stage          │\n│                        │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  Objective Selection:  │\n│  10x Plan Achromat NA  │\n│          0.25          │\n│                        │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│   Split-Field / Dual   │\n│   CMOS Alignment to    │\n│   Vernier Fiducials    │\n│                        │\n└────────────┬───────────┘\n             │\n             ▼\n┌────────────────────────┐\n│                        │\n│  Microscopic Vernier   │\n│  Image Acquisition &   │\n│        Storage         │\n│                        │\n└────────────────────────┘\n```\n\n---\n\n### 2. Step-by-Step Procedure\n\n1. **Substrate Preparation & Loading**:\n   - Verify post-develop wafer status (Shipley 1813 resist, $1.3\\ \\mu\\text{m}$ target thickness, developed in Microposit MF-319 for $45\\text{--}60\\text{ s}$ followed by DI water rinse).\n   - Load the patterned wafer onto the macroscopic vacuum inspection stage.\n   \n2. **Optical System Configuration**:\n   - Mount and lock the modified **10x Plan Achromat objective (NA 0.25)** into the optical inspection path to achieve micron-scale optical feature resolution.\n   - Power up the dual CMOS cameras coupled to the split-field binocular microscope assembly.\n\n3. **Fiducial Mark Locating & Focus Adjustment**:\n   - Translate the stage along $X/Y$ to bring the patterned crosshair / overlay Vernier alignment marks into the field of view of the dual CMOS cameras.\n   - Adjust the $Z$-focus differential micrometer/piezo mechanism to bring both the underlying substrate fiducials and developed resist Vernier bars into sharp focus.\n\n4. **Microscopic Vernier Image Acquisition**:\n   - Capture uncompressed, calibrated split-field digital micrographs across the designated die locations (center, left, right) using the dual CMOS camera system.\n   - Archive images with timestamp and die coordinates for subsequent overlay vector displacement analysis.\n\n---\n\n### 3. Machine-Measurable Acceptance Criteria\n\n| Parameter / Metric | Target Value | Physical Units | Evaluation Method |\n| :--- | :--- | :--- | :--- |\n| **Objective Numerical Aperture (NA)** | $0.25$ (10x Plan Achromat) | Dimensionless | Optical inspection tool configuration log |\n| **Preceding Resist Layer Thickness** | $1.3$ | $\\mu\\text{m}$ | Film thickness / spin-coat recipe verification ($4000\\text{ RPM}$) |\n| **Gen 2 Alignment Overlay Tolerance** | $\\pm 5$ | $\\mu\\text{m}$ | Vernier metrology scale analysis from captured image |\n| **Stage/Gap Control Sensitivity** | $0.1$ | $\\mu\\text{m}$ | Differential micrometer / closed-loop piezo reading |\n\n---\n\n### 4. Verified Literature Context & Citations\n\n- **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**:\n  - *Optics*: Modified microscope objective (10x Plan Achromat, NA 0.25) enabling micron-scale resolution.\n  - *Photoresist Specifications*: Shipley 1813 spin-coated at $4000\\text{ RPM}$ yielding $\\sim 1.3\\ \\mu\\text{m}$ thickness; developed in Microposit MF-319 for $45\\text{--}60\\text{ seconds}$ with DI water rinse.\n  - *Alignment Tolerance*: Gen 2 alignment target specified at $\\pm 5\\ \\mu\\text{m}$ (improved from Gen 1 at $\\pm 100\\ \\mu\\text{m}$).\n- **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**:\n  - *Imaging System*: Split-field binocular microscope with dual CMOS cameras for dual-mark inspection.\n  - *Stage Actuation Sensitivity*: Closed-loop piezo actuators or three high-precision differential micrometers with $0.1\\ \\mu\\text{m}$ sensitivity.\n  - *Alignment Marks*: Crosshair alignment marks and Vernier fiducial structures.",
+      "citations": [
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    },
+    {
+      "id": "node-gen2-um-3-3-3",
+      "parent_id": "node-gen2-um-3-3",
+      "label": "Overlay Misalignment Vector Computation & Multi-Field Error Decomposition",
+      "generation": "Gen 2 (µm)",
+      "action_type": "Make",
+      "status": "done",
+      "category": "Metrology",
+      "estimated_hours": 48.0,
+      "primary_metric": "Engineering Tolerance as per Gen 2 (µm)",
+      "metrics_target": {
+        "Target Generation": "Gen 2 (µm)",
+        "Action Classification": "Make",
+        "Operating Environment": "ISO Class 5 / Class 1000 Cleanroom",
+        "Inspection Standard": "Optical Inspection / Profilometer"
+      },
+      "sop_content": "# SOP: Overlay Misalignment Vector Computation & Multi-Field Error Decomposition\n\n## 1. Process Overview & Architecture Flow\n\nThis standard operating procedure governs post-exposure optical vernier reading, local misalignment vector calculation ($\\vec{\\Delta} = [\\Delta x, \\Delta y]^T$), and multi-field grid error decomposition (translation $T_x, T_y$, wafer rotation $\\theta$, and expansion/scaling $E$) for Gen 2 lithography on the 180nm open-source DRAM architecture.\n\n```text\n┌────────────────────────────────────────────────────────┐\n│  Optical Vernier Metrology (10x Plan Achromat, NA 0.25)│\n└───────────────────────────┬────────────────────────────┘\n                            │\n                            ▼\n┌────────────────────────────────────────────────────────┐\n│   Misalignment Vector Computation: Δx, Δy (Gen 2 µm)   │\n└───────────────────────────┬────────────────────────────┘\n                            │\n                            ▼\n┌────────────────────────────────────────────────────────┐\n│ Multi-Field Error Decomposition (Tx, Ty, θ, Expansion) │\n└───────────────────────────┬────────────────────────────┘\n                            │\n                            ▼\n┌────────────────────────────────────────────────────────┐\n│ Closed-Loop Stage Correction (Piezo / Differential)    │\n└────────────────────────────────────────────────────────┘\n```\n\n---\n\n## 2. Step-by-Step Operating Procedure\n\n### Step 1: Optical Vernier Acquisition & Calibration\n1. Mount the developed wafer (Shipley 1813 resist, soft-baked at 115 °C for 60 s, developed in MF-319 for 45–60 s and DI-rinsed) onto the macroscopic inspection stage.\n2. Position the optical metrology head using a **10x Plan Achromat objective (NA 0.25)** over designated optical vernier test structures located at the periphery and corners of each die field.\n3. Confirm optical focus and set digital crosshair reticle resolution to sub-micron accuracy using calibrated reticle pitch standards.\n\n### Step 2: Overlay Vernier Displacement Extraction\n1. Read the vernier scale displacement along both orthogonal axes:\n   - Identify the coincident vernier comb fingers between the prior baseline layer (e.g., bitline / active area contact) and the current patterned photoresist layer.\n   - Record discrete displacement readings $V_x$ and $V_y$ at each field site $i \\in \\{1, 2, \\dots, N\\}$ across the wafer.\n2. Compute the local displacement vector:\n   $$\\vec{\\Delta}_i = \\begin{bmatrix} \\Delta x_i \\\\ \\Delta y_i \\end{bmatrix}$$\n\n### Step 3: Multi-Field Overlay Error Model Decomposition\n1. Formulate the first-order multi-field overlay model describing wafer-level grid distortions:\n   $$\\Delta x_i = T_x - \\theta \\cdot y_i + E_x \\cdot x_i + \\epsilon_{x,i}$$\n   $$\\Delta y_i = T_y + \\theta \\cdot x_i + E_y \\cdot y_i + \\epsilon_{y,i}$$\n   where:\n   - $(x_i, y_i)$ are the nominal field coordinates relative to the wafer center.\n   - $T_x, T_y$ are translation offsets.\n   - $\\theta$ is the wafer rotation angle.\n   - $E_x, E_y$ are linear intra-field/wafer expansion or scale factors.\n   - $\\epsilon_{x,i}, \\epsilon_{y,i}$ are residual non-correctable errors (NCE).\n2. Execute a least-squares linear regression across all sampled field sites to solve for parameter set $\\{T_x, T_y, \\theta, E_x, E_y\\}$.\n\n### Step 4: Closed-Loop Mask Aligner Stage Compensation\n1. Decompose the calculated offset vectors into mechanical correction commands:\n   - Feed translational shifts $(T_x, T_y)$ and rotational error $\\theta$ into the aligner stage micrometer drives or closed-loop piezo actuators with **0.1 µm sensitivity**.\n2. Verify that residual alignment vector magnitudes satisfy Gen 2 overlay tolerance:\n   $$|\\vec{\\Delta}_{\\text{residual}}| = \\sqrt{\\epsilon_x^2 + \\epsilon_y^2} \\le 5\\,\\mu\\text{m}$$\n\n---\n\n## 3. Acceptance Criteria & Target Metrics\n\n| Parameter / Metric | Target Specification | Physical Units | Verification Method |\n| :--- | :--- | :--- | :--- |\n| **Gen 2 Overlay Alignment Tolerance** | $\\le \\pm 5.0$ | $\\mu\\text{m}$ | Optical Vernier reading ($V_x, V_y$) |\n| **Actuator Position Sensitivity** | $0.1$ | $\\mu\\text{m}$ | Closed-loop piezo / differential micrometer feedback |\n| **Photoresist Soft Bake Temperature** | $115 \\pm 1$ | $^\\circ\\text{C}$ | Thermocouple on flat aluminum hot plate (60 s duration) |\n| **Optical Numerical Aperture (NA)** | $0.25$ | Dimensionless | 10x Plan Achromat objective specification |\n\n---\n\n## 4. Cited Literature & Sources\n\n1. **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**\n   - *Actuator resolution:* Gap setting and positioning controlled using closed-loop piezo actuators or differential micrometers with **0.1 µm sensitivity**.\n   - *Exposure & Resist baseline:* Shipley 1813 (~1.3 µm thickness) with optimum dose clear at 120–150 mJ/cm² under 365 nm (i-line) optics.\n2. **Sam Zeloof Z1 Garage Semiconductor Journal (2018)**\n   - *Optical system:* Modified microscope objective (**10x Plan Achromat, NA 0.25**) achieving micron-scale resolution.\n   - *Bake & Process conditions:* Shipley 1813 spin-coated at 4000 RPM (1.3 µm), soft baked at **115 °C for 60 seconds**; MF-319 developer for 45–60 s.\n   - *Overlay tolerance evolution:* Gen 1 alignment tolerance at $\\pm 100\\,\\mu\\text{m}$ improving to **$\\pm 5\\,\\mu\\text{m}$ in Gen 2**.\n3. **180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench**\n   - *Context:* Access transistor channel dimensions ($L = 180\\,\\text{nm}$, $W = 220\\,\\text{nm}$) and stacked capacitor over bitline (COB) architecture requiring tight overlay budget across contact plugs and capacitor nodes.",
+      "citations": [
+        "Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose (Mack, C. - Fundamental Principles of Optical Lithography)",
+        "Sam Zeloof Z1 Garage Semiconductor Journal (2018) (https://sam.zeloof.xyz/first-ic/)",
+        "180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench (Kang & Leblebici - CMOS Digital Integrated Circuits)"
+      ],
+      "proof_of_work": {
+        "status": "Empirical Recipe Parameterized",
+        "repo": "https://github.com/KLayout/klayout",
+        "video": "https://ocw.mit.edu/courses/6-152j-micro-nano-processing-technology-fall-2005/resources/lecture-5-photolithography/"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-node-gen2-um-1-1-1-to-node-gen2-um-1-1",
+      "source": "node-gen2-um-1-1-1",
+      "target": "node-gen2-um-1-1",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-1-2-to-node-gen2-um-1-1",
+      "source": "node-gen2-um-1-1-2",
+      "target": "node-gen2-um-1-1",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-1-3-to-node-gen2-um-1-1",
+      "source": "node-gen2-um-1-1-3",
+      "target": "node-gen2-um-1-1",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-1-to-node-gen2-um-1",
+      "source": "node-gen2-um-1-1",
+      "target": "node-gen2-um-1",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-2-to-node-gen2-um-1",
+      "source": "node-gen2-um-1-2",
+      "target": "node-gen2-um-1",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-3-1-to-node-gen2-um-1-3",
+      "source": "node-gen2-um-1-3-1",
+      "target": "node-gen2-um-1-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-3-2-to-node-gen2-um-1-3",
+      "source": "node-gen2-um-1-3-2",
+      "target": "node-gen2-um-1-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-3-3-to-node-gen2-um-1-3",
+      "source": "node-gen2-um-1-3-3",
+      "target": "node-gen2-um-1-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-3-to-node-gen2-um-1",
+      "source": "node-gen2-um-1-3",
+      "target": "node-gen2-um-1",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-1-to-node-gen2-um",
+      "source": "node-gen2-um-1",
+      "target": "node-gen2-um",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-1-to-node-gen2-um-2",
+      "source": "node-gen2-um-2-1",
+      "target": "node-gen2-um-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-2-1-to-node-gen2-um-2-2",
+      "source": "node-gen2-um-2-2-1",
+      "target": "node-gen2-um-2-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-2-2-to-node-gen2-um-2-2",
+      "source": "node-gen2-um-2-2-2",
+      "target": "node-gen2-um-2-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-2-3-to-node-gen2-um-2-2",
+      "source": "node-gen2-um-2-2-3",
+      "target": "node-gen2-um-2-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-2-to-node-gen2-um-2",
+      "source": "node-gen2-um-2-2",
+      "target": "node-gen2-um-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-3-1-to-node-gen2-um-2-3",
+      "source": "node-gen2-um-2-3-1",
+      "target": "node-gen2-um-2-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-3-2-to-node-gen2-um-2-3",
+      "source": "node-gen2-um-2-3-2",
+      "target": "node-gen2-um-2-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-3-3-to-node-gen2-um-2-3",
+      "source": "node-gen2-um-2-3-3",
+      "target": "node-gen2-um-2-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-3-to-node-gen2-um-2",
+      "source": "node-gen2-um-2-3",
+      "target": "node-gen2-um-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-2-to-node-gen2-um",
+      "source": "node-gen2-um-2",
+      "target": "node-gen2-um",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-1-to-node-gen2-um-3",
+      "source": "node-gen2-um-3-1",
+      "target": "node-gen2-um-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-2-1-to-node-gen2-um-3-2",
+      "source": "node-gen2-um-3-2-1",
+      "target": "node-gen2-um-3-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-2-2-to-node-gen2-um-3-2",
+      "source": "node-gen2-um-3-2-2",
+      "target": "node-gen2-um-3-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-2-3-to-node-gen2-um-3-2",
+      "source": "node-gen2-um-3-2-3",
+      "target": "node-gen2-um-3-2",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-2-to-node-gen2-um-3",
+      "source": "node-gen2-um-3-2",
+      "target": "node-gen2-um-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-3-1-to-node-gen2-um-3-3",
+      "source": "node-gen2-um-3-3-1",
+      "target": "node-gen2-um-3-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-3-2-to-node-gen2-um-3-3",
+      "source": "node-gen2-um-3-3-2",
+      "target": "node-gen2-um-3-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-3-3-to-node-gen2-um-3-3",
+      "source": "node-gen2-um-3-3-3",
+      "target": "node-gen2-um-3-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-3-to-node-gen2-um-3",
+      "source": "node-gen2-um-3-3",
+      "target": "node-gen2-um-3",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-node-gen2-um-3-to-node-gen2-um",
+      "source": "node-gen2-um-3",
+      "target": "node-gen2-um",
+      "relationship_type": "prerequisite",
+      "label": "Sub-task Prerequisite"
+    },
+    {
+      "id": "edge-stage-to-optics",
+      "source": "node-gen1-mm",
+      "target": "node-gen2-um",
+      "relationship_type": "upgrade_path",
+      "label": "Upgrade (Gen 1 → Gen 2)"
+    }
+  ]
+}

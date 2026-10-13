@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DRAMNode",
+  "description": "Standard schema for a Work Breakdown Structure (WBS) node in the DRAM Knowledge OS",
+  "type": "object",
+  "required": ["id", "label", "generation", "action_type", "status", "category"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the node (e.g. node-gen1-mm)"
+    },
+    "parent_id": {
+      "type": ["string", "null"],
+      "description": "ID of parent node in WBS hierarchy for context travel up (null for apex DRAM root)"
+    },
+    "label": {
+      "type": "string",
+      "description": "Descriptive title of the work package"
+    },
+    "generation": {
+      "type": "string",
+      "enum": ["Gen 1 (mm)", "Gen 2 (µm)", "Gen 3 (nm)"],
+      "description": "Technology Readiness Level generation"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": ["Make", "Buy", "Partner"],
+      "description": "Make or Buy classification"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "done", "red_flag"],
+      "description": "Current lifecycle status"
+    },
+    "category": {
+      "type": "string",
+      "description": "Subsystem category (Mechanics, Optics, Chemistry, Electronics)"
+    },
+    "estimated_hours": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Estimated effort (8-80 hour rule)"
+    },
+    "primary_metric": {
+      "type": "string",
+      "description": "Headline quantitative metric for quick UI preview"
+    },
+    "metrics_target": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Machine-measurable acceptance criteria targets"
+    },
+    "sop_content": {
+      "type": "string",
+      "description": "Detailed standard operating procedure (Markdown formatted)"
+    },
+    "citations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Verified literature citations from crawled VectorDB"
+    },
+    "proof_of_work": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string" },
+        "repo": { "type": "string" },
+        "video": { "type": "string" }
+      },
+      "description": "Physical Bits-to-Atoms validation evidence"
+    }
+  }
+}

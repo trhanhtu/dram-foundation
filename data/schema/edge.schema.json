@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DRAMEdge",
+  "description": "Standard schema for a relationship edge between WBS nodes in the DRAM Knowledge OS",
+  "type": "object",
+  "required": ["id", "source", "target", "relationship_type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the edge"
+    },
+    "source": {
+      "type": "string",
+      "description": "ID of the source node"
+    },
+    "target": {
+      "type": "string",
+      "description": "ID of the target node"
+    },
+    "relationship_type": {
+      "type": "string",
+      "enum": ["prerequisite", "feedback_loop", "upgrade_path"],
+      "description": "Relationship semantics"
+    },
+    "label": {
+      "type": "string",
+      "description": "Display label on the edge"
+    }
+  }
+}
