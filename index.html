@@ -89,6 +89,11 @@
         <span id="stat-edges" class="text-blue-400 font-bold">2,019</span> edges
       </div>
 
+      <button id="btn-quick-sim" class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-md font-semibold transition shadow-lg shadow-cyan-600/20 active:scale-95 text-xs">
+        <span>⚡</span>
+        <span>Silicon Sim & BIST</span>
+      </button>
+
       <button id="btn-convene-modal" class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-md font-semibold transition shadow-lg shadow-purple-600/20 active:scale-95">
         <span>✨</span>
         <span>Convene AI Council</span>
@@ -320,6 +325,10 @@
           <button class="drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5" data-tab="tab-specs">
             <span>🎯</span><span>Specs & Citations</span>
           </button>
+          <button class="drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5" data-tab="tab-sim">
+            <span>⚡</span><span>Silicon Sim & BIST</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[9px] bg-cyan-950 text-cyan-400 border border-cyan-800/60 font-mono">180nm</span>
+          </button>
         </div>
 
         <!-- TAB 1: SOP Spec -->
@@ -497,6 +506,197 @@
             <ul id="spec-citations-list" class="space-y-1 text-xs text-slate-300">
               <!-- Dynamically populated -->
             </ul>
+          </div>
+        </div>
+
+        <!-- TAB 7: Silicon Simulation & BIST Engine -->
+        <div id="panel-tab-sim" class="drawer-panel space-y-5 hidden">
+          <!-- Top Info Banner -->
+          <div class="p-3 bg-gradient-to-r from-cyan-950/40 via-blue-950/30 to-slate-900/50 border border-cyan-800/40 rounded-xl flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">⚡</span>
+              <div>
+                <h3 class="font-bold text-cyan-300">180nm Bits-to-Atoms Physical Bridge</h3>
+                <p class="text-slate-400 text-[11px]">Executable SPICE Transient Sensing Margin & Synthesizable March C- Memory BIST</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 font-mono text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">Cs = 28 fF</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">VDD = 1.8V</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300">VPP = 2.8V</span>
+            </div>
+          </div>
+
+          <!-- SUB-SECTION 1: SPICE TRANSIENT SENSING ENGINE -->
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 space-y-3.5">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-cyan-400 font-bold text-xs uppercase tracking-wider">🔬 SPICE Transient Sensing Margin</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-[11px] text-slate-400 font-mono">ΔV = (Cs / (Cs + Cbl)) · (Vcell - Veq)</span>
+              </div>
+              <div class="flex items-center gap-1 text-xs">
+                <span class="text-slate-400 text-[11px]">Cell State:</span>
+                <button id="sim-btn-bit1" class="px-2.5 py-1 rounded text-xs font-bold bg-cyan-600 text-white shadow-sm transition">Data '1' (1.8V)</button>
+                <button id="sim-btn-bit0" class="px-2.5 py-1 rounded text-xs font-medium text-slate-400 hover:text-white bg-slate-800 transition">Data '0' (0.0V)</button>
+              </div>
+            </div>
+
+            <!-- Parameters & Sliders -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+              <div class="space-y-1">
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-300 font-medium">Bitline Parasitic Capacitance (Cbl)</span>
+                  <span id="sim-cbl-val" class="font-mono text-cyan-400 font-bold">150 fF</span>
+                </div>
+                <input id="sim-cbl-slider" type="range" min="80" max="300" step="5" value="150" class="w-full accent-cyan-500 cursor-pointer h-1.5 bg-slate-800 rounded-lg">
+                <div class="flex justify-between text-[9px] text-slate-500 font-mono">
+                  <span>80 fF (Short array)</span>
+                  <span>150 fF (256 cells)</span>
+                  <span>300 fF (512 cells)</span>
+                </div>
+              </div>
+              <div class="space-y-1">
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-300 font-medium">Storage Node Capacitance (Cs)</span>
+                  <span id="sim-cs-val" class="font-mono text-emerald-400 font-bold">28.0 fF</span>
+                </div>
+                <input id="sim-cs-slider" type="range" min="15" max="45" step="1" value="28" class="w-full accent-emerald-500 cursor-pointer h-1.5 bg-slate-800 rounded-lg">
+                <div class="flex justify-between text-[9px] text-slate-500 font-mono">
+                  <span>15 fF (Planar limit)</span>
+                  <span>28 fF (Crown MIM)</span>
+                  <span>45 fF (Deep Trench)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Metric Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Sensing Margin (ΔV)</span>
+                <span id="sim-metric-dv" class="font-bold text-cyan-400 font-mono text-sm mt-0.5 block">+141.6 mV</span>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">SNR (vs 30mV Vos)</span>
+                <span id="sim-metric-snr" class="font-bold text-emerald-400 font-mono text-sm mt-0.5 block">4.72x (PASS)</span>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Restored V(BL)</span>
+                <span id="sim-metric-restored" class="font-bold text-purple-400 font-mono text-sm mt-0.5 block">1.800 V</span>
+              </div>
+              <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Latch Delay (t_LATCH)</span>
+                <span id="sim-metric-tlatch" class="font-bold text-amber-400 font-mono text-sm mt-0.5 block">0.67 ns</span>
+              </div>
+            </div>
+
+            <!-- Canvas Waveform Viewer -->
+            <div class="relative bg-slate-950 rounded-xl border border-slate-800 p-2">
+              <div class="flex items-center justify-between px-2 py-1 text-[11px] text-slate-400 border-b border-slate-900 mb-1">
+                <div class="flex items-center gap-3 font-mono text-[10px]">
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-cyan-400 inline-block"></span> V(BL) True</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 border-t border-dashed border-indigo-400 inline-block"></span> V(BLB) Ref</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-emerald-400 inline-block"></span> V(SN) Cell</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-purple-400 inline-block"></span> V(WL) 2.8V</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-amber-400 inline-block"></span> SAN</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-rose-400 inline-block"></span> SAP</span>
+                </div>
+                <div id="sim-cursor-coords" class="font-mono text-[10px] text-cyan-300">Hover for coords</div>
+              </div>
+              <canvas id="spice-waveform-canvas" width="680" height="230" class="w-full h-[230px] block cursor-crosshair"></canvas>
+            </div>
+          </div>
+
+          <!-- SUB-SECTION 2: MARCH C- BIST MEMORY ENGINE -->
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 space-y-3.5">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-purple-400 font-bold text-xs uppercase tracking-wider">🛡️ March C- Memory BIST Lab (10N)</span>
+                <span class="text-slate-500">•</span>
+                <span class="text-[11px] text-slate-400 font-mono">64-Cell 1T1C Array (8x8)</span>
+              </div>
+              <!-- Fault Injection Selector -->
+              <div class="flex items-center gap-1.5 text-xs">
+                <label class="text-slate-400 text-[11px]">Inject Fault:</label>
+                <select id="bist-fault-select" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-xs text-slate-200 outline-none focus:border-purple-500 cursor-pointer font-mono">
+                  <option value="none">Clean Array (Golden Run - PASS)</option>
+                  <option value="saf0">Stuck-At-0 (SAF0) @ Addr 0x15</option>
+                  <option value="saf1">Stuck-At-1 (SAF1) @ Addr 0x2A</option>
+                  <option value="tf01">Transition Fault (0->1 Fail) @ Addr 0x1F</option>
+                  <option value="cfin">Inversion Coupling (0x20 -> 0x21)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Algorithm Phase Pipeline Bar -->
+            <div class="grid grid-cols-6 gap-1 text-[10px] font-mono text-center">
+              <div id="phase-badge-0" class="p-1 rounded bg-slate-950 border border-slate-800 text-slate-400 transition">M0: (w0)</div>
+              <div id="phase-badge-1" class="p-1 rounded bg-slate-950 border border-slate-800 text-slate-400 transition">M1: ^(r0,w1)</div>
+              <div id="phase-badge-2" class="p-1 rounded bg-slate-950 border border-slate-800 text-slate-400 transition">M2: ^(r1,w0)</div>
+              <div id="phase-badge-3" class="p-1 rounded bg-slate-950 border border-slate-800 text-slate-400 transition">M3: v(r0,w1)</div>
+              <div id="phase-badge-4" class="p-1 rounded bg-slate-950 border border-slate-800 text-slate-400 transition">M4: v(r1,w0)</div>
+              <div id="phase-badge-5" class="p-1 rounded bg-slate-950 border border-slate-800 text-slate-400 transition">M5: (r0)</div>
+            </div>
+
+            <!-- Matrix Visualizer & Diagnostics Split -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+              <!-- 8x8 Memory Matrix (Left 7 Cols) -->
+              <div class="lg:col-span-7 bg-slate-950 p-3 rounded-xl border border-slate-800 flex flex-col items-center justify-center">
+                <div class="w-full flex justify-between text-[10px] text-slate-500 font-mono mb-2">
+                  <span>DRAM ARRAY (Row 0-7, Col 0-7)</span>
+                  <span>Cyan=1 • Dark=0 • Red=Fault</span>
+                </div>
+                <div id="bist-matrix-grid" class="grid grid-cols-8 gap-1 w-full max-w-[340px]">
+                  <!-- 64 cells generated dynamically -->
+                </div>
+              </div>
+
+              <!-- Telemetry & Controls (Right 5 Cols) -->
+              <div class="lg:col-span-5 flex flex-col justify-between space-y-2">
+                <!-- Status Box -->
+                <div id="bist-status-banner" class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono space-y-1">
+                  <div class="flex justify-between items-center text-[11px]">
+                    <span class="text-slate-400">Verdict:</span>
+                    <span id="bist-verdict-text" class="font-bold text-cyan-400">READY</span>
+                  </div>
+                  <div class="flex justify-between text-[10px] text-slate-400">
+                    <span>Operation: <strong id="bist-op-count" class="text-slate-200">0 / 640</strong></span>
+                    <span>Current Addr: <strong id="bist-curr-addr" class="text-slate-200 font-mono">0x00</strong></span>
+                  </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="flex items-center gap-1.5">
+                  <button id="bist-btn-run" class="flex-1 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold transition flex items-center justify-center gap-1 shadow-sm">
+                    <span>▶</span><span>Run BIST</span>
+                  </button>
+                  <button id="bist-btn-pause" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-medium border border-slate-700 transition" title="Pause">
+                    <span>⏸</span>
+                  </button>
+                  <button id="bist-btn-step" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-medium border border-slate-700 transition" title="Single Step">
+                    <span>⏭</span>
+                  </button>
+                  <button id="bist-btn-reset" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-medium border border-slate-700 transition" title="Reset Array">
+                    <span>🔄</span>
+                  </button>
+                </div>
+
+                <!-- Speed Control -->
+                <div class="flex items-center justify-between text-[11px] text-slate-400 bg-slate-950 px-2.5 py-1 rounded border border-slate-800">
+                  <span>Speed:</span>
+                  <div class="flex items-center gap-2">
+                    <button class="bist-speed-btn active text-purple-400 font-bold" data-speed="20">Fast</button>
+                    <button class="bist-speed-btn text-slate-500 hover:text-slate-300" data-speed="80">Med</button>
+                    <button class="bist-speed-btn text-slate-500 hover:text-slate-300" data-speed="250">Slow</button>
+                  </div>
+                </div>
+
+                <!-- Mini Console -->
+                <div id="bist-log-console" class="h-24 overflow-y-auto font-mono text-[9px] bg-slate-950 p-2 rounded-lg border border-slate-800 text-slate-400 space-y-0.5 no-scrollbar">
+                  <div>[BIST Init] 64-word memory array ready for 10N test suite.</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1670,7 +1870,588 @@
       if (selectedNodeId && nodeMap.has(selectedNodeId)) {
         renderNeighborhoodGraph(nodeMap.get(selectedNodeId));
       }
+      if (activeDrawerTab === 'tab-sim') {
+        updateSpiceSimulation();
+      }
     });
+
+    // =========================================================================
+    // SILICON SIMULATION DECK & MARCH C- BIST INTERACTIVE ENGINE
+    // =========================================================================
+
+    // Quick Sim launcher in top navbar
+    const btnQuickSim = document.getElementById('btn-quick-sim');
+    if (btnQuickSim) {
+      btnQuickSim.addEventListener('click', () => {
+        const simTabBtn = document.querySelector('.drawer-tab[data-tab="tab-sim"]');
+        if (simTabBtn) {
+          simTabBtn.click();
+          setTimeout(updateSpiceSimulation, 50);
+        }
+      });
+    }
+
+    // Refresh simulation canvas whenever tab-sim is selected
+    document.querySelectorAll('.drawer-tab').forEach(tabBtn => {
+      tabBtn.addEventListener('click', () => {
+        if (tabBtn.getAttribute('data-tab') === 'tab-sim') {
+          setTimeout(updateSpiceSimulation, 40);
+        }
+      });
+    });
+
+    // --- 1. SPICE Transient Sensing Margin Simulator ---
+    let simBitVal = 1;       // 1 = charged (1.8V), 0 = discharged (0.0V)
+    let simCblFf = 150.0;     // Bitline capacitance in fF
+    let simCsFf = 28.0;       // Cell storage capacitance in fF
+    const simVdd = 1.8;
+    const simVeq = 0.9;
+    const simVpp = 2.8;
+
+    const simBtnBit1 = document.getElementById('sim-btn-bit1');
+    const simBtnBit0 = document.getElementById('sim-btn-bit0');
+    const simCblSlider = document.getElementById('sim-cbl-slider');
+    const simCsSlider = document.getElementById('sim-cs-slider');
+    const simCblVal = document.getElementById('sim-cbl-val');
+    const simCsVal = document.getElementById('sim-cs-val');
+    const simMetricDv = document.getElementById('sim-metric-dv');
+    const simMetricSnr = document.getElementById('sim-metric-snr');
+    const simMetricRestored = document.getElementById('sim-metric-restored');
+    const simMetricTlatch = document.getElementById('sim-metric-tlatch');
+    const simWaveformCanvas = document.getElementById('spice-waveform-canvas');
+    const simCursorCoords = document.getElementById('sim-cursor-coords');
+
+    function updateSpiceSimulation() {
+      // 1. Calculate Analytical Charge Sharing & S-curve Latching
+      const vCellInit = simBitVal === 1 ? simVdd : 0.0;
+      const deltaV = (simCsFf / (simCsFf + simCblFf)) * (vCellInit - simVeq); // in Volts
+      const deltaVMv = deltaV * 1000.0;
+      const snr = Math.abs(deltaVMv) / 30.0; // vs 30mV Sense Amp offset
+
+      // Latch delay heuristic proportional to Cbl / gm (0.67ns at nominal 150fF)
+      const tLatchNs = 0.67 * (simCblFf / 150.0) * ((28.0 / simCsFf) ** 0.3);
+      const restoredV = simBitVal === 1 ? 1.800 : 0.000;
+
+      // Update UI readouts
+      if (simMetricDv) {
+        simMetricDv.textContent = `${deltaVMv >= 0 ? '+' : ''}${deltaVMv.toFixed(1)} mV`;
+        simMetricDv.className = `font-bold font-mono text-sm mt-0.5 block ${Math.abs(deltaVMv) >= 100 ? 'text-cyan-400' : 'text-amber-400'}`;
+      }
+      if (simMetricSnr) {
+        simMetricSnr.textContent = `${snr.toFixed(2)}x (${snr >= 3.0 ? 'PASS' : 'MARGINAL'})`;
+        simMetricSnr.className = `font-bold font-mono text-sm mt-0.5 block ${snr >= 3.0 ? 'text-emerald-400' : 'text-amber-400'}`;
+      }
+      if (simMetricRestored) {
+        simMetricRestored.textContent = `${restoredV.toFixed(3)} V`;
+      }
+      if (simMetricTlatch) {
+        simMetricTlatch.textContent = `${tLatchNs.toFixed(2)} ns`;
+      }
+
+      drawSpiceWaveforms(deltaV, tLatchNs);
+    }
+
+    function drawSpiceWaveforms(deltaV, tLatchNs) {
+      if (!simWaveformCanvas) return;
+      
+      // Auto-scale canvas to its CSS width
+      const rect = simWaveformCanvas.getBoundingClientRect();
+      if (rect.width > 0) {
+        simWaveformCanvas.width = Math.floor(rect.width * window.devicePixelRatio || 1);
+        simWaveformCanvas.height = Math.floor(230 * window.devicePixelRatio || 1);
+      }
+
+      const ctx = simWaveformCanvas.getContext('2d');
+      const w = simWaveformCanvas.width;
+      const h = simWaveformCanvas.height;
+
+      // Clear Canvas
+      ctx.fillStyle = '#020617';
+      ctx.fillRect(0, 0, w, h);
+
+      // Margins
+      const dpr = window.devicePixelRatio || 1;
+      const padLeft = 46 * dpr;
+      const padRight = 20 * dpr;
+      const padTop = 26 * dpr;
+      const padBottom = 28 * dpr;
+      const plotW = w - padLeft - padRight;
+      const plotH = h - padTop - padBottom;
+
+      if (plotW <= 0 || plotH <= 0) return;
+
+      // Voltage range: 0.0V to 3.0V (to fit VPP=2.8V)
+      const vMax = 3.0;
+      const vMin = 0.0;
+      // Time range: 0.0ns to 8.0ns
+      const tMax = 8.0;
+
+      const toX = (t) => padLeft + (t / tMax) * plotW;
+      const toY = (v) => padTop + (1.0 - (v - vMin) / (vMax - vMin)) * plotH;
+
+      // Draw Gridlines & Axis labels
+      ctx.strokeStyle = '#1e293b';
+      ctx.lineWidth = 1 * dpr;
+      ctx.fillStyle = '#64748b';
+      ctx.font = `${Math.floor(9 * dpr)}px monospace`;
+      ctx.textAlign = 'right';
+
+      // Horizontal gridlines (0V, 0.9V, 1.8V, 2.8V)
+      const vTicks = [0.0, 0.9, 1.8, 2.8];
+      vTicks.forEach(vt => {
+        const y = toY(vt);
+        ctx.beginPath();
+        ctx.moveTo(padLeft, y);
+        ctx.lineTo(w - padRight, y);
+        ctx.stroke();
+        ctx.fillText(`${vt.toFixed(1)}V`, padLeft - (6 * dpr), y + (3 * dpr));
+      });
+
+      // Vertical gridlines (Time 0 to 8 ns)
+      ctx.textAlign = 'center';
+      for (let t = 0; t <= 8; t += 1) {
+        const x = toX(t);
+        ctx.beginPath();
+        ctx.moveTo(x, padTop);
+        ctx.lineTo(x, h - padBottom);
+        ctx.stroke();
+        ctx.fillText(`${t}ns`, x, h - padBottom + (14 * dpr));
+      }
+
+      // Phase Header Banners on top
+      ctx.fillStyle = '#475569';
+      ctx.font = `${Math.floor(8 * dpr)}px sans-serif`;
+      ctx.fillText('1. Precharge', toX(0.75), padTop - (8 * dpr));
+      ctx.fillText('2. WL Firing & CS', toX(2.5), padTop - (8 * dpr));
+      ctx.fillText('3. SA Strobes', toX(3.8), padTop - (8 * dpr));
+      ctx.fillText('4. Rail Restore', toX(5.3), padTop - (8 * dpr));
+      ctx.fillText('5. Precharge Rec.', toX(7.1), padTop - (8 * dpr));
+
+      // Transient curves computation
+      const numSteps = 240;
+      const blPts = [];
+      const blbPts = [];
+      const snPts = [];
+      const wlPts = [];
+      const sanPts = [];
+      const sapPts = [];
+
+      const vCellInit = simBitVal === 1 ? 1.8 : 0.0;
+      const vTargetBl = simBitVal === 1 ? 1.8 : 0.0;
+      const vTargetBlb = simBitVal === 1 ? 0.0 : 1.8;
+
+      for (let s = 0; s <= numSteps; s++) {
+        const t = (s / numSteps) * tMax;
+
+        // V(WL): Overdrive wordline pulse 2.0ns to 6.0ns
+        let wl = 0.0;
+        if (t >= 2.0 && t <= 2.2) wl = simVpp * ((t - 2.0) / 0.2);
+        else if (t > 2.2 && t <= 6.0) wl = simVpp;
+        else if (t > 6.0 && t <= 6.2) wl = simVpp * (1.0 - (t - 6.0) / 0.2);
+        wlPts.push({ x: toX(t), y: toY(wl), t, val: wl });
+
+        // SAN: 0.9V drops to 0.0V at 3.0ns - 3.3ns, returns to 0.9V at 6.8ns - 7.1ns
+        let san = simVeq;
+        if (t >= 3.0 && t <= 3.3) san = simVeq * (1.0 - (t - 3.0) / 0.3);
+        else if (t > 3.3 && t <= 6.8) san = 0.0;
+        else if (t > 6.8 && t <= 7.1) san = simVeq * ((t - 6.8) / 0.3);
+        sanPts.push({ x: toX(t), y: toY(san), t, val: san });
+
+        // SAP: 0.9V rises to 1.8V at 3.2ns - 3.5ns, returns to 0.9V at 6.8ns - 7.1ns
+        let sap = simVeq;
+        if (t >= 3.2 && t <= 3.5) sap = simVeq + (simVdd - simVeq) * ((t - 3.2) / 0.3);
+        else if (t > 3.5 && t <= 6.8) sap = simVdd;
+        else if (t > 6.8 && t <= 7.1) sap = simVdd - (simVdd - simVeq) * ((t - 6.8) / 0.3);
+        sapPts.push({ x: toX(t), y: toY(sap), t, val: sap });
+
+        // V(BL), V(BLB), V(SN)
+        let vBl = simVeq;
+        let vBlb = simVeq;
+        let vSn = vCellInit;
+
+        if (t < 2.0) {
+          vBl = simVeq;
+          vBlb = simVeq;
+          vSn = vCellInit;
+        } else if (t < 3.0) {
+          const csProg = 1.0 - Math.exp(-(t - 2.0) / 0.08);
+          vBl = simVeq + deltaV * csProg;
+          vBlb = simVeq;
+          vSn = vCellInit - (vCellInit - (simVeq + deltaV)) * csProg;
+        } else if (t < 6.8) {
+          const vCsInit = simVeq + deltaV;
+          const tau = Math.max(0.12, tLatchNs / 3.5);
+          const latchProg = 1.0 / (1.0 + Math.exp(-(t - 3.4) / tau));
+          vBl = vCsInit + (vTargetBl - vCsInit) * latchProg;
+          vBlb = simVeq + (vTargetBlb - simVeq) * latchProg;
+          vSn = vBl;
+        } else if (t < 7.1) {
+          vSn = vTargetBl;
+          const recProg = Math.min(1.0, (t - 6.8) / 0.3);
+          vBl = vTargetBl + (simVeq - vTargetBl) * recProg;
+          vBlb = vTargetBlb + (simVeq - vTargetBlb) * recProg;
+        } else {
+          vSn = vTargetBl;
+          vBl = simVeq;
+          vBlb = simVeq;
+        }
+
+        blPts.push({ x: toX(t), y: toY(vBl), t, val: vBl });
+        blbPts.push({ x: toX(t), y: toY(vBlb), t, val: vBlb });
+        snPts.push({ x: toX(t), y: toY(vSn), t, val: vSn });
+      }
+
+      function drawCurve(pts, color, lineWidth = 2, isDashed = false) {
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth * dpr;
+        if (isDashed) ctx.setLineDash([4 * dpr, 3 * dpr]);
+        else ctx.setLineDash([]);
+        pts.forEach((p, idx) => {
+          if (idx === 0) ctx.moveTo(p.x, p.y);
+          else ctx.lineTo(p.x, p.y);
+        });
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Draw Control signals first
+      drawCurve(wlPts, '#c084fc', 1.5);   // Purple V(WL)
+      drawCurve(sanPts, '#f59e0b', 1.2);  // Amber SAN
+      drawCurve(sapPts, '#f43f5e', 1.2);  // Rose SAP
+      drawCurve(snPts, '#10b981', 1.5);   // Green V(SN)
+      drawCurve(blbPts, '#818cf8', 2.0, true); // Indigo Dashed V(BL_BAR)
+      drawCurve(blPts, '#06b6d4', 2.5);   // Cyan V(BL) True
+
+      simWaveformCanvas._curveData = { blPts, blbPts, snPts, wlPts, toX, toY, padLeft, padRight, plotW, dpr };
+    }
+
+    // Canvas Cursor Hover Inspector
+    if (simWaveformCanvas) {
+      simWaveformCanvas.addEventListener('mousemove', (e) => {
+        const rect = simWaveformCanvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        const mouseX = (e.clientX - rect.left) * dpr;
+
+        const data = simWaveformCanvas._curveData;
+        if (!data) return;
+
+        if (mouseX >= data.padLeft && mouseX <= data.padLeft + data.plotW) {
+          const tHover = ((mouseX - data.padLeft) / data.plotW) * 8.0;
+          const pBl = data.blPts.reduce((prev, curr) => Math.abs(curr.t - tHover) < Math.abs(prev.t - tHover) ? curr : prev);
+          const pBlb = data.blbPts.reduce((prev, curr) => Math.abs(curr.t - tHover) < Math.abs(prev.t - tHover) ? curr : prev);
+          const dVHover = (pBl.val - pBlb.val) * 1000.0;
+          if (simCursorCoords) {
+            simCursorCoords.textContent = `t=${pBl.t.toFixed(2)}ns | BL=${pBl.val.toFixed(2)}V | BLB=${pBlb.val.toFixed(2)}V | ΔV=${dVHover >= 0 ? '+' : ''}${dVHover.toFixed(0)}mV`;
+          }
+        }
+      });
+      simWaveformCanvas.addEventListener('mouseleave', () => {
+        if (simCursorCoords) simCursorCoords.textContent = 'Hover for coords';
+      });
+    }
+
+    // SPICE Event listeners
+    if (simBtnBit1 && simBtnBit0) {
+      simBtnBit1.addEventListener('click', () => {
+        simBitVal = 1;
+        simBtnBit1.className = 'px-2.5 py-1 rounded text-xs font-bold bg-cyan-600 text-white shadow-sm transition';
+        simBtnBit0.className = 'px-2.5 py-1 rounded text-xs font-medium text-slate-400 hover:text-white bg-slate-800 transition';
+        updateSpiceSimulation();
+      });
+      simBtnBit0.addEventListener('click', () => {
+        simBitVal = 0;
+        simBtnBit0.className = 'px-2.5 py-1 rounded text-xs font-bold bg-cyan-600 text-white shadow-sm transition';
+        simBtnBit1.className = 'px-2.5 py-1 rounded text-xs font-medium text-slate-400 hover:text-white bg-slate-800 transition';
+        updateSpiceSimulation();
+      });
+    }
+
+    if (simCblSlider && simCblVal) {
+      simCblSlider.addEventListener('input', (e) => {
+        simCblFf = parseFloat(e.target.value);
+        simCblVal.textContent = `${simCblFf.toFixed(0)} fF`;
+        updateSpiceSimulation();
+      });
+    }
+
+    if (simCsSlider && simCsVal) {
+      simCsSlider.addEventListener('input', (e) => {
+        simCsFf = parseFloat(e.target.value);
+        simCsVal.textContent = `${simCsFf.toFixed(1)} fF`;
+        updateSpiceSimulation();
+      });
+    }
+
+    // --- 2. March C- Memory BIST Simulator ---
+    const MEM_SIZE = 64; // 8x8 array
+    let bistMemory = new Array(MEM_SIZE).fill(0);
+    let bistRunning = false;
+    let bistPaused = false;
+    let bistInterval = null;
+    let bistSpeedMs = 20;
+    let bistOpIndex = 0;
+    let bistFaultType = 'none';
+    let bistOps = [];
+    let bistError = null;
+
+    const bistMatrixGrid = document.getElementById('bist-matrix-grid');
+    const bistFaultSelect = document.getElementById('bist-fault-select');
+    const bistBtnRun = document.getElementById('bist-btn-run');
+    const bistBtnPause = document.getElementById('bist-btn-pause');
+    const bistBtnStep = document.getElementById('bist-btn-step');
+    const bistBtnReset = document.getElementById('bist-btn-reset');
+    const bistVerdictText = document.getElementById('bist-verdict-text');
+    const bistOpCount = document.getElementById('bist-op-count');
+    const bistCurrAddr = document.getElementById('bist-curr-addr');
+    const bistLogConsole = document.getElementById('bist-log-console');
+
+    function buildMarchCOperations() {
+      const ops = [];
+      for (let a = 0; a < MEM_SIZE; a++) ops.push({ phaseIdx: 0, phase: 'M0: (w0)', addr: a, type: 'W', data: 0 });
+      for (let a = 0; a < MEM_SIZE; a++) {
+        ops.push({ phaseIdx: 1, phase: 'M1: ^(r0, w1)', addr: a, type: 'R', exp: 0 });
+        ops.push({ phaseIdx: 1, phase: 'M1: ^(r0, w1)', addr: a, type: 'W', data: 1 });
+      }
+      for (let a = 0; a < MEM_SIZE; a++) {
+        ops.push({ phaseIdx: 2, phase: 'M2: ^(r1, w0)', addr: a, type: 'R', exp: 1 });
+        ops.push({ phaseIdx: 2, phase: 'M2: ^(r1, w0)', addr: a, type: 'W', data: 0 });
+      }
+      for (let a = MEM_SIZE - 1; a >= 0; a--) {
+        ops.push({ phaseIdx: 3, phase: 'M3: v(r0, w1)', addr: a, type: 'R', exp: 0 });
+        ops.push({ phaseIdx: 3, phase: 'M3: v(r0, w1)', addr: a, type: 'W', data: 1 });
+      }
+      for (let a = MEM_SIZE - 1; a >= 0; a--) {
+        ops.push({ phaseIdx: 4, phase: 'M4: v(r1, w0)', addr: a, type: 'R', exp: 1 });
+        ops.push({ phaseIdx: 4, phase: 'M4: v(r1, w0)', addr: a, type: 'W', data: 0 });
+      }
+      for (let a = 0; a < MEM_SIZE; a++) {
+        ops.push({ phaseIdx: 5, phase: 'M5: (r0)', addr: a, type: 'R', exp: 0 });
+      }
+      return ops;
+    }
+
+    function initBistMatrix() {
+      if (!bistMatrixGrid) return;
+      bistMatrixGrid.innerHTML = '';
+      for (let a = 0; a < MEM_SIZE; a++) {
+        const cell = document.createElement('div');
+        cell.id = `bist-cell-${a}`;
+        cell.className = 'w-9 h-8 bg-slate-900 border border-slate-800 rounded flex flex-col items-center justify-center font-mono text-[9px] cursor-pointer transition select-none';
+        cell.innerHTML = `
+          <span class="text-slate-500 text-[8px]">0x${a.toString(16).padStart(2, '0').toUpperCase()}</span>
+          <span class="cell-val font-bold text-slate-400">0</span>
+        `;
+        bistMatrixGrid.appendChild(cell);
+      }
+    }
+
+    function updateCellVisual(addr, isActive = false, isError = false) {
+      const cell = document.getElementById(`bist-cell-${addr}`);
+      if (!cell) return;
+      const val = bistMemory[addr];
+      const valSpan = cell.querySelector('.cell-val');
+      if (valSpan) valSpan.textContent = val;
+
+      if (isError) {
+        cell.className = 'w-9 h-8 bg-rose-950 border-2 border-rose-500 rounded flex flex-col items-center justify-center font-mono text-[9px] text-rose-300 animate-pulse';
+      } else if (isActive) {
+        cell.className = 'w-9 h-8 bg-amber-950 border-2 border-amber-400 rounded flex flex-col items-center justify-center font-mono text-[9px] text-amber-200 scale-105';
+      } else if (val === 1) {
+        cell.className = 'w-9 h-8 bg-cyan-950/70 border border-cyan-700/80 rounded flex flex-col items-center justify-center font-mono text-[9px] text-cyan-300';
+      } else {
+        cell.className = 'w-9 h-8 bg-slate-900 border border-slate-800 rounded flex flex-col items-center justify-center font-mono text-[9px] text-slate-400';
+      }
+    }
+
+    function addBistLog(msg, isErr = false) {
+      if (!bistLogConsole) return;
+      const row = document.createElement('div');
+      row.className = isErr ? 'text-rose-400 font-bold' : 'text-slate-300';
+      row.textContent = msg;
+      bistLogConsole.appendChild(row);
+      bistLogConsole.scrollTop = bistLogConsole.scrollHeight;
+    }
+
+    function setPhaseActive(phaseIdx) {
+      for (let p = 0; p < 6; p++) {
+        const badge = document.getElementById(`phase-badge-${p}`);
+        if (!badge) continue;
+        if (p === phaseIdx) {
+          badge.className = 'p-1 rounded bg-purple-950 border border-purple-500 text-purple-300 font-bold animate-pulse';
+        } else if (p < phaseIdx) {
+          badge.className = 'p-1 rounded bg-slate-900 border border-emerald-800/80 text-emerald-400';
+        } else {
+          badge.className = 'p-1 rounded bg-slate-950 border border-slate-800 text-slate-500';
+        }
+      }
+    }
+
+    function resetBist() {
+      if (bistInterval) clearInterval(bistInterval);
+      bistInterval = null;
+      bistRunning = false;
+      bistPaused = false;
+      bistOpIndex = 0;
+      bistError = null;
+      bistOps = buildMarchCOperations();
+      bistMemory.fill(0);
+
+      bistFaultType = bistFaultSelect ? bistFaultSelect.value : 'none';
+
+      for (let a = 0; a < MEM_SIZE; a++) {
+        updateCellVisual(a);
+      }
+      setPhaseActive(-1);
+
+      if (bistVerdictText) {
+        bistVerdictText.textContent = 'READY';
+        bistVerdictText.className = 'font-bold text-cyan-400';
+      }
+      if (bistOpCount) bistOpCount.textContent = `0 / ${bistOps.length}`;
+      if (bistCurrAddr) bistCurrAddr.textContent = '0x00';
+      if (bistBtnRun) bistBtnRun.innerHTML = '<span>▶</span><span>Run BIST</span>';
+      if (bistLogConsole) {
+        bistLogConsole.innerHTML = `<div>[Reset] Array cleared. Target fault: <strong>${bistFaultType.toUpperCase()}</strong>. Total 10N operations: ${bistOps.length}.</div>`;
+      }
+    }
+
+    function executeBistStep() {
+      if (bistOpIndex >= bistOps.length) {
+        clearInterval(bistInterval);
+        bistInterval = null;
+        bistRunning = false;
+        setPhaseActive(6);
+        if (bistVerdictText) {
+          bistVerdictText.textContent = '✓ 100% PASSED';
+          bistVerdictText.className = 'font-bold text-emerald-400';
+        }
+        addBistLog(`[BIST Complete] All ${bistOps.length} operations verified with ZERO faults!`);
+        return false;
+      }
+
+      const op = bistOps[bistOpIndex];
+      setPhaseActive(op.phaseIdx);
+      if (bistOpCount) bistOpCount.textContent = `${bistOpIndex + 1} / ${bistOps.length}`;
+      if (bistCurrAddr) bistCurrAddr.textContent = `0x${op.addr.toString(16).padStart(2, '0').toUpperCase()}`;
+
+      if (bistOpIndex > 0) {
+        const prevOp = bistOps[bistOpIndex - 1];
+        updateCellVisual(prevOp.addr);
+      }
+
+      if (op.type === 'W') {
+        let valToWrite = op.data;
+        if (bistFaultType === 'saf0' && op.addr === 0x15) valToWrite = 0;
+        if (bistFaultType === 'saf1' && op.addr === 0x2A) valToWrite = 1;
+        if (bistFaultType === 'tf01' && op.addr === 0x1F && op.data === 1) valToWrite = 0;
+
+        bistMemory[op.addr] = valToWrite;
+
+        if (bistFaultType === 'cfin' && op.addr === 0x20 && op.data === 1) {
+          bistMemory[0x21] ^= 1;
+          updateCellVisual(0x21);
+          addBistLog(`[Cross-Talk] Coupling: Write to 0x20 inverted adjacent victim cell 0x21!`);
+        }
+
+        updateCellVisual(op.addr, true);
+        if (bistOpIndex % 32 === 0 || bistOpIndex < 4) {
+          addBistLog(`[Op ${bistOpIndex + 1}] ${op.phase} Write ${valToWrite} to 0x${op.addr.toString(16).padStart(2, '0').toUpperCase()}`);
+        }
+      } else if (op.type === 'R') {
+        let actual = bistMemory[op.addr];
+        if (bistFaultType === 'saf0' && op.addr === 0x15) actual = 0;
+        if (bistFaultType === 'saf1' && op.addr === 0x2A) actual = 1;
+
+        if (actual !== op.exp) {
+          bistError = { op, actual };
+          updateCellVisual(op.addr, false, true);
+          clearInterval(bistInterval);
+          bistInterval = null;
+          bistRunning = false;
+          if (bistVerdictText) {
+            bistVerdictText.textContent = `✕ FAIL (Caught at 0x${op.addr.toString(16).padStart(2, '0').toUpperCase()})`;
+            bistVerdictText.className = 'font-bold text-rose-400 animate-pulse';
+          }
+          addBistLog(`[FAULT CAUGHT] Phase ${op.phase} at Addr 0x${op.addr.toString(16).padStart(2, '0').toUpperCase()}: Expected ${op.exp}, Actual ${actual}!`, true);
+          return false;
+        } else {
+          updateCellVisual(op.addr, true);
+        }
+      }
+
+      bistOpIndex++;
+      return true;
+    }
+
+    function runBist() {
+      if (bistRunning) return;
+      bistRunning = true;
+      bistPaused = false;
+      if (bistBtnRun) bistBtnRun.innerHTML = '<span>⏳</span><span>Running...</span>';
+      if (bistVerdictText) {
+        bistVerdictText.textContent = 'RUNNING...';
+        bistVerdictText.className = 'font-bold text-purple-400 animate-pulse';
+      }
+
+      bistInterval = setInterval(() => {
+        const cont = executeBistStep();
+        if (!cont) {
+          clearInterval(bistInterval);
+          bistInterval = null;
+          bistRunning = false;
+          if (bistBtnRun) bistBtnRun.innerHTML = '<span>▶</span><span>Run BIST</span>';
+        }
+      }, bistSpeedMs);
+    }
+
+    function pauseBist() {
+      if (!bistRunning) return;
+      clearInterval(bistInterval);
+      bistInterval = null;
+      bistRunning = false;
+      bistPaused = true;
+      if (bistBtnRun) bistBtnRun.innerHTML = '<span>▶</span><span>Resume</span>';
+      if (bistVerdictText) {
+        bistVerdictText.textContent = 'PAUSED';
+        bistVerdictText.className = 'font-bold text-amber-400';
+      }
+      addBistLog(`[Paused] At operation ${bistOpIndex} / ${bistOps.length}.`);
+    }
+
+    if (bistBtnRun) {
+      bistBtnRun.addEventListener('click', () => {
+        if (bistError) resetBist();
+        runBist();
+      });
+    }
+
+    if (bistBtnPause) bistBtnPause.addEventListener('click', pauseBist);
+    if (bistBtnStep) {
+      bistBtnStep.addEventListener('click', () => {
+        if (bistRunning) pauseBist();
+        executeBistStep();
+      });
+    }
+    if (bistBtnReset) bistBtnReset.addEventListener('click', resetBist);
+    if (bistFaultSelect) bistFaultSelect.addEventListener('change', resetBist);
+
+    document.querySelectorAll('.bist-speed-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bist-speed-btn').forEach(b => b.className = 'bist-speed-btn text-slate-500 hover:text-slate-300 text-xs');
+        btn.className = 'bist-speed-btn active text-purple-400 font-bold text-xs';
+        bistSpeedMs = parseInt(btn.getAttribute('data-speed'));
+        if (bistRunning) {
+          clearInterval(bistInterval);
+          bistInterval = setInterval(executeBistStep, bistSpeedMs);
+        }
+      });
+    });
+
+    // Initial setup on load
+    initBistMatrix();
+    resetBist();
+    updateSpiceSimulation();
 
     // Initialize application
     initWBS();

@@ -130,3 +130,25 @@ def test_march_c_bist_golden_and_fault_coverage():
     assert details["Transition 1->0 (TF10)"]["detected"] is True
     assert details["Inversion Coupling (CFin)"]["detected"] is True
     assert details["Idempotent Coupling (CFid)"]["detected"] is True
+
+def test_web_ui_interactive_simulation_deck_integration():
+    """Verify index.html and dist/index.html contain complete interactive SPICE and BIST UI modules."""
+    for html_path in [os.path.join(BASE_DIR, "index.html"), os.path.join(BASE_DIR, "dist", "index.html")]:
+        assert os.path.exists(html_path), f"Missing {html_path}"
+        with open(html_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Check UI Elements
+        assert 'id="panel-tab-sim"' in content
+        assert 'id="spice-waveform-canvas"' in content
+        assert 'id="bist-matrix-grid"' in content
+        assert 'id="bist-fault-select"' in content
+        assert 'id="btn-quick-sim"' in content
+
+        # Check Simulation Math & JS Engine
+        assert "simCblFf" in content
+        assert "deltaV = (simCsFf / (simCsFf + simCblFf))" in content
+        assert "drawSpiceWaveforms" in content
+        assert "buildMarchCOperations" in content
+        assert "executeBistStep" in content
+
