@@ -1,0 +1,137 @@
+{
+  "spice_simulation": {
+    "technology_node": "180nm CMOS",
+    "storage_capacitance_ff": 28.0,
+    "nominal_bitline_capacitance_ff": 150.0,
+    "core_vdd_v": 1.8,
+    "precharge_veq_v": 0.9,
+    "wordline_vpp_v": 2.8,
+    "read_data_1": {
+      "delta_v_sense_mv": 141.57303370723318,
+      "v_bl_restored_v": 1.7999999997474763,
+      "t_latch_ns": 0.6699999999999999
+    },
+    "read_data_0": {
+      "delta_v_sense_mv": -141.57303370700092,
+      "v_bl_restored_v": 4.3324470428846196e-13,
+      "t_latch_ns": 0.7179999999999997
+    },
+    "capacitance_sweep": [
+      {
+        "cbl_ff": 80.0,
+        "cs_cbl_ratio": 0.35,
+        "ideal_delta_v_mv": 233.33333333333334,
+        "measured_delta_v_mv": 233.33333332940953,
+        "t_latch_ns": 0.5060000000000001,
+        "v_restored": 1.7999999999999732
+      },
+      {
+        "cbl_ff": 100.0,
+        "cs_cbl_ratio": 0.28,
+        "ideal_delta_v_mv": 196.875,
+        "measured_delta_v_mv": 196.87499999874524,
+        "t_latch_ns": 0.5399999999999998,
+        "v_restored": 1.7999999999995904
+      },
+      {
+        "cbl_ff": 120.0,
+        "cs_cbl_ratio": 0.23333333333333334,
+        "ideal_delta_v_mv": 170.27027027027026,
+        "measured_delta_v_mv": 170.27027026960585,
+        "t_latch_ns": 0.5880000000000001,
+        "v_restored": 1.7999999999938114
+      },
+      {
+        "cbl_ff": 150.0,
+        "cs_cbl_ratio": 0.18666666666666668,
+        "ideal_delta_v_mv": 141.57303370786516,
+        "measured_delta_v_mv": 141.57303370723318,
+        "t_latch_ns": 0.6699999999999999,
+        "v_restored": 1.7999999997474763
+      },
+      {
+        "cbl_ff": 180.0,
+        "cs_cbl_ratio": 0.15555555555555556,
+        "ideal_delta_v_mv": 121.15384615384616,
+        "measured_delta_v_mv": 121.15384615296388,
+        "t_latch_ns": 0.7579999999999997,
+        "v_restored": 1.7999999942266494
+      },
+      {
+        "cbl_ff": 220.0,
+        "cs_cbl_ratio": 0.12727272727272726,
+        "ideal_delta_v_mv": 101.61290322580645,
+        "measured_delta_v_mv": 101.61290322449035,
+        "t_latch_ns": 0.8780000000000001,
+        "v_restored": 1.7999998344088939
+      },
+      {
+        "cbl_ff": 260.0,
+        "cs_cbl_ratio": 0.1076923076923077,
+        "ideal_delta_v_mv": 87.50000000000001,
+        "measured_delta_v_mv": 87.49999999825842,
+        "t_latch_ns": 1.0039999999999998,
+        "v_restored": 1.7999977104609837
+      },
+      {
+        "cbl_ff": 300.0,
+        "cs_cbl_ratio": 0.09333333333333334,
+        "ideal_delta_v_mv": 76.82926829268293,
+        "measured_delta_v_mv": 76.82926829057268,
+        "t_latch_ns": 1.1340000000000001,
+        "v_restored": 1.7999814978595154
+      }
+    ]
+  },
+  "verilog_bist": {
+    "algorithm": "March C- (10N)",
+    "address_width": 8,
+    "memory_depth_words": 256,
+    "total_cycles_clean": 2560,
+    "coverage_pct": 100.0,
+    "fault_models_evaluated": [
+      {
+        "fault_model": "Stuck-At-0 (SAF0)",
+        "detected": true,
+        "phase_detected": "M2: ^ (r1, w0)",
+        "cycle": 901,
+        "fail_addr": "0x42"
+      },
+      {
+        "fault_model": "Stuck-At-1 (SAF1)",
+        "detected": true,
+        "phase_detected": "M1: ^ (r0, w1)",
+        "cycle": 529,
+        "fail_addr": "0x88"
+      },
+      {
+        "fault_model": "Transition 0->1 (TF01)",
+        "detected": true,
+        "phase_detected": "M2: ^ (r1, w0)",
+        "cycle": 831,
+        "fail_addr": "0x1f"
+      },
+      {
+        "fault_model": "Transition 1->0 (TF10)",
+        "detected": true,
+        "phase_detected": "M3: v (r0, w1)",
+        "cycle": 1461,
+        "fail_addr": "0xa5"
+      },
+      {
+        "fault_model": "Inversion Coupling (CFin)",
+        "detected": true,
+        "phase_detected": "M1: ^ (r0, w1)",
+        "cycle": 323,
+        "fail_addr": "0x21"
+      },
+      {
+        "fault_model": "Idempotent Coupling (CFid)",
+        "detected": true,
+        "phase_detected": "M1: ^ (r0, w1)",
+        "cycle": 419,
+        "fail_addr": "0x51"
+      }
+    ]
+  }
+}
