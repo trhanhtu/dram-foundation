@@ -55,6 +55,20 @@ export const DISCIPLINE_METADATA = {
     icon: '🏆',
     col: 3,
     row: 1
+  },
+  module_180nm_tapeout_gen3: {
+    code: 'TAPEOUT-07',
+    discipline: '180nm Commercial Tapeout & PDK',
+    icon: '🏭',
+    col: 0,
+    row: 2
+  },
+  module_beol_packaging_gen3: {
+    code: 'BEOL-08',
+    discipline: 'BEOL, Packaging & ATE',
+    icon: '📦',
+    col: 1,
+    row: 2
   }
 };
 

@@ -8,7 +8,7 @@
 
 As the DRAM Foundation VN autonomous crawler expanded the knowledge base to **1,003 Work Packages** across 6 disciplines and 1 master integration graph (1,000 directed edges), the current web visualizer (`index.html`) became sluggish and unwieldy. 
 
-This directly triggers the anti-pattern identified in [docs/context2.yaml](../context2.yaml):
+This directly triggers the anti-pattern identified in [docs/context2.yaml](.../../context2.yaml):
 > `spaghetti_graph`: 1,000 nodes appearing simultaneously overwhelms DOM rendering, causes layout recalculation thrashing, and creates cognitive overload.
 
 ## Root Cause Analysis
@@ -42,8 +42,8 @@ This directly triggers the anti-pattern identified in [docs/context2.yaml](../co
 - Change default initial view from `'all'` to the macro discipline overview.
 
 ## References & Related Files
-- [index.html](../../index.html)
-- [data-engine.js](../../data-engine.js)
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
-- [scripts/run_server.py](../../scripts/run_server.py)
+- [index.html](.../../.../../index.html)
+- [data-engine.js](.../../.../../data-engine.js)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
+- [scripts/run_server.py](.../../.../../scripts/run_server.py)

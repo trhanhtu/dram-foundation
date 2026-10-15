@@ -15,5 +15,5 @@ Actionable standard operating procedure for cross-sectional Scanning Electron Mi
 - **Metrology**: Cross-sectional high-resolution SEM profile inspection and lateral bias measurement across cleaved sample dies.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

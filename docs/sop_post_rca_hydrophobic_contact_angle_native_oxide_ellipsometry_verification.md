@@ -107,5 +107,5 @@ This SOP defines the metrology verification protocol following the wet clean (SC
 - **Legacy 180nm DRAM Architecture & Cell Capacitor Engineering**:
   $1\text{T}1\text{C}$ stacked capacitor layout with bitline/wordline pitch $360\text{ nm}–400\text{ nm}$, retention time $> 64\text{ ms}$ at $85^\circ\text{C}$ ($25–30\text{ fF/cell}$), gate dielectric thermally grown $\text{SiO}_2$ at $850^\circ\text{C}–900^\circ\text{C}$ dry oxidation with $\sim 3.5\text{ nm}$ physical thickness.
 - Related SOPs:
-  - [Post-RCA Surface Defect Density Inspection & Darkfield Haze Mapping](./sop_post_rca_surface_defect_density_darkfield_haze.md)
-  - [Automated Sequential Wet Bench Immersion Run & Marangoni Dry Execution](./sop_wet_bench_rca_marangoni.md)
+  - [Post-RCA Surface Defect Density Inspection & Darkfield Haze Mapping](../sop_post_rca_surface_defect_density_darkfield_haze.md)
+  - [Automated Sequential Wet Bench Immersion Run & Marangoni Dry Execution](../sop_wet_bench_rca_marangoni.md)

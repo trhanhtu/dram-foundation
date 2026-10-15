@@ -14,5 +14,5 @@ Buffered Oxide Etch (BOE 6:1) is the critical wet chemical agent used in the 180
 - **Life Safety Antidote**: Calcium Gluconate Gel ($2.5\%$) staged in redundant, unexpired units at every transfer point to mitigate systemic calcium binding upon accidental skin exposure.
 
 ## References & Related Files
-- [sop_procurement_boe_6_1_safety_supplies.md](../sop/sop_procurement_boe_6_1_safety_supplies.md)
-- [sop_boe_6_1_sio2_patterning.md](../sop_boe_6_1_sio2_patterning.md)
+- [sop_procurement_boe_6_1_safety_supplies.md](.../../sop/sop_procurement_boe_6_1_safety_supplies.md)
+- [sop_boe_6_1_sio2_patterning.md](.../../sop_boe_6_1_sio2_patterning.md)

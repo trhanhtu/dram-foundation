@@ -129,13 +129,13 @@ To prevent visual clutter ("Spaghetti Graph" anti-pattern) when scaling to hundr
 
 ## References & Related Files
 
-- [TEST_INFRA.md](../../TEST_INFRA.md)
-- [TEST_READY.md](../../TEST_READY.md)
-- [tests/test_e2e_comprehensive.py](../../tests/test_e2e_comprehensive.py)
-- [tests/test_semiconductor_workflows.py](../../tests/test_semiconductor_workflows.py)
-- [sandbox/index.html](../../sandbox/index.html)
-- [sandbox/data-engine.js](../../sandbox/data-engine.js)
-- [index.html](../../index.html)
-- [data-engine.js](../../data-engine.js)
-- [workflow/server.py](../../workflow/server.py)
-- [PROJECT.md](../../PROJECT.md)
+- [TEST_INFRA.md](.../../.../../TEST_INFRA.md)
+- [TEST_READY.md](.../../.../../TEST_READY.md)
+- [tests/test_e2e_comprehensive.py](.../../..../../.../../tests/test_e2e_comprehensive.py)
+- [tests/test_semiconductor_workflows.py](.../../..../../.../../tests/test_semiconductor_workflows.py)
+- [sandbox/index.html](.../../.../../sandbox/index.html)
+- [sandbox/data-engine.js](.../../.../../sandbox/data-engine.js)
+- [index.html](.../../.../../index.html)
+- [data-engine.js](.../../.../../data-engine.js)
+- [workflow/server.py](.../../..../../.../../workflow/server.py)
+- [PROJECT.md](.../../.../../PROJECT.md)

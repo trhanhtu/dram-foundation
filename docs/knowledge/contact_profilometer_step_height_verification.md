@@ -17,5 +17,5 @@ For the 180nm DRAM process node (Gen 1 baseline validation), post-etch oxide pat
   - Selectivity: SiO2:Si > 100:1; SiO2:Si3N4 > 20:1.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

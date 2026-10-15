@@ -16,6 +16,6 @@ Actionable Standard Operating Procedure (SOP) for Parasitic RC Extraction (PEX) 
 - Distributed RC mesh segmentation: Per-cell Pi/Tee network modeling poly/metal wordline resistance and gate-to-channel / gate-to-diffusion overlap capacitances across 256 to 512 cells per bitline/wordline sector.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
-- [docs/context3.yaml](../context3.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/context3.yaml](.../../context3.yaml)

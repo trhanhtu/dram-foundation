@@ -63,10 +63,10 @@ The automated workflow pipeline bridges the gap between raw semiconductor intell
 ---
 
 ## References & Related Files
-- [workflow/cli.py](../../workflow/cli.py)
-- [workflow/vector_store.py](../../workflow/vector_store.py)
-- [workflow/crawler.py](../../workflow/crawler.py)
-- [workflow/council/systems_engineer.py](../../workflow/council/systems_engineer.py)
-- [workflow/council/laya_pm.py](../../workflow/council/laya_pm.py)
-- [workflow/council/domain_expert.py](../../workflow/council/domain_expert.py)
-- [workflow/council/orchestrator.py](../../workflow/council/orchestrator.py)
+- [workflow/cli.py](.../../..../../.../../workflow/cli.py)
+- [workflow/vector_store.py](.../../..../../.../../workflow/vector_store.py)
+- [workflow/crawler.py](.../../..../../.../../workflow/crawler.py)
+- [workflow/council/systems_engineer.py](.../../..../../.../../workflow/council/systems_engineer.py)
+- [workflow/council/laya_pm.py](.../../..../../.../../workflow/council/laya_pm.py)
+- [workflow/council/domain_expert.py](.../../..../../.../../workflow/council/domain_expert.py)
+- [workflow/council/orchestrator.py](.../../..../../.../../workflow/council/orchestrator.py)

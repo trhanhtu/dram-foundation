@@ -21,5 +21,5 @@ Prior to growing the ultra-thin 3.5 nm dry gate oxide (grown at 850°C–900°C)
 - Pre-Oxidation Gate Oxide Target: Clean substrate released for 3.5 nm dry gate oxide growth at 850°C–900°C.
 
 ## References & Related Files
-- [180nm DRAM Architecture & Cell Capacitor Engineering](../context.yaml)
-- [Silicon Dioxide Etching with Buffered Oxide Etch (BOE)](../context.yaml)
+- [180nm DRAM Architecture & Cell Capacitor Engineering](.../../context.yaml)
+- [Silicon Dioxide Etching with Buffered Oxide Etch (BOE)](.../../context.yaml)

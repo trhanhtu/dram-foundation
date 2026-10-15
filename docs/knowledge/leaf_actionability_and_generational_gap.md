@@ -35,6 +35,6 @@ Deploy specialized subagents to crawl authoritative technical literature into Ch
 - **Agent D**: DRAM Circuit Netlists, SPICE Timing & 1T1C Physics.
 
 ## References
-- [data/dram_graph.db](../../data/dram_graph.db)
-- [workflow/council/domain_expert.py](../../workflow/council/domain_expert.py)
-- [docs/context2.yaml](../context2.yaml)
+- [data/dram_graph.db](.../../..../../.../../data/dram_graph.db)
+- [workflow/council/domain_expert.py](.../../..../../.../../workflow/council/domain_expert.py)
+- [docs/context2.yaml](.../../context2.yaml)

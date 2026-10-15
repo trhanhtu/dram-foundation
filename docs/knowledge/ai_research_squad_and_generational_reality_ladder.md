@@ -63,12 +63,12 @@ A physical fab cannot bridge a $10,000\times$ dimensional gap in a single step. 
    - *Metrology*: Automated memory tester, bit error rate (BER), row refresh cycle timing ($t_{REF} = 64\text{ ms}$).
 
 ### Algorithmic TRL Directional Enforcement
-In [workflow/council/systems_engineer.py](../../workflow/council/systems_engineer.py), the `SystemsEngineerAgent` strictly intercepts proposals violating TRL progression:
+In [workflow/council/systems_engineer.py](.../../..../../.../../workflow/council/systems_engineer.py), the `SystemsEngineerAgent` strictly intercepts proposals violating TRL progression:
 ```python
 if "Gen 1" in t_gen and ("Gen 2" in s_gen or "Gen 3" in s_gen):
     return False, f"Violation of TRL progression: Gen 1 target '{t_id}' depends on higher generation source '{s_id}'", []
 ```
-Furthermore, in [workflow/crawler_engine.py](../../workflow/crawler_engine.py), sub-task decomposition is constrained so child nodes inherit parent generation rather than artificially jumping ahead based on tree depth.
+Furthermore, in [workflow/crawler_engine.py](.../../..../../.../../workflow/crawler_engine.py), sub-task decomposition is constrained so child nodes inherit parent generation rather than artificially jumping ahead based on tree depth.
 
 ---
 
@@ -90,7 +90,7 @@ To eliminate RAG corpus starvation and maintain a physically grounded knowledge 
 
 ## 4. Empirical Literature Seeding & Verification Results
 
-To eliminate ChromaDB corpus starvation, we added [workflow/literature_corpus.py](../../workflow/literature_corpus.py) and executed [workflow/ingest_corpus.py](../../workflow/ingest_corpus.py):
+To eliminate ChromaDB corpus starvation, we added [workflow/literature_corpus.py](.../../..../../.../../workflow/literature_corpus.py) and executed [workflow/ingest_corpus.py](.../../..../../.../../workflow/ingest_corpus.py):
 - **ChromaDB Corpus Expansion**: Grew from 26 chunks to **68 high-density chunks** (+42 new chunks).
 - **Online Crawl**: Successfully ingested open-source specifications from `google/skywater-pdk` and `The-OpenROAD-Project/OpenROAD`.
 - **Smoke Test Verification**: Processed 3 live WBS nodes through the AI Council:
@@ -103,11 +103,11 @@ To eliminate ChromaDB corpus starvation, we added [workflow/literature_corpus.py
 
 ## References & Related Files
 
-- [workflow/literature_corpus.py](../../workflow/literature_corpus.py): Curated empirical semiconductor engineering literature.
-- [workflow/ingest_corpus.py](../../workflow/ingest_corpus.py): Automated ChromaDB batch indexing and online PDK crawler.
-- [workflow/council/domain_expert.py](../../workflow/council/domain_expert.py): Dynamic metrology and physical metrics synthesizer.
-- [workflow/council/systems_engineer.py](../../workflow/council/systems_engineer.py): TRL Generational Guard and DAG validation.
-- [workflow/crawler_engine.py](../../workflow/crawler_engine.py): Fixed generation inheritance during task decomposition.
-- [data/modules/03_optical_aligner_gen2.json](../../data/modules/03_optical_aligner_gen2.json): Grounded lithography alignment metrics.
-- [tests/test_semiconductor_workflows.py](../../tests/test_semiconductor_workflows.py): 8/8 end-to-end semiconductor workflow validation tests.
-- [tests/test_server_api.py](../../tests/test_server_api.py): 10/10 FastAPI bridge server endpoints.
+- [workflow/literature_corpus.py](.../../..../../.../../workflow/literature_corpus.py): Curated empirical semiconductor engineering literature.
+- [workflow/ingest_corpus.py](.../../..../../.../../workflow/ingest_corpus.py): Automated ChromaDB batch indexing and online PDK crawler.
+- [workflow/council/domain_expert.py](.../../..../../.../../workflow/council/domain_expert.py): Dynamic metrology and physical metrics synthesizer.
+- [workflow/council/systems_engineer.py](.../../..../../.../../workflow/council/systems_engineer.py): TRL Generational Guard and DAG validation.
+- [workflow/crawler_engine.py](.../../..../../.../../workflow/crawler_engine.py): Fixed generation inheritance during task decomposition.
+- [data/modules/03_optical_aligner_gen2.json](.../../..../../.../../data/modules/03_optical_aligner_gen2.json): Grounded lithography alignment metrics.
+- [tests/test_semiconductor_workflows.py](.../../..../../.../../tests/test_semiconductor_workflows.py): 8/8 end-to-end semiconductor workflow validation tests.
+- [tests/test_server_api.py](.../../..../../.../../tests/test_server_api.py): 10/10 FastAPI bridge server endpoints.

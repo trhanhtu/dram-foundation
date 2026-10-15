@@ -47,7 +47,7 @@
 ---
 
 ## References & Related Files
-- [docs/context2.yaml](../context2.yaml)
-- [docs/context.yaml](../context.yaml)
-- [docs/knowledge/system_architecture.md](./system_architecture.md)
-- [AGENTS.md](../../AGENTS.md)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/knowledge/system_architecture.md](../../system_architecture.md)
+- [AGENTS.md](.../../.../../AGENTS.md)

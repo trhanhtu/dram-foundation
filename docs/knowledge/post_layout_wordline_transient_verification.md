@@ -13,5 +13,5 @@ Wordline (WL) drivers in 180nm DRAM architectures deliver boosted gate overdrive
 - **Cell Retention & Capacitance Target**: Retention $> 64\,\text{ms}$ at $85^\circ\text{C}$ with $C_s \ge 25\,\text{fF}$ to $28\,\text{fF}$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

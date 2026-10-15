@@ -50,9 +50,9 @@
 ---
 
 ## References & Related Files
-- [docs/context3.yaml](../context3.yaml)
-- [docs/context2.yaml](../context2.yaml)
-- [docs/context.yaml](../context.yaml)
-- [docs/knowledge/strategic_philosophy.md](./strategic_philosophy.md)
-- [docs/knowledge/system_architecture.md](./system_architecture.md)
-- [AGENTS.md](../../AGENTS.md)
+- [docs/context3.yaml](.../../context3.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/knowledge/strategic_philosophy.md](../../strategic_philosophy.md)
+- [docs/knowledge/system_architecture.md](../../system_architecture.md)
+- [AGENTS.md](.../../.../../AGENTS.md)

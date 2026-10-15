@@ -13,5 +13,5 @@ Automated sessile drop water contact angle (WCA) metrology protocol for 100mm wa
 - **Metrology Verification**: 5-point wafer map (Center, North, South, East, West) measuring DI droplet sessile profiles using telecentric optical imaging.
 
 ## References & Related Files
-- [Photoresist Spin Coating Dynamics and HMDS Vapor Priming](./sop_wca_sessile_drop.md)
-- [Sam Zeloof Z1 Garage Semiconductor Journal (2018)](./sop_wca_sessile_drop.md)
+- [Photoresist Spin Coating Dynamics and HMDS Vapor Priming](../../sop_wca_sessile_drop.md)
+- [Sam Zeloof Z1 Garage Semiconductor Journal (2018)](../../sop_wca_sessile_drop.md)

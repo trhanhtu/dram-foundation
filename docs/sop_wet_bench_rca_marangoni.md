@@ -16,5 +16,5 @@ Defines the leaf Standard Operating Procedure (SOP) for sequential SC-1 / DHF 50
 - **Stage 4 (Marangoni Dry / N2 Final Dry)**: Slow automated pull through isopropyl alcohol (IPA) / N2 vapor boundary with surface-tension gradient drying, supplemented by high-purity N2 blow-dry.
 
 ## References & Related Files
-- [Standard RCA-1 and RCA-2 Silicon Wafer Cleaning Procedure](./sop_wet_bench_rca_marangoni.md)
-- [Silicon Dioxide Etching with Buffered Oxide Etch (BOE)](./sop_wet_bench_rca_marangoni.md)
+- [Standard RCA-1 and RCA-2 Silicon Wafer Cleaning Procedure](../sop_wet_bench_rca_marangoni.md)
+- [Silicon Dioxide Etching with Buffered Oxide Etch (BOE)](../sop_wet_bench_rca_marangoni.md)

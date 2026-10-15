@@ -15,6 +15,6 @@ Standard Operating Procedure for extracting geometric recognition and pin connec
 - Leakage current target: <= 1 fA/cell at 85°C.
 
 ## References & Related Files
-- [docs/context.yaml](./context.yaml)
+- [docs/context.yaml](../context.yaml)
 - Folded Bitline Sense Amplifier Circuit Design for DRAM Cell Readout
 - 180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench

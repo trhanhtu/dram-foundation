@@ -20,5 +20,5 @@ Defines the standard operating procedure (SOP) for boundary metrology verificati
 - **Capacitor Dielectric**: ONO or $\text{Ta}_2\text{O}_5 / \text{Al}_2\text{O}_3$ high-k stack with $\text{EOT} = 3\text{ nm}$ to $4\text{ nm}$ ($\kappa > 15$).
 
 ## References & Related Files
-- [docs/context.yaml](./context.yaml)
-- [docs/context2.yaml](./context2.yaml)
+- [docs/context.yaml](../context.yaml)
+- [docs/context2.yaml](../context2.yaml)

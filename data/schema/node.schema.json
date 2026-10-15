@@ -67,6 +67,106 @@
         "video": { "type": "string" }
       },
       "description": "Physical Bits-to-Atoms validation evidence"
+    },
+    "critics": {
+      "type": "object",
+      "description": "Multi-agent council critiques and critical bottleneck analysis",
+      "properties": {
+        "systems_engineer": { "type": "string" },
+        "domain_expert": { "type": "string" },
+        "supply_chain": { "type": "string" },
+        "laya_pm": { "type": "string" },
+        "critical_failure_modes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "testcases": {
+      "type": "array",
+      "description": "Machine-measurable acceptance test bench protocols",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "instrumentation": { "type": "string" },
+          "pre_conditions": { "type": "string" },
+          "procedure": { "type": "string" },
+          "pass_fail_criteria": { "type": "string" }
+        },
+        "required": ["id", "title", "instrumentation", "procedure", "pass_fail_criteria"]
+      }
+    },
+    "ehs_protocol": {
+      "type": "object",
+      "description": "Environmental Health & Safety, Hazmat, PPE, and chemical antidote specifications",
+      "properties": {
+        "hazard_level": { "type": "string", "enum": ["Low", "Moderate", "High", "Critical"] },
+        "ppe_required": { "type": "array", "items": { "type": "string" } },
+        "cas_chemicals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "cas_number": { "type": "string" },
+              "purity_grade": { "type": "string" },
+              "concentration": { "type": "string" }
+            },
+            "required": ["name", "cas_number"]
+          }
+        },
+        "antidote_and_first_aid": { "type": "string" },
+        "exhaust_and_ventilation": { "type": "string" },
+        "waste_neutralization": { "type": "string" }
+      }
+    },
+    "q_time_constraints": {
+      "type": "object",
+      "description": "Queue-time physical limits and inter-node surface state transfer windows",
+      "properties": {
+        "max_queue_time_air_minutes": { "type": ["number", "null"] },
+        "max_queue_time_n2_hours": { "type": ["number", "null"] },
+        "incoming_surface_state": { "type": "string" },
+        "outgoing_surface_state": { "type": "string" },
+        "critical_risk_on_expiry": { "type": "string" }
+      }
+    },
+    "expected_result": {
+      "type": "object",
+      "description": "Verifiable completion assertions and researcher exit sign-off criteria (Definition of Done)",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "High-level definition of done summarizing the completed objective"
+        },
+        "deliverable_artifacts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Tangible output artifacts, inspection data, test decks, or micrographs"
+        },
+        "quantitative_assertions": {
+          "type": "array",
+          "description": "Deterministic quantitative pass/fail assertions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "assertion": { "type": "string" },
+              "target_value": { "type": "string" },
+              "tolerance": { "type": "string" },
+              "verification_method": { "type": "string" }
+            },
+            "required": ["id", "assertion", "target_value", "verification_method"]
+          }
+        },
+        "signoff_criteria": {
+          "type": "string",
+          "description": "Explicit sign-off rule for the primary researcher/PI"
+        }
+      },
+      "required": ["summary", "quantitative_assertions", "signoff_criteria"]
     }
   }
 }

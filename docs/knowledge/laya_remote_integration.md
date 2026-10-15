@@ -20,7 +20,7 @@ To optimize inference on distributed lab workstations, Laya is deployed on a ded
     - `criteria`: List of allowable enum options or dictionary mapping choices.
 - **Client Integration**:
   - Uses `laya.mcp.remote.RemoteRouter(base_url, timeout=60)` for transparent RPC invocation.
-  - Seamless dual-mode fallback: if `LAYA_BASE_URL` is unreachable or unset, [`workflow/council/laya_pm.py`](../../workflow/council/laya_pm.py) automatically falls back to local CPU `Router(preload=False)` and regex heuristics.
+  - Seamless dual-mode fallback: if `LAYA_BASE_URL` is unreachable or unset, [`workflow/council/laya_pm.py`](.../../..../../.../../workflow/council/laya_pm.py) automatically falls back to local CPU `Router(preload=False)` and regex heuristics.
 
 ### 2. Multi-Head Routing & Throughput
 - **Multi-Head Capability**: Evaluates multiple orthogonal dimensions (e.g., Action Type, Work Breakdown Scope, and Target Generation) in a single neural forward pass (~1.0s).
@@ -32,9 +32,9 @@ To optimize inference on distributed lab workstations, Laya is deployed on a ded
   - Port 11434: `ollama` serving `qwen3.5:latest` and `gemma4:latest`.
 
 ## References & Related Files
-- [`.env`](../../.env)
-- [`.env.example`](../../.env.example)
-- [`workflow/council/laya_pm.py`](../../workflow/council/laya_pm.py)
-- [`laya_benchmark_report.json`](../../laya_benchmark_report.json)
-- [`laya_openapi.json`](../../laya_openapi.json)
-- [`tests/test_laya_pm.py`](../../tests/test_laya_pm.py)
+- [`.env`](.../../.../../.env)
+- [`.env.example`](.../../.../../.env.example)
+- [`workflow/council/laya_pm.py`](.../../..../../.../../workflow/council/laya_pm.py)
+- [`laya_benchmark_report.json`](.../../.../../laya_benchmark_report.json)
+- [`laya_openapi.json`](.../../.../../laya_openapi.json)
+- [`tests/test_laya_pm.py`](.../../..../../.../../tests/test_laya_pm.py)

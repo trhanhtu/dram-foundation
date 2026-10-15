@@ -24,5 +24,5 @@ For the 180nm DRAM node, the access transistor gate oxide ($T_{ox}$) is thermall
    $$T_{ox}(r) = a_0 + a_2 r^2 + a_4 r^4 + \epsilon$$
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

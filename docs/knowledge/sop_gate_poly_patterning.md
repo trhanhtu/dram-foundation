@@ -15,5 +15,5 @@ Standard Operating Procedure (SOP) for 180nm open-source DRAM folded wordline pa
 - Leakage target: $< 1\text{ fA/cell}$ at 85°C.
 
 ## References & Related Files
-- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](../context.yaml)
-- [Legacy 180nm DRAM Architecture & Cell Capacitor Engineering](../context2.yaml)
+- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](.../../context.yaml)
+- [Legacy 180nm DRAM Architecture & Cell Capacitor Engineering](.../../context2.yaml)

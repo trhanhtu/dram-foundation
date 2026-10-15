@@ -39,7 +39,7 @@ In DRAM Foundation VN, an autonomous node is not considered "correct" merely bec
 ---
 
 ## References & Related Files
-- [`workflow/crawler_engine.py`](../../workflow/crawler_engine.py)
-- [`workflow/council/domain_expert.py`](../../workflow/council/domain_expert.py)
-- [`docs/context.yaml`](../context.yaml)
-- [`data/dram_graph.db`](../../data/dram_graph.db)
+- [`workflow/crawler_engine.py`](.../../..../../.../../workflow/crawler_engine.py)
+- [`workflow/council/domain_expert.py`](.../../..../../.../../workflow/council/domain_expert.py)
+- [`docs/context.yaml`](.../../context.yaml)
+- [`data/dram_graph.db`](.../../..../../.../../data/dram_graph.db)

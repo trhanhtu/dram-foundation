@@ -141,10 +141,10 @@
 ---
 
 ## References & Related Documentation
-- [docs/context.yaml](./context.yaml)
-- [docs/context2.yaml](./context2.yaml)
-- [docs/context3.yaml](./context3.yaml)
-- [docs/knowledge/system_architecture.md](./knowledge/system_architecture.md)
-- [docs/knowledge/strategic_philosophy.md](./knowledge/strategic_philosophy.md)
-- [docs/knowledge/risk_and_collaboration.md](./knowledge/risk_and_collaboration.md)
-- [AGENTS.md](../AGENTS.md)
+- [docs/context.yaml](../context.yaml)
+- [docs/context2.yaml](../context2.yaml)
+- [docs/context3.yaml](../context3.yaml)
+- [docs/knowledge/system_architecture.md](../knowledge/system_architecture.md)
+- [docs/knowledge/strategic_philosophy.md](../knowledge/strategic_philosophy.md)
+- [docs/knowledge/risk_and_collaboration.md](../knowledge/risk_and_collaboration.md)
+- [AGENTS.md](.../AGENTS.md)

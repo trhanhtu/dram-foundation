@@ -17,6 +17,6 @@ Detailed Standard Operating Procedure (SOP) for Design Rule Checking (DRC), Layo
 - Leakage Limit: $< 1\text{ fA/cell}$ at $85^\circ\text{C}$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
-- [docs/knowledge/sense_amp_drc_lvs_rc_extraction_sop.md](./sense_amp_drc_lvs_rc_extraction_sop.md)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/knowledge/sense_amp_drc_lvs_rc_extraction_sop.md](../../sense_amp_drc_lvs_rc_extraction_sop.md)

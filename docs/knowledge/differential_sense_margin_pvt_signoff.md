@@ -14,6 +14,6 @@ Standard Operating Procedure (SOP) for metrology sign-off of differential sense 
 - Leakage and retention boundary conditions: $\le 1\text{ fA/cell}$ sub-threshold/junction leakage at 85°C ensuring $> 64\text{ ms}$ data retention.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
-- [docs/context3.yaml](../context3.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/context3.yaml](.../../context3.yaml)

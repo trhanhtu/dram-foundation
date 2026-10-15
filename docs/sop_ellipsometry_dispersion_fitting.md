@@ -15,6 +15,6 @@ Standard Operating Procedure for spectroscopic ellipsometry model fitting and ra
 - **Precision Target**: Sub-angstrom measurement precision ($\pm 0.05\text{ nm}$).
 
 ## References & Related Files
-- [context.yaml](./context.yaml)
+- [context.yaml](../context.yaml)
 - Verified Literature: *Spectroscopic Ellipsometry and Reflectometry for Dielectric Film Metrology*
 - Verified Literature: *Legacy 180nm DRAM Architecture & Cell Capacitor Engineering*

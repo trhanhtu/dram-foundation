@@ -138,16 +138,16 @@ Fictitious placeholder URLs (`dram-vn.org/proofs/*` and `github.com/dram-vn/*`) 
 To guarantee zero broken image links and 100% offline availability, COTS equipment nodes now embed native inline SVG technical drawings:
 - **`node-mcu-cots`**: Vector pinout schematic detailing ESP32-WROOM-32D GPIO routing to the optical quadrature encoder (PCNT GPIO 34/35), optocoupled motor driver (MCPWM GPIO 18/19), emergency stop circuit (GPIO 4), and I2C telemetry (GPIO 21/22).
 - **`node-gen1-mm-2`**: Mechanical cross-section detailing Abbe error geometry ($\\Delta x = h \\cdot \\tan(\\theta)$) and collinear linear glass scale placement.
-- **Frontend UI Enhancements**: [index.html](../../index.html) was upgraded with interactive Proof of Work links (`[📦 Repo]` and `[▶ Video]`) and responsive `.sop-prose img` and `.sop-prose svg` styling.
+- **Frontend UI Enhancements**: [index.html](.../../.../../index.html) was upgraded with interactive Proof of Work links (`[📦 Repo]` and `[▶ Video]`) and responsive `.sop-prose img` and `.sop-prose svg` styling.
 
 ---
 
 ## 3. References & Related Files
 
-- [data/modules/06_dram_cell_architecture_gen2.json](../../data/modules/06_dram_cell_architecture_gen2.json): Folded sense amplifier netlist, 1T1C COB layout, and address decoders.
-- [data/modules/01_mcu_cots.json](../../data/modules/01_mcu_cots.json): ESP32 closed-loop motor controller with embedded SVG pinout.
-- [data/modules/02_litho_stage_gen1.json](../../data/modules/02_litho_stage_gen1.json): Precision dual-axis stage assembly and Abbe error minimization.
-- [scripts/enrich_hardcore_specs.py](../../scripts/enrich_hardcore_specs.py): Automated enrichment and provenance sanitation engine.
-- [index.html](../../index.html): WBS Explorer frontend with interactive PoW links and SVG prose rendering.
-- [tests/test_semiconductor_workflows.py](../../tests/test_semiconductor_workflows.py): 8/8 tests passing.
-- [tests/test_server_api.py](../../tests/test_server_api.py): 10/10 tests passing.
+- [data/modules/06_dram_cell_architecture_gen2.json](.../../..../../.../../data/modules/06_dram_cell_architecture_gen2.json): Folded sense amplifier netlist, 1T1C COB layout, and address decoders.
+- [data/modules/01_mcu_cots.json](.../../..../../.../../data/modules/01_mcu_cots.json): ESP32 closed-loop motor controller with embedded SVG pinout.
+- [data/modules/02_litho_stage_gen1.json](.../../..../../.../../data/modules/02_litho_stage_gen1.json): Precision dual-axis stage assembly and Abbe error minimization.
+- [scripts/enrich_hardcore_specs.py](.../../.../../scripts/enrich_hardcore_specs.py): Automated enrichment and provenance sanitation engine.
+- [index.html](.../../.../../index.html): WBS Explorer frontend with interactive PoW links and SVG prose rendering.
+- [tests/test_semiconductor_workflows.py](.../../..../../.../../tests/test_semiconductor_workflows.py): 8/8 tests passing.
+- [tests/test_server_api.py](.../../..../../.../../tests/test_server_api.py): 10/10 tests passing.

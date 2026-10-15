@@ -51,6 +51,6 @@ Precision alignment in proximity photolithography requires rigorous mechanical p
 2. **Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose**: Differential micrometers and closed-loop piezo actuators (0.1 µm sensitivity), quartz-mask proximity separation (10–20 µm), 365nm i-line / 200W Hg lamp with fly's eye integrator lens achieving > 95% beam uniformity.
 
 ## References & Related Files
-- [docs/sop_fiducial_overlay_crosshair_micro_positioning_proximity_gap_calibration.md](./sop_fiducial_overlay_crosshair_micro_positioning_proximity_gap_calibration.md)
-- [docs/sop_fem_exposure_matrix_lithography_gap_recipe.md](./sop_fem_exposure_matrix_lithography_gap_recipe.md)
-- [docs/sop_vernier_scale_optical_overlay_error_cd_metrology.md](./sop_vernier_scale_optical_overlay_error_cd_metrology.md)
+- [docs/sop_fiducial_overlay_crosshair_micro_positioning_proximity_gap_calibration.md](../sop_fiducial_overlay_crosshair_micro_positioning_proximity_gap_calibration.md)
+- [docs/sop_fem_exposure_matrix_lithography_gap_recipe.md](../sop_fem_exposure_matrix_lithography_gap_recipe.md)
+- [docs/sop_vernier_scale_optical_overlay_error_cd_metrology.md](../sop_vernier_scale_optical_overlay_error_cd_metrology.md)

@@ -14,5 +14,5 @@ Spectroscopic ellipsometry parameterizes complex Fresnel reflection coefficients
 4. **Target Precision & Validation**: Sub-angstrom precision ($\pm 0.05\text{ nm}$) on ultra-thin gate oxides ($3.5\text{ nm}$) and $\pm 2\text{ nm}$ across thicker dielectric/resist layers.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

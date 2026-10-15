@@ -16,5 +16,5 @@ Establishes an industrial Standard Operating Procedure (SOP) for qualifying thin
 - Optical vs. Stylus Profilometry Step Height Discrepancy ($\Delta t$): $\le \pm 1.0\text{ nm}$
 
 ## Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

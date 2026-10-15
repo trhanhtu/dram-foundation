@@ -66,7 +66,7 @@ To support precision photolithography tooling alignment for 180nm 1T1C DRAM cell
 - **Proximity Gap Metrology Range**: $10\ \mu\text{m}$ to $20\ \mu\text{m}$ calibrated clearance verification for non-contact proximity printing mode.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose](./sop-interferometer-procurement.md)
-- [Sam Zeloof Z1 Garage Semiconductor Journal (2018)](./sop-interferometer-procurement.md)
-- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](./sop-interferometer-procurement.md)
+- [docs/context.yaml](.../../context.yaml)
+- [Optical Mask Aligner Mechanics: Gap Control and UV Exposure Dose](../../sop-interferometer-procurement.md)
+- [Sam Zeloof Z1 Garage Semiconductor Journal (2018)](../../sop-interferometer-procurement.md)
+- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](../../sop-interferometer-procurement.md)

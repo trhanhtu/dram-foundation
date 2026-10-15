@@ -60,7 +60,7 @@ To transform the legacy 180nm DRAM chip project into 1000+ granular, measurable 
 
 
 ## References & Related Files
-- [run_overnight.bat](../../run_overnight.bat)
-- [workflow/crawler_engine.py](../../workflow/crawler_engine.py)
-- [docs/context2.yaml](../context2.yaml)
-- [docs/pipeline_demo.py](../pipeline_demo.py)
+- [run_overnight.bat](.../../.../../run_overnight.bat)
+- [workflow/crawler_engine.py](.../../..../../.../../workflow/crawler_engine.py)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/pipeline_demo.py](.../../pipeline_demo.py)

@@ -17,8 +17,8 @@ Parametric design, conformal deposition specification, and 3D field-solver model
 - **Readout Differential Voltage ($\Delta V$)**: 100 mV to 150 mV (with $C_{BL} \approx 250\text{ fF}$)
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
 - Source 1: *180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench*
 - Source 2: *Legacy 180nm DRAM Architecture & Cell Capacitor Engineering*
 - Source 3: *Folded Bitline Sense Amplifier Circuit Design for DRAM Cell Readout*

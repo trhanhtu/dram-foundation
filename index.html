@@ -84,9 +84,9 @@
       </div>
 
       <div class="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 bg-slate-800/80 rounded-md border border-slate-700 text-slate-300 font-mono text-[11px]">
-        <span id="stat-total" class="font-bold text-white">1,003</span> nodes |
-        <span id="stat-done" class="text-emerald-400 font-bold">1,003</span> done |
-        <span id="stat-edges" class="text-blue-400 font-bold">1,000</span> edges
+        <span id="stat-total" class="font-bold text-white">2,020</span> nodes |
+        <span id="stat-done" class="text-emerald-400 font-bold">2,020</span> done |
+        <span id="stat-edges" class="text-blue-400 font-bold">2,019</span> edges
       </div>
 
       <button id="btn-convene-modal" class="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-md font-semibold transition shadow-lg shadow-purple-600/20 active:scale-95">
@@ -122,7 +122,7 @@
           <input 
             type="text" 
             id="search-input" 
-            placeholder="Search 1,003 packages by ID, title, keyword (e.g. furnace, rca, 180nm, dry ox)..." 
+            placeholder="Search 2,020 packages by ID, title, keyword (e.g. furnace, rca, 180nm, dry ox, B1500A, CAS)..." 
             class="w-full bg-slate-950/90 border border-slate-800 hover:border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 rounded-lg pl-9 pr-8 py-1.5 text-xs text-slate-100 placeholder-slate-500 outline-none transition"
           />
           <button id="btn-clear-search" class="absolute right-2.5 text-slate-500 hover:text-slate-300 text-xs hidden">✕</button>
@@ -132,14 +132,16 @@
         <div class="flex items-center gap-2">
           <label class="text-[11px] font-semibold text-slate-400 flex-shrink-0">Discipline:</label>
           <select id="select-discipline" class="w-full bg-slate-950 border border-slate-800 hover:border-slate-700 rounded-md px-2.5 py-1 text-xs text-slate-200 outline-none focus:border-blue-500 transition cursor-pointer">
-            <option value="all">🌐 All Disciplines (1,003 Work Packages)</option>
-            <option value="module_dram_root">🏆 00: 180nm DRAM Master Integration (106 nodes)</option>
-            <option value="module_mcu_cots">⚙️ 01: Electronics & Drive Infrastructure (1 node)</option>
+            <option value="all">🌐 All Disciplines (2,020 Work Packages)</option>
+            <option value="module_dram_root">🏆 00: 180nm DRAM Master Architecture (106 nodes)</option>
+            <option value="module_mcu_cots">⚙️ 01: Electronics & Drive Infrastructure (110 nodes)</option>
             <option value="module_litho_stage_gen1">📐 02: Macroscopic Lithography Stage (13 nodes)</option>
             <option value="module_optical_aligner_gen2">🔬 03: Microscopic Mask Optical Aligner (31 nodes)</option>
             <option value="module_wet_chemistry_gen1">🧪 04: Wet Chemistry & Acid Etch Bench (210 nodes)</option>
             <option value="module_thermal_oxidation_gen1">🔥 05: Thermal Oxidation Quartz Furnace (351 nodes)</option>
             <option value="module_dram_cell_gen2">💾 06: 180nm DRAM Cell Architecture (291 nodes)</option>
+            <option value="module_180nm_tapeout_gen3">🏭 07: 180nm Commercial MPW Tapeout & Open-Source PDK (499 nodes)</option>
+            <option value="module_beol_packaging_gen3">📦 08: BEOL Interconnect, Wafer Sort & Packaging (409 nodes)</option>
           </select>
         </div>
 
@@ -168,6 +170,7 @@
             <button class="filter-pill-gen active px-2 py-0.5 rounded text-[10px] font-bold bg-blue-600 text-white" data-gen="all">All</button>
             <button class="filter-pill-gen px-1.5 py-0.5 rounded text-[10px] font-medium text-blue-300 hover:bg-slate-800" data-gen="Gen 1">Gen 1</button>
             <button class="filter-pill-gen px-1.5 py-0.5 rounded text-[10px] font-medium text-purple-300 hover:bg-slate-800" data-gen="Gen 2">Gen 2</button>
+            <button class="filter-pill-gen px-1.5 py-0.5 rounded text-[10px] font-medium text-amber-300 hover:bg-slate-800" data-gen="Gen 3">Gen 3</button>
           </div>
         </div>
       </div>
@@ -293,34 +296,207 @@
           </div>
         </div>
 
-        <!-- Target Parameters Specs -->
-        <div id="spec-params-container" class="space-y-1.5">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Quantitative Target Parameters</h3>
-          <div id="spec-params-grid" class="grid grid-cols-2 gap-2 text-xs font-mono">
-            <!-- Dynamically populated -->
-          </div>
+        <!-- 360° Metadata Navigation Tabs -->
+        <div class="flex items-center gap-1 border-b border-slate-800 pb-1 text-xs overflow-x-auto no-scrollbar">
+          <button class="drawer-tab active px-3 py-1.5 rounded-lg font-semibold bg-blue-600/20 text-blue-400 border border-blue-500/30 transition flex items-center gap-1.5" data-tab="tab-sop">
+            <span>📋</span><span>SOP Spec</span>
+          </button>
+          <button class="drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5" data-tab="tab-critics">
+            <span>🛡️</span><span>Council Critics</span>
+            <span id="tab-critics-badge" class="px-1.5 py-0.2 rounded-full text-[9px] bg-slate-800 text-slate-400">4</span>
+          </button>
+          <button class="drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5" data-tab="tab-testcases">
+            <span>🔬</span><span>Metrology & Tests</span>
+            <span id="tab-testcases-badge" class="px-1.5 py-0.2 rounded-full text-[9px] bg-emerald-950 text-emerald-400 border border-emerald-800/60">0</span>
+          </button>
+          <button class="drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5" data-tab="tab-ehs">
+            <span>⚠️</span><span>EHS & Safety</span>
+            <span id="tab-ehs-badge" class="px-1.5 py-0.2 rounded-full text-[9px] bg-amber-950 text-amber-400 border border-amber-800/60">CAS</span>
+          </button>
+          <button class="drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5" data-tab="tab-qtime">
+            <span>⏱️</span><span>Q-Time</span>
+            <span id="tab-qtime-badge" class="px-1.5 py-0.2 rounded-full text-[9px] bg-blue-950 text-blue-400 border border-blue-800/60">Limits</span>
+          </button>
+          <button class="drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5" data-tab="tab-specs">
+            <span>🎯</span><span>Specs & Citations</span>
+          </button>
         </div>
 
-        <!-- Literature Citations -->
-        <div id="spec-citations-container" class="space-y-1.5">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">RAG Academic Citations & Literature</h3>
-          <ul id="spec-citations-list" class="space-y-1 text-xs text-slate-300">
-            <!-- Dynamically populated -->
-          </ul>
-        </div>
-
-        <!-- Full SOP Markdown Section -->
-        <div class="space-y-2 pt-2 border-t border-slate-800/80">
+        <!-- TAB 1: SOP Spec -->
+        <div id="panel-tab-sop" class="drawer-panel space-y-2">
           <div class="flex items-center justify-between">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-              <span>📋</span> Standard Operating Procedure (SOP)
-            </h3>
+            <span class="text-[11px] text-slate-400 font-mono">Standard Operating Procedure (8-80h Leaf Spec)</span>
             <button id="btn-copy-sop" class="px-2.5 py-1 text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700 transition flex items-center gap-1">
               <span>📋</span> Copy SOP
             </button>
           </div>
           <div id="spec-sop-markdown" class="sop-prose bg-slate-900/40 p-4 rounded-xl border border-slate-800/80 min-h-[160px]">
             <!-- Rendered Markdown goes here -->
+          </div>
+        </div>
+
+        <!-- TAB 2: Council Critics -->
+        <div id="panel-tab-critics" class="drawer-panel space-y-3 hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-blue-950/20 border border-blue-800/50 rounded-xl p-3 space-y-1">
+              <div class="flex items-center gap-1.5 text-blue-400 font-bold text-[11px]">
+                <span>📐</span><span>Systems Engineer</span>
+              </div>
+              <p id="critic-systems-engineer" class="text-slate-300 text-[11px] leading-relaxed">No critique recorded.</p>
+            </div>
+            <div class="bg-purple-950/20 border border-purple-800/50 rounded-xl p-3 space-y-1">
+              <div class="flex items-center gap-1.5 text-purple-400 font-bold text-[11px]">
+                <span>⚛️</span><span>Domain Expert (Physics/Kinetics)</span>
+              </div>
+              <p id="critic-domain-expert" class="text-slate-300 text-[11px] leading-relaxed">No critique recorded.</p>
+            </div>
+            <div class="bg-emerald-950/20 border border-emerald-800/50 rounded-xl p-3 space-y-1">
+              <div class="flex items-center gap-1.5 text-emerald-400 font-bold text-[11px]">
+                <span>🇻🇳</span><span>Supply Chain & Sourcing</span>
+              </div>
+              <p id="critic-supply-chain" class="text-slate-300 text-[11px] leading-relaxed">No critique recorded.</p>
+            </div>
+            <div class="bg-amber-950/20 border border-amber-800/50 rounded-xl p-3 space-y-1">
+              <div class="flex items-center gap-1.5 text-amber-400 font-bold text-[11px]">
+                <span>⏱️</span><span>Laya PM (8-80h & Scope)</span>
+              </div>
+              <p id="critic-laya-pm" class="text-slate-300 text-[11px] leading-relaxed">No critique recorded.</p>
+            </div>
+          </div>
+          <!-- FMEA Critical Failure Modes -->
+          <div class="bg-rose-950/20 border border-rose-800/50 rounded-xl p-3 space-y-1.5">
+            <div class="flex items-center gap-1.5 text-rose-400 font-bold text-[11px]">
+              <span>🚨</span><span>FMEA Critical Failure Modes</span>
+            </div>
+            <ul id="critic-failure-modes" class="space-y-1 text-slate-300 text-[11px] list-disc list-inside">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- TAB 3: Acceptance Metrology & Testcases -->
+        <div id="panel-tab-testcases" class="drawer-panel space-y-3 hidden">
+          <div id="spec-testcases-list" class="space-y-3">
+            <!-- Dynamically populated test cases -->
+          </div>
+        </div>
+
+        <!-- TAB 4: EHS & Chemical Safety -->
+        <div id="panel-tab-ehs" class="drawer-panel space-y-3 hidden">
+          <div class="flex items-center justify-between bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-xs text-slate-400">Chemical Hazard Classification:</span>
+            <span id="ehs-hazard-badge" class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-rose-950 border border-rose-800 text-rose-400">Critical</span>
+          </div>
+
+          <!-- Antidote Emergency Box -->
+          <div class="bg-rose-950/30 border border-rose-700/60 rounded-xl p-3 space-y-1">
+            <div class="flex items-center gap-1.5 text-rose-300 font-bold text-xs">
+              <span>🚑</span><span>Antidote & First Aid Emergency Protocol</span>
+            </div>
+            <p id="ehs-antidote" class="text-rose-200 text-xs leading-relaxed font-medium">Flush with water immediately.</p>
+          </div>
+
+          <!-- Chemical CAS Substances Table -->
+          <div class="space-y-1.5">
+            <h4 class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+              <span>🧪</span><span>Hazardous Substances & CAS Registry</span>
+            </h4>
+            <div class="overflow-x-auto rounded-lg border border-slate-800">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="bg-slate-900/90 text-slate-400 border-b border-slate-800 text-[10px] uppercase">
+                    <th class="p-2">Chemical Name</th>
+                    <th class="p-2">CAS Number</th>
+                    <th class="p-2">Grade</th>
+                    <th class="p-2">Concentration</th>
+                  </tr>
+                </thead>
+                <tbody id="ehs-cas-table" class="divide-y divide-slate-800/60 text-slate-200 text-[11px]">
+                  <!-- Rows populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- PPE Required -->
+          <div class="space-y-1.5">
+            <h4 class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+              <span>🥽</span><span>Personal Protective Equipment (PPE)</span>
+            </h4>
+            <div id="ehs-ppe-container" class="flex flex-wrap gap-1.5">
+              <!-- PPE badges -->
+            </div>
+          </div>
+
+          <!-- Exhaust & Waste -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-slate-900/60 border border-slate-800 p-2.5 rounded-xl space-y-1">
+              <span class="text-[10px] font-bold uppercase text-slate-400 block">Exhaust & Ventilation</span>
+              <p id="ehs-exhaust" class="text-slate-300 text-[11px] leading-relaxed">Dedicated fume hood.</p>
+            </div>
+            <div class="bg-slate-900/60 border border-slate-800 p-2.5 rounded-xl space-y-1">
+              <span class="text-[10px] font-bold uppercase text-slate-400 block">Waste Neutralization</span>
+              <p id="ehs-waste" class="text-slate-300 text-[11px] leading-relaxed">Neutralization protocol.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: Q-Time Limits -->
+        <div id="panel-tab-qtime" class="drawer-panel space-y-3 hidden">
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-amber-950/20 border border-amber-800/60 p-3 rounded-xl">
+              <span class="text-amber-400 text-[10px] uppercase font-bold block">Max Ambient Air Exposure</span>
+              <span id="qtime-air" class="text-base font-bold text-amber-300 font-mono mt-1 block">30 min</span>
+            </div>
+            <div class="bg-blue-950/20 border border-blue-800/60 p-3 rounded-xl">
+              <span class="text-blue-400 text-[10px] uppercase font-bold block">Max Dry N2 Storage</span>
+              <span id="qtime-n2" class="text-base font-bold text-blue-300 font-mono mt-1 block">4 hours</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-800 p-3 rounded-xl space-y-1">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Incoming Wafer Surface State</span>
+            <p id="qtime-incoming" class="text-slate-200 text-xs leading-relaxed">Native oxide stripped.</p>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-800 p-3 rounded-xl space-y-1">
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Outgoing Wafer Surface State</span>
+            <p id="qtime-outgoing" class="text-slate-200 text-xs leading-relaxed">Passivated surface.</p>
+          </div>
+
+          <!-- Critical Expiry Risk -->
+          <div class="bg-rose-950/25 border border-rose-800/60 p-3 rounded-xl space-y-1">
+            <div class="flex items-center gap-1.5 text-rose-400 font-bold text-xs">
+              <span>⚠️</span><span>Critical Risk on Q-Time Expiry</span>
+            </div>
+            <p id="qtime-risk" class="text-rose-200 text-xs leading-relaxed font-medium">Interfacial native oxide regrowth.</p>
+          </div>
+        </div>
+
+        <!-- TAB 6: Specs & RAG Citations -->
+        <div id="panel-tab-specs" class="drawer-panel space-y-4 hidden">
+          <!-- Quantitative Target Parameters -->
+          <div id="spec-params-container" class="space-y-1.5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Quantitative Target Parameters</h3>
+            <div id="spec-params-grid" class="grid grid-cols-2 gap-2 text-xs font-mono">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Verifiable Completion Assertions -->
+          <div class="space-y-1.5 bg-slate-900/60 border border-slate-800 p-3 rounded-xl">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+              <span>✅</span><span>Completion Assertions & Definition of Done</span>
+            </h3>
+            <p id="spec-expected-result" class="text-xs text-slate-300 leading-relaxed font-mono">Assertion validated.</p>
+          </div>
+
+          <!-- Academic Citations -->
+          <div id="spec-citations-container" class="space-y-1.5">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">RAG Academic Citations & Literature</h3>
+            <ul id="spec-citations-list" class="space-y-1 text-xs text-slate-300">
+              <!-- Dynamically populated -->
+            </ul>
           </div>
         </div>
       </div>
@@ -500,6 +676,18 @@
         document.getElementById('stat-done').textContent = doneCount.toLocaleString();
         document.getElementById('stat-edges').textContent = allEdges.length.toLocaleString();
 
+        // Dynamically populate select-discipline from dataEngine.modules if available
+        if (dataEngine.modules && dataEngine.modules.length > 0) {
+          const currentVal = selectDiscipline.value;
+          selectDiscipline.innerHTML = `<option value="all">🌐 All Disciplines (${allNodes.length.toLocaleString()} Work Packages)</option>` +
+            dataEngine.modules.map((m, idx) => {
+              const meta = DISCIPLINE_METADATA[m.id] || { code: `MOD-0${idx}`, icon: '📦' };
+              const count = allNodes.filter(n => n.moduleId === m.id).length;
+              return `<option value="${m.id}">${meta.icon || '🔬'} ${meta.code || m.id}: ${m.name} (${count} nodes)</option>`;
+            }).join('');
+          selectDiscipline.value = currentVal;
+        }
+
         // Select first node by default or master root
         const rootNode = allNodes.find(n => n.id === 'node-dram-root') || allNodes[0];
         if (rootNode) {
@@ -537,14 +725,18 @@
         if (activeGen !== 'all' && !(n.generation || '').includes(activeGen)) {
           return false;
         }
-        // Keyword Search
+        // Keyword Search (deep search across title, ID, metrics, citations, critics, testcases, CAS chemicals, Q-Time)
         if (q) {
           const inLabel = (n.label || '').toLowerCase().includes(q);
           const inId = (n.id || '').toLowerCase().includes(q);
           const inMetric = (n.primaryMetric || '').toLowerCase().includes(q);
           const inCategory = (n.category || '').toLowerCase().includes(q);
           const inCitations = Array.isArray(n.citations) && n.citations.some(c => c.toLowerCase().includes(q));
-          if (!inLabel && !inId && !inMetric && !inCategory && !inCitations) {
+          const inCritics = n.critics ? JSON.stringify(n.critics).toLowerCase().includes(q) : false;
+          const inTests = n.testcases ? JSON.stringify(n.testcases).toLowerCase().includes(q) : false;
+          const inEhs = n.ehs_protocol ? JSON.stringify(n.ehs_protocol).toLowerCase().includes(q) : false;
+          const inQtime = n.q_time_constraints ? JSON.stringify(n.q_time_constraints).toLowerCase().includes(q) : false;
+          if (!inLabel && !inId && !inMetric && !inCategory && !inCitations && !inCritics && !inTests && !inEhs && !inQtime) {
             return false;
           }
         }
@@ -697,6 +889,16 @@
       // Render Spec & Markdown Drawer
       renderSpecDrawer(node);
 
+      // Ensure currently selected drawer tab panel is visible
+      document.querySelectorAll('.drawer-panel').forEach(p => p.classList.add('hidden'));
+      const curPanel = document.getElementById(`panel-${activeDrawerTab}`);
+      if (curPanel) {
+        curPanel.classList.remove('hidden');
+      } else {
+        const defaultPanel = document.getElementById('panel-tab-sop');
+        if (defaultPanel) defaultPanel.classList.remove('hidden');
+      }
+
       // Render Mini Local Neighborhood SVG Graph
       renderNeighborhoodGraph(node);
     };
@@ -815,6 +1017,155 @@
         } catch(err) {
           console.warn('[Mermaid] render warning:', err);
         }
+      }
+
+      // 1. Populate Critics
+      const critics = node.critics || {};
+      const systemsCrit = document.getElementById('critic-systems-engineer');
+      if (systemsCrit) systemsCrit.textContent = critics.systems_engineer || 'No systems engineering critique recorded.';
+      const domainCrit = document.getElementById('critic-domain-expert');
+      if (domainCrit) domainCrit.textContent = critics.domain_expert || 'No domain expert kinetics critique recorded.';
+      const supplyCrit = document.getElementById('critic-supply-chain');
+      if (supplyCrit) supplyCrit.textContent = critics.supply_chain || 'No supply chain critique recorded.';
+      const layaCrit = document.getElementById('critic-laya-pm');
+      if (layaCrit) layaCrit.textContent = critics.laya_pm || 'No PM scope critique recorded.';
+
+      const failureModes = Array.isArray(critics.critical_failure_modes) ? critics.critical_failure_modes : [];
+      const failModesList = document.getElementById('critic-failure-modes');
+      if (failModesList) {
+        if (failureModes.length === 0) {
+          failModesList.innerHTML = '<li class="text-slate-500 italic">No critical failure modes recorded.</li>';
+        } else {
+          failModesList.innerHTML = failureModes.map(fm => `<li class="text-slate-300 leading-snug">${escapeHtml(fm)}</li>`).join('');
+        }
+      }
+
+      // 2. Populate Testcases
+      const testcases = Array.isArray(node.testcases) ? node.testcases : [];
+      const tcBadge = document.getElementById('tab-testcases-badge');
+      if (tcBadge) tcBadge.textContent = testcases.length;
+      const tcContainer = document.getElementById('spec-testcases-list');
+      if (tcContainer) {
+        if (testcases.length === 0) {
+          tcContainer.innerHTML = '<div class="p-6 text-center text-slate-500 italic text-xs">No formal physical acceptance testcases defined for this package.</div>';
+        } else {
+          tcContainer.innerHTML = testcases.map((tc, idx) => `
+            <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 space-y-2.5 shadow-sm">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950 text-blue-300 border border-blue-800">${escapeHtml(tc.id || `TC-${idx+1}`)}</span>
+                <h4 class="text-xs font-bold text-slate-100 flex-1 truncate">${escapeHtml(tc.title || 'Acceptance Test')}</h4>
+              </div>
+              ${tc.instrumentation ? `
+                <div class="text-[11px] text-slate-300 flex items-start gap-1.5 bg-slate-950/60 p-2 rounded-lg border border-slate-800/80">
+                  <span class="text-purple-400 font-bold flex-shrink-0">📟 Apparatus:</span>
+                  <span class="text-slate-300 leading-snug">${escapeHtml(tc.instrumentation)}</span>
+                </div>
+              ` : ''}
+              ${tc.pre_conditions ? `
+                <div class="text-[11px] text-slate-300 flex items-start gap-1.5 bg-slate-950/60 p-2 rounded-lg border border-slate-800/80">
+                  <span class="text-amber-400 font-bold flex-shrink-0">🌡️ Pre-Conditions:</span>
+                  <span class="text-slate-300 leading-snug">${escapeHtml(tc.pre_conditions)}</span>
+                </div>
+              ` : ''}
+              ${tc.procedure ? `
+                <div class="text-[11px] text-slate-300 space-y-1">
+                  <span class="text-slate-400 font-bold block text-[10px] uppercase">Procedure:</span>
+                  <div class="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80 text-slate-300 whitespace-pre-line leading-relaxed font-sans">${escapeHtml(tc.procedure)}</div>
+                </div>
+              ` : ''}
+              ${tc.pass_fail_criteria ? `
+                <div class="text-[11px] text-emerald-300 flex items-start gap-1.5 bg-emerald-950/30 p-2.5 rounded-lg border border-emerald-800/60">
+                  <span class="text-emerald-400 font-bold flex-shrink-0">✅ Criteria:</span>
+                  <span class="text-emerald-200 font-medium leading-snug">${escapeHtml(tc.pass_fail_criteria)}</span>
+                </div>
+              ` : ''}
+            </div>
+          `).join('');
+
+          if (window.renderMathInElement) {
+            try {
+              renderMathInElement(tcContainer, {
+                delimiters: [
+                  {left: '$$', right: '$$', display: true},
+                  {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false
+              });
+            } catch(e) {}
+          }
+        }
+      }
+
+      // 3. Populate EHS & Safety
+      const ehs = node.ehs_protocol || {};
+      const hazardBadge = document.getElementById('ehs-hazard-badge');
+      if (hazardBadge) {
+        const hLevel = ehs.hazard_level || 'Moderate';
+        hazardBadge.textContent = hLevel;
+        if (hLevel === 'Critical') {
+          hazardBadge.className = 'px-2.5 py-0.5 rounded text-[11px] font-bold bg-rose-950 border border-rose-800 text-rose-400 animate-pulse';
+        } else if (hLevel === 'High') {
+          hazardBadge.className = 'px-2.5 py-0.5 rounded text-[11px] font-bold bg-amber-950 border border-amber-800 text-amber-400';
+        } else {
+          hazardBadge.className = 'px-2.5 py-0.5 rounded text-[11px] font-bold bg-emerald-950 border border-emerald-800 text-emerald-400';
+        }
+      }
+
+      const antidoteElem = document.getElementById('ehs-antidote');
+      if (antidoteElem) antidoteElem.textContent = ehs.antidote_and_first_aid || 'Standard eyewash and copious water irrigation. Seek emergency medical response.';
+      const exhaustElem = document.getElementById('ehs-exhaust');
+      if (exhaustElem) exhaustElem.textContent = ehs.exhaust_and_ventilation || 'Dedicated laminar airflow fume hood with face velocity >= 0.5 m/s.';
+      const wasteElem = document.getElementById('ehs-waste');
+      if (wasteElem) wasteElem.textContent = ehs.waste_neutralization || 'Segregated chemical neutralization and precipitation prior to disposal.';
+
+      const casList = Array.isArray(ehs.cas_chemicals) ? ehs.cas_chemicals : [];
+      const casTable = document.getElementById('ehs-cas-table');
+      if (casTable) {
+        if (casList.length === 0) {
+          casTable.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-slate-500 italic">No hazardous chemical substances registered for this work package.</td></tr>`;
+        } else {
+          casTable.innerHTML = casList.map(c => `
+            <tr class="hover:bg-slate-900/60">
+              <td class="p-2 font-medium text-slate-100">${escapeHtml(c.name || 'Chemical')}</td>
+              <td class="p-2 font-mono text-cyan-400">${escapeHtml(c.cas_number || 'N/A')}</td>
+              <td class="p-2 text-slate-300">${escapeHtml(c.purity_grade || 'Standard')}</td>
+              <td class="p-2 font-mono text-amber-300">${escapeHtml(c.concentration || 'N/A')}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      const ppeList = Array.isArray(ehs.ppe_required) ? ehs.ppe_required : [];
+      const ppeContainer = document.getElementById('ehs-ppe-container');
+      if (ppeContainer) {
+        if (ppeList.length === 0) {
+          ppeContainer.innerHTML = '<span class="text-slate-500 text-xs italic">Standard cleanroom garments.</span>';
+        } else {
+          ppeContainer.innerHTML = ppeList.map(p => `
+            <span class="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-[11px] text-slate-300 flex items-center gap-1">
+              <span>🛡️</span><span>${escapeHtml(p)}</span>
+            </span>
+          `).join('');
+        }
+      }
+
+      // 4. Populate Q-Time Limits
+      const qtime = node.q_time_constraints || {};
+      const qAirElem = document.getElementById('qtime-air');
+      if (qAirElem) qAirElem.textContent = qtime.max_queue_time_air_minutes ? `${qtime.max_queue_time_air_minutes} minutes` : 'N/A (Standard)';
+      const qN2Elem = document.getElementById('qtime-n2');
+      if (qN2Elem) qN2Elem.textContent = qtime.max_queue_time_n2_hours ? `${qtime.max_queue_time_n2_hours} hours` : 'N/A (Standard)';
+      const qInElem = document.getElementById('qtime-incoming');
+      if (qInElem) qInElem.textContent = qtime.incoming_surface_state || 'Standard incoming wafer surface state.';
+      const qOutElem = document.getElementById('qtime-outgoing');
+      if (qOutElem) qOutElem.textContent = qtime.outgoing_surface_state || 'Passivated wafer surface state.';
+      const qRiskElem = document.getElementById('qtime-risk');
+      if (qRiskElem) qRiskElem.textContent = qtime.critical_risk_on_expiry || 'Surface contamination or oxide regrowth causing parametric shift.';
+
+      // 5. Completion Assertions / Expected Result
+      const expResultElem = document.getElementById('spec-expected-result');
+      if (expResultElem) {
+        expResultElem.textContent = node.expected_result || node.completion_assertions || 'Work package execution and acceptance criteria verified.';
       }
     }
 
@@ -1107,6 +1458,26 @@
       });
     });
 
+    // Drawer Tab Navigation Handler
+    let activeDrawerTab = 'tab-sop';
+    document.querySelectorAll('.drawer-tab').forEach(tabBtn => {
+      tabBtn.addEventListener('click', () => {
+        const targetTab = tabBtn.getAttribute('data-tab');
+        activeDrawerTab = targetTab;
+        
+        // Highlight active tab
+        document.querySelectorAll('.drawer-tab').forEach(b => {
+          b.className = 'drawer-tab px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent transition flex items-center gap-1.5';
+        });
+        tabBtn.className = 'drawer-tab active px-3 py-1.5 rounded-lg font-semibold bg-blue-600/20 text-blue-400 border border-blue-500/30 transition flex items-center gap-1.5';
+
+        // Switch panels
+        document.querySelectorAll('.drawer-panel').forEach(p => p.classList.add('hidden'));
+        const activePanel = document.getElementById(`panel-${targetTab}`);
+        if (activePanel) activePanel.classList.remove('hidden');
+      });
+    });
+
     // Export PR Button
     document.getElementById('btn-export-pr').addEventListener('click', () => {
       dataEngine.exportModule(allNodes.map(n => ({ id: n.id, data: n })), allEdges, activeDiscipline);
@@ -1135,7 +1506,7 @@
             <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
             <span id="backend-status-text" class="text-cyan-300 font-mono text-[11px]">Static Mode (GitHub Pages)</span>
           `;
-          badgeContainer.title = "Running in pure static mode. All 1,003 nodes and DAG loaded from precomputed JSON SSOT.";
+          badgeContainer.title = "Running in pure static mode. All 2,020 nodes and DAG loaded from precomputed JSON SSOT.";
         }
         return;
       }

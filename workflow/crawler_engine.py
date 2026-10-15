@@ -121,6 +121,21 @@ class DRAMGraphDB:
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
             """)
+
+            # Schema migration: Add critics, testcases, ehs_protocol, q_time_constraints, and expected_result columns if missing
+            cursor.execute("PRAGMA table_info(nodes);")
+            existing_cols = [row["name"] for row in cursor.fetchall()]
+            if "critics" not in existing_cols:
+                cursor.execute("ALTER TABLE nodes ADD COLUMN critics TEXT;")
+            if "testcases" not in existing_cols:
+                cursor.execute("ALTER TABLE nodes ADD COLUMN testcases TEXT;")
+            if "ehs_protocol" not in existing_cols:
+                cursor.execute("ALTER TABLE nodes ADD COLUMN ehs_protocol TEXT;")
+            if "q_time_constraints" not in existing_cols:
+                cursor.execute("ALTER TABLE nodes ADD COLUMN q_time_constraints TEXT;")
+            if "expected_result" not in existing_cols:
+                cursor.execute("ALTER TABLE nodes ADD COLUMN expected_result TEXT;")
+
             conn.commit()
 
     def sync_from_json(self):
@@ -133,12 +148,17 @@ class DRAMGraphDB:
                         data = json.load(f)
                     
                     for node in data.get("nodes", []):
+                        critics_val = json.dumps(node.get("critics", {}), ensure_ascii=False) if node.get("critics") else None
+                        testcases_val = json.dumps(node.get("testcases", []), ensure_ascii=False) if node.get("testcases") else None
+                        ehs_val = json.dumps(node.get("ehs_protocol", {}), ensure_ascii=False) if node.get("ehs_protocol") else None
+                        q_time_val = json.dumps(node.get("q_time_constraints", {}), ensure_ascii=False) if node.get("q_time_constraints") else None
+                        expected_result_val = json.dumps(node.get("expected_result", {}), ensure_ascii=False) if node.get("expected_result") else None
                         cursor.execute("""
                             INSERT INTO nodes (
                                 id, parent_id, module_file, label, generation, action_type,
                                 status, category, estimated_hours, primary_metric,
-                                metrics_target, sop_content, citations, proof_of_work, updated_at
-                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+                                metrics_target, sop_content, citations, proof_of_work, critics, testcases, ehs_protocol, q_time_constraints, expected_result, updated_at
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
                             ON CONFLICT(id) DO UPDATE SET
                                 parent_id = COALESCE(excluded.parent_id, nodes.parent_id),
                                 module_file = excluded.module_file,
@@ -153,6 +173,11 @@ class DRAMGraphDB:
                                 sop_content = excluded.sop_content,
                                 citations = excluded.citations,
                                 proof_of_work = excluded.proof_of_work,
+                                critics = COALESCE(excluded.critics, nodes.critics),
+                                testcases = COALESCE(excluded.testcases, nodes.testcases),
+                                ehs_protocol = COALESCE(excluded.ehs_protocol, nodes.ehs_protocol),
+                                q_time_constraints = COALESCE(excluded.q_time_constraints, nodes.q_time_constraints),
+                                expected_result = COALESCE(excluded.expected_result, nodes.expected_result),
                                 updated_at = CURRENT_TIMESTAMP;
                         """, (
                             node.get("id"),
@@ -168,7 +193,12 @@ class DRAMGraphDB:
                             json.dumps(node.get("metrics_target", {}), ensure_ascii=False),
                             node.get("sop_content"),
                             json.dumps(node.get("citations", []), ensure_ascii=False),
-                            json.dumps(node.get("proof_of_work", {}), ensure_ascii=False)
+                            json.dumps(node.get("proof_of_work", {}), ensure_ascii=False),
+                            critics_val,
+                            testcases_val,
+                            ehs_val,
+                            q_time_val,
+                            expected_result_val
                         ))
 
                     for edge in data.get("edges", []):
@@ -240,6 +270,31 @@ class DRAMGraphDB:
                             node_dict["proof_of_work"] = json.loads(r["proof_of_work"])
                         except Exception:
                             node_dict["proof_of_work"] = {}
+                    if "critics" in r.keys() and r["critics"]:
+                        try:
+                            node_dict["critics"] = json.loads(r["critics"])
+                        except Exception:
+                            node_dict["critics"] = {}
+                    if "testcases" in r.keys() and r["testcases"]:
+                        try:
+                            node_dict["testcases"] = json.loads(r["testcases"])
+                        except Exception:
+                            node_dict["testcases"] = []
+                    if "ehs_protocol" in r.keys() and r["ehs_protocol"]:
+                        try:
+                            node_dict["ehs_protocol"] = json.loads(r["ehs_protocol"])
+                        except Exception:
+                            node_dict["ehs_protocol"] = {}
+                    if "q_time_constraints" in r.keys() and r["q_time_constraints"]:
+                        try:
+                            node_dict["q_time_constraints"] = json.loads(r["q_time_constraints"])
+                        except Exception:
+                            node_dict["q_time_constraints"] = {}
+                    if "expected_result" in r.keys() and r["expected_result"]:
+                        try:
+                            node_dict["expected_result"] = json.loads(r["expected_result"])
+                        except Exception:
+                            node_dict["expected_result"] = {}
                     nodes_list.append(node_dict)
 
                 cursor.execute("SELECT * FROM edges WHERE module_file = ? ORDER BY id;", (mod_file,))
@@ -308,6 +363,7 @@ class DRAMGraphDB:
                               WHEN parent_id = 'node-dram-root' THEN 1
                               WHEN parent_id IS NULL THEN 2
                               ELSE 3 END,
+                         (LENGTH(id) - LENGTH(REPLACE(id, '-', ''))) ASC,
                          id ASC
                 LIMIT 1;
             """)
@@ -669,9 +725,11 @@ class OvernightCrawlerEngine:
         )
         scope = pm_decision.get("scope_decision", "write_sop")
 
-        # Multi-Level Decomposition Rule to reach target_nodes (e.g. 1000 problems):
-        is_cots = (node_data.get("action_type") == "Buy") or any(
-            kw in node_data["label"].lower() for kw in ["mcu", "esp32", "cots", "purchase", "stepper motor", "cable", "power supply"]
+        # Multi-Level Decomposition Rule to reach target_nodes (e.g. 2000 problems):
+        is_cots = (node_data.get("action_type") == "Buy") or (
+            node_data.get("action_type") != "Make" and any(
+                kw in node_data["label"].lower() for kw in ["cots purchase", "buy off-the-shelf", "commercial supply", "purchase standard"]
+            )
         )
         if not is_cots and (current_total < self.target_nodes and depth < self.max_depth):
             scope = "spawn_children"
@@ -792,7 +850,11 @@ class OvernightCrawlerEngine:
                 "metrics_target": {"Parent": p_label, "Target": "Physical Validation"},
                 "sop_content": None,
                 "citations": ["DRAM Foundation VN - Engineering Specification"],
-                "proof_of_work": {"status": "Pending", "repo": f"https://github.com/dram-vn/{c_id}"}
+                "proof_of_work": {
+                    "status": "Pending Physical Verification",
+                    "repo": f"https://github.com/dram-vn/{c_id}",
+                    "video": "Awaiting laboratory video"
+                }
             })
 
         # Tree branch prerequisite edges from each child directly to parent milestone
@@ -905,9 +967,14 @@ def main():
     parser.add_argument("--reset-node", type=str, help="Reset a specific node ID to 'pending'")
     parser.add_argument("--decompose", type=str, help="Force decompose a specific node ID into child tasks")
     parser.add_argument("--max-iterations", type=int, default=None, help="Limit number of nodes to process")
-    parser.add_argument("--target-nodes", type=int, default=1000, help="Target total node count to expand WBS into (e.g. 1000)")
-    parser.add_argument("--max-depth", type=int, default=6, help="Maximum WBS recursion depth before generating leaf SOPs (default: 6)")
+    parser.add_argument("--target-nodes", type=int, default=2000, help="Target total node count to expand WBS into (default: 2000)")
+    parser.add_argument("--max-depth", type=int, default=7, help="Maximum WBS recursion depth before generating leaf SOPs (default: 7)")
     parser.add_argument("--branch-factor", type=int, default=3, help="Number of child branches per split node (N, default: 3)")
+    parser.add_argument("--enrich-critics-testcases", action="store_true", help="Synthesize Council Critics and Physical Test Cases for nodes")
+    parser.add_argument("--enrich-status", action="store_true", help="Print summary of Council Critics and Physical Test Cases")
+    parser.add_argument("--enrich-limit", type=int, default=None, help="Limit number of nodes to enrich with critics & testcases")
+    parser.add_argument("--enrich-force", action="store_true", help="Force re-enrichment of nodes even if critics/testcases already exist")
+    parser.add_argument("--mode", choices=["gemini", "fast"], default="gemini", help="Enrichment engine mode: 'gemini' for deep AI RAG synthesis, 'fast' for instant heuristics")
     args = parser.parse_args()
 
     crawler = OvernightCrawlerEngine(
@@ -915,6 +982,30 @@ def main():
         max_depth=args.max_depth,
         branch_factor=args.branch_factor
     )
+
+    if args.enrich_status:
+        from workflow.critic_testcase_engine import CriticTestCaseEnricher
+        enricher = CriticTestCaseEnricher(db=crawler.db)
+        status = enricher.get_enrichment_status()
+        print("\n========================================================")
+        print("  DRAM Foundation VN - 360° Node Enrichment Status")
+        print("========================================================")
+        print(f"  • Total Nodes:                 {status['total']}")
+        print(f"  • With Council Critics:        {status['with_critics']}")
+        print(f"  • With Physical Test Cases:    {status['with_testcases']}")
+        print(f"  • With EHS & Chemical CAS:     {status['with_ehs']}")
+        print(f"  • With Q-Time Constraints:     {status['with_q_time']}")
+        print(f"  • With Completion Assertions:  {status.get('with_expected_result', 0)}")
+        print(f"  • Pending Enrichment:          {status['pending_enrichment']}")
+        print("========================================================\n")
+        return
+
+    if args.enrich_critics_testcases:
+        from workflow.critic_testcase_engine import CriticTestCaseEnricher
+        enricher = CriticTestCaseEnricher(db=crawler.db, vector_store=crawler.vector_store)
+        use_llm = (args.mode == "gemini")
+        enricher.run_enrichment_pipeline(limit=args.enrich_limit, force=args.enrich_force, use_llm=use_llm)
+        return
 
     if args.check_pending:
         summary = crawler.db.get_status_summary()
@@ -953,7 +1044,7 @@ def main():
     if summary["pending"] == 0 and summary["in_progress"] == 0 and not (args.reset or args.reset_node or args.decompose):
         logging.info(
             f"Notice: All {summary['total']} nodes in the WBS graph are currently marked 'done'. "
-            "Use '--reset root' or '--reset all' to re-run the crawler."
+            "Use '--enrich-critics-testcases' to synthesize critics & testcases, or '--reset root' to re-run the crawler."
         )
         return
 

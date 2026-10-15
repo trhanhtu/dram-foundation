@@ -68,5 +68,5 @@ This procedure governs the physical pitch boundary definition, cell-to-core tran
 
 ### 5. Document History & Related Files
 - Linked SOPs:
-  - [docs/sop_folded_bitline_cmos_sense_amplifier_equalizer.md](./sop_folded_bitline_cmos_sense_amplifier_equalizer.md)
-  - [docs/sop_1t1c_storage_node_floating_and_plate_connectivity.md](./sop_1t1c_storage_node_floating_and_plate_connectivity.md)
+  - [docs/sop_folded_bitline_cmos_sense_amplifier_equalizer.md](../sop_folded_bitline_cmos_sense_amplifier_equalizer.md)
+  - [docs/sop_1t1c_storage_node_floating_and_plate_connectivity.md](../sop_1t1c_storage_node_floating_and_plate_connectivity.md)

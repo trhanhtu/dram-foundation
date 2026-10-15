@@ -20,6 +20,6 @@ Standard operating procedure defining the exact physical layer thicknesses, mate
 | **BEOL** | Bitline & Metal Interconnect | Metal / W Bitline & ILD Stack | Bitline pitch $360\text{ nm}-400\text{ nm}$ | ILD $\text{SiO}_2$ ($\kappa \approx 3.9$) | $C_{BL} \approx 250\text{ fF}$, $\Delta V = 100-150\text{ mV}$ |
 
 ## References
-- [Legacy 180nm DRAM Architecture & Cell Capacitor Engineering](./)
-- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](./)
-- [Folded Bitline Sense Amplifier Circuit Design for DRAM Cell Readout](./)
+- [Legacy 180nm DRAM Architecture & Cell Capacitor Engineering](../)
+- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](../)
+- [Folded Bitline Sense Amplifier Circuit Design for DRAM Cell Readout](../)

@@ -15,5 +15,5 @@ Defines the Layout Versus Schematic (LVS) rule deck extraction and primitive dev
 - **Pin & Connectivity Validation**: Wordline (WL), Bitline (BL), Common Cell Plate ($V_{plate} = V_{DD}/2$), Substrate bulk connection ($V_{BB} \approx -0.5\text{V}$ to $-1.0\text{V}$).
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
+- [docs/context.yaml](.../../context.yaml)
 - Verified Local Literature Context: *Legacy 180nm DRAM Architecture & Cell Capacitor Engineering*, *180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench*, *Folded Bitline Sense Amplifier Circuit Design for DRAM Cell Readout*.

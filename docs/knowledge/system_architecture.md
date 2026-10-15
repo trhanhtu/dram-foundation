@@ -40,5 +40,5 @@ To prevent hallucination, each node in the DAG must be reviewed by the specializ
 ---
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [AGENTS.md](../../AGENTS.md)
+- [docs/context.yaml](.../../context.yaml)
+- [AGENTS.md](.../../.../../AGENTS.md)

@@ -7,7 +7,7 @@
 ---
 
 ## 1. Objective & Strategic Purpose
-As specified in [docs/context3.yaml](../context3.yaml) (*Graph Pull Requests*) and [docs/plan_n_days.md](../plan_n_days.md) (*Phase 2*), Phase 2 solves the critical challenge of collaborative graph authoring:
+As specified in [docs/context3.yaml](.../../context3.yaml) (*Graph Pull Requests*) and [docs/plan_n_days.md](.../../plan_n_days.md) (*Phase 2*), Phase 2 solves the critical challenge of collaborative graph authoring:
 - **The Problem**: A monolithic 1,000-node JSON file creates catastrophic Git merge conflicts when multiple engineers and sub-agents contribute concurrently.
 - **The Solution**: **Modular JSON Architecture** where sub-graphs are isolated into domain modules (e.g. `01_mcu_cots.json`, `02_litho_stage_gen1.json`), assembled dynamically by a local-first client engine, and verifiable via Kahn's topological cycle detection.
 
@@ -81,9 +81,9 @@ Each node transitions across four standardized states:
 ---
 
 ## References & Related Files
-- [data/manifest.json](../../data/manifest.json)
-- [data/schema/node.schema.json](../../data/schema/node.schema.json)
-- [data/schema/edge.schema.json](../../data/schema/edge.schema.json)
-- [sandbox/data-engine.js](../../sandbox/data-engine.js)
-- [sandbox/index.html](../../sandbox/index.html)
-- [docs/context3.yaml](../context3.yaml)
+- [data/manifest.json](.../../..../../.../../data/manifest.json)
+- [data/schema/node.schema.json](.../../..../../.../../data/schema/node.schema.json)
+- [data/schema/edge.schema.json](.../../..../../.../../data/schema/edge.schema.json)
+- [sandbox/data-engine.js](.../../.../../sandbox/data-engine.js)
+- [sandbox/index.html](.../../.../../sandbox/index.html)
+- [docs/context3.yaml](.../../context3.yaml)

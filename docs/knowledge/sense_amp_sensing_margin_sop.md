@@ -14,5 +14,5 @@ Defines the standard operating procedure for verifying the sensing margin, regen
 - **Layout & Mismatch Verification**: Pitch matched to $360\text{ nm}$ bitline pitch using interleaved layouts; statistical Monte Carlo mismatch verification across threshold voltage ($V_{th}$) and aspect ratio ($W/L$) variations.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

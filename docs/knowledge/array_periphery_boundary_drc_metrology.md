@@ -15,5 +15,5 @@ Defines the sign-off criteria and metrology inspection verification for the inte
 - **Sense Amplifier Interface Integrity**: Verified against $C_{BL} \approx 250\text{ fF}$ ensuring signal $\Delta V \ge 100\text{ to }150\text{ mV}$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

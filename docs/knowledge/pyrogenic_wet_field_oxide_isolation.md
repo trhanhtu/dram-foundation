@@ -14,6 +14,6 @@ For Gen 1 (mm) prototyping within the 180nm DRAM architecture context, robust di
 - **Metrology**: Post-oxidation spectroscopic ellipsometry mapping across wafer batch.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
 - Deal-Grove Silicon Thermal Oxidation Kinetics in Quartz Tube Furnace

@@ -17,6 +17,6 @@ To maintain signal development ($\Delta V = 100\text{ mV}$ to $150\text{ mV}$), 
 4. **Post-Fill RC Extraction & Verification**: Perform corner extraction to verify differential balance ($|\Delta C_b| \le 1.0\text{ fF}$) and prevent $C_b / C_s$ exceeding $10:1$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
-- [docs/context3.yaml](../context3.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/context3.yaml](.../../context3.yaml)

@@ -15,5 +15,5 @@ Defines physical layout design rule check (DRC) verification steps for the 180nm
 - **DRC Rules Enforced**: Channel length/width integrity, minimum active extension beyond gate, gate poly endcap overlap, and wordline pitch regularity.
 
 ## References & Related Files
-- [docs/context.yaml](./context.yaml)
-- [docs/context2.yaml](./context2.yaml)
+- [docs/context.yaml](../context.yaml)
+- [docs/context2.yaml](../context2.yaml)

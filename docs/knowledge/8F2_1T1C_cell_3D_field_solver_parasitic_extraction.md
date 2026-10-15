@@ -15,5 +15,5 @@ Standard Operating Procedure (SOP) for 3D field solver-based full-wave and elect
 - Capacitance targets: $C_s \ge 25 - 30\ \text{fF}$ (nominal $28\ \text{fF}$), $C_b = 150 - 250\ \text{fF}$ (for $256/512$ cells/BL), ratio $C_b/C_s \in [5:1, 9:1]$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

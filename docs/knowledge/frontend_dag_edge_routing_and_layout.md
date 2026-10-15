@@ -22,7 +22,7 @@ Nodes now feature explicit multi-port connection points with perimeter offsets (
 - `id: "source-right"`: Outgoing cross-discipline dependencies to the right.
 
 ### 2. Intelligent Edge Routing Engine
-In [`data-engine.js`](../../data-engine.js):
+In [`data-engine.js`](.../../.../../data-engine.js):
 - **Intra-Module Sequences**: Assigned `source-bottom` $\rightarrow$ `target-top` with `type: 'smoothstep'`. Produces direct vertical lines with zero hairpin turns.
 - **Inter-Module Sequences**: Assigned `source-right` $\rightarrow$ `target-left` with `type: 'smoothstep'`. Routes along clean 100px bus channels between containers.
 - **Inter-Tier Handover**: (e.g. Optics Row 0 $\rightarrow$ DRAM Cell Row 1) assigned `source-bottom` $\rightarrow$ `target-top`.
@@ -42,8 +42,8 @@ Containers and cards are arranged in an ordered 4-column flow:
 - **Col 3**: `ROOT-00` Apex Master DRAM at `(x: 1500, y: 440)` cleanly terminating all three process streams from the left.
 
 ## References & Related Files
-- [`index.html`](../../index.html)
-- [`data-engine.js`](../../data-engine.js)
-- [`sandbox/index.html`](../../sandbox/index.html)
-- [`sandbox/data-engine.js`](../../sandbox/data-engine.js)
-- [`workflow/server.py`](../../workflow/server.py)
+- [`index.html`](.../../.../../index.html)
+- [`data-engine.js`](.../../.../../data-engine.js)
+- [`sandbox/index.html`](.../../.../../sandbox/index.html)
+- [`sandbox/data-engine.js`](.../../.../../sandbox/data-engine.js)
+- [`workflow/server.py`](.../../..../../.../../workflow/server.py)

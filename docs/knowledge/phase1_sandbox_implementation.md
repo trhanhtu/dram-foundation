@@ -7,13 +7,13 @@
 ---
 
 ## 1. Objective & Purpose
-As mandated by [docs/context.yaml](../context.yaml) (`initial_bootstrap_task`) and [docs/context2.yaml](../context2.yaml) (*Bottom-Up Execution*), Phase 1 was executed immediately to eliminate **Blueprint Vertigo** without getting lost in abstraction.
+As mandated by [docs/context.yaml](.../../context.yaml) (`initial_bootstrap_task`) and [docs/context2.yaml](.../../context2.yaml) (*Bottom-Up Execution*), Phase 1 was executed immediately to eliminate **Blueprint Vertigo** without getting lost in abstraction.
 
 ---
 
 ## 2. Technical Stack & Design Decisions
 - **Zero-Build Standalone HTML**: Uses browser-native ESM import maps (`react`, `react-dom/client`, `reactflow@11.11.4` via `esm.sh`) and Tailwind CSS CDN.
-- **Offline / Local Execution**: Servable via simple local HTTP server (`python -m http.server 3000`) or [start_sandbox.bat](../../start_sandbox.bat).
+- **Offline / Local Execution**: Servable via simple local HTTP server (`python -m http.server 3000`) or [start_sandbox.bat](.../../.../../start_sandbox.bat).
 - **Zero AI Branching**: Node topologies and details are purely deterministic to validate UI responsiveness, pan, zoom, and inspection capabilities before introducing autonomous agents.
 
 ---
@@ -53,7 +53,7 @@ As mandated by [docs/context.yaml](../context.yaml) (`initial_bootstrap_task`) a
 ---
 
 ## References & Related Files
-- [sandbox/index.html](../../sandbox/index.html)
-- [index.html](../../index.html)
-- [start_sandbox.bat](../../start_sandbox.bat)
-- [docs/plan_n_days.md](../plan_n_days.md)
+- [sandbox/index.html](.../../.../../sandbox/index.html)
+- [index.html](.../../.../../index.html)
+- [start_sandbox.bat](.../../.../../start_sandbox.bat)
+- [docs/plan_n_days.md](.../../plan_n_days.md)

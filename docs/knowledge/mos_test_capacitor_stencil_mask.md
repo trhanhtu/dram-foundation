@@ -13,5 +13,5 @@ Detailed standard operating procedure (SOP) and engineering specifications for d
 - Acceptance criteria aligned with 180nm node metrics: minimum 28 fF capacitance budget, <= 1 fA/cell leakage target at 85°C, and gate oxidation parameters.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/sop_mos_capacitor_stencil_shadow_mask.md](../sop_mos_capacitor_stencil_shadow_mask.md)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/sop_mos_capacitor_stencil_shadow_mask.md](.../../sop_mos_capacitor_stencil_shadow_mask.md)

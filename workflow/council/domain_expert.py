@@ -29,6 +29,16 @@ class DomainExpertAgent:
             except Exception as e:
                 print(f"[DomainExpert] Warning: Failed to initialize Gemini Client: {e}")
 
+    def _normalize_generation_str(self, gen_val: Any, fallback: str = "Gen 2 (µm)") -> str:
+        s = str(gen_val or "").strip().lower()
+        if "3" in s or "nm" in s or "180" in s:
+            return "Gen 3 (nm)"
+        elif "1" in s or "mm" in s:
+            return "Gen 1 (mm)"
+        elif "2" in s or "µm" in s or "um" in s:
+            return "Gen 2 (µm)"
+        return fallback if fallback in ["Gen 1 (mm)", "Gen 2 (µm)", "Gen 3 (nm)"] else "Gen 2 (µm)"
+
     def _synthesize_physical_metrics(
         self,
         node_title: str,
@@ -71,6 +81,38 @@ class DomainExpertAgent:
                 "Bath Temperature": "75°C ± 2°C",
                 "Etch Rate": "70 nm/min ± 5%",
                 "Inspection Standard": "4-Point Probe / Ellipsometer / Fume Hood Interlock"
+            }
+        elif any(w in combined for w in ["pdk", "tapeout", "foundry", "mpw", "crown", "ald", "cmp", "reticle", "ebdw"]):
+            primary = "DRC/LVS: 0 Violations, ALD EOT <= 0.8 nm, CMP Dishing < 15 nm"
+            metrics = {
+                "Target Generation": generation,
+                "Action Classification": action_type,
+                "DRC Rule Deck": "Clean (0 violations)",
+                "LVS Netlist Match": "100% equivalent",
+                "Equivalent Oxide Thickness (EOT)": "<= 0.8 nm",
+                "CMP Step Dishing": "< 15 nm",
+                "Inspection Standard": "Automated Batch DRC/LVS & Spectroscopic Ellipsometry / AFM"
+            }
+        elif any(w in combined for w in ["packaging", "beol", "wirebond", "dicing", "ate", "jedec", "probe", "sort"]):
+            primary = "Wirebond Shear >= 18 gf, ATE Functional Yield >= 90%, Coplanarity <= 0.08 mm"
+            metrics = {
+                "Target Generation": generation,
+                "Action Classification": action_type,
+                "Wirebond Ball Shear": ">= 18.0 gf",
+                "Wire Pull Strength": ">= 5.0 gf",
+                "EDS Array Functional Yield": ">= 90.0%",
+                "Package Coplanarity": "<= 0.08 mm",
+                "Inspection Standard": "Dage 4000 Bond Tester & Advantest Wafer Prober / CMM"
+            }
+        elif any(w in combined for w in ["fpga", "controller", "daughtercard", "march c", "shmoo"]):
+            primary = "Trace Impedance: 50.0 ± 2.5 Ω, Eye Width >= 65% UI, March C- 100% Pass"
+            metrics = {
+                "Target Generation": generation,
+                "Action Classification": action_type,
+                "Characteristic Impedance Z0": "50.0 Ω ± 5%",
+                "Receiver Eye Opening": ">= 65% UI / >= 200 mV",
+                "Pattern Coverage": "March C- 100% address space",
+                "Inspection Standard": "Keysight 4GHz Real-Time Oscilloscope & TDR Coupon Metrology"
             }
         elif any(w in combined for w in ["dram", "cell", "capacitor", "sense amp", "bitline", "wordline", "readout", "decoder"]):
             primary = "Cell Capacitance Cs >= 28 fF, Read Margin Delta V >= 150 mV"
@@ -283,6 +325,8 @@ class DomainExpertAgent:
                     text = text.split("```")[1].split("```")[0].strip()
                 items = json.loads(text)
                 if isinstance(items, list) and len(items) > 0:
+                    for it in items:
+                        it["generation"] = self._normalize_generation_str(it.get("generation"), generation)
                     return items[:count]
             except Exception as e:
                 print(f"[DomainExpert] Gemini API sub-task decomposition error: {e}")
@@ -316,6 +360,8 @@ class DomainExpertAgent:
                         raw_resp = raw_resp.split("```")[1].split("```")[0].strip()
                     items = json.loads(raw_resp)
                     if isinstance(items, list) and len(items) > 0:
+                        for it in items:
+                            it["generation"] = self._normalize_generation_str(it.get("generation"), generation)
                         return items[:count]
             except Exception as e:
                 print(f"[DomainExpert] Antigravity CLI sub-task decomposition error: {e}")
@@ -339,6 +385,30 @@ class DomainExpertAgent:
                 {"label": f"Megasonic Bath & Solvent Degreasing Protocol for {node_title}", "category": "Wet Chemistry", "generation": generation, "action_type": "Make", "estimated_hours": 16},
                 {"label": f"PTFE Acid Immersion Cassette & Neutralizer for {node_title}", "category": "Safety Infrastructure", "generation": generation, "action_type": "Buy", "estimated_hours": 20},
                 {"label": f"Etch Rate Calibration & Endpoint Detection for {node_title}", "category": "Metrology", "generation": generation, "action_type": "Make", "estimated_hours": 28}
+            ]
+        elif any(w in p_label for w in ["pdk", "tapeout", "foundry", "mpw", "crown", "ald", "cmp"]):
+            return [
+                {"label": f"DRC/LVS Verification & PDK Parameter Extraction for {node_title}", "category": "Physical Verification", "generation": generation, "action_type": "Make", "estimated_hours": 36},
+                {"label": f"High-Resolution Film Deposition & Planarization Recipe for {node_title}", "category": "Foundry Process", "generation": generation, "action_type": "Make", "estimated_hours": 48},
+                {"label": f"Foundry GDSII Stream-Out & Quality Sign-Off for {node_title}", "category": "Tapeout Signoff", "generation": generation, "action_type": "Make", "estimated_hours": 24}
+            ]
+        elif any(w in p_label for w in ["packaging", "beol", "wirebond", "dicing", "ate", "jedec", "probe", "sort"]):
+            return [
+                {"label": f"Wafer Sort Probing & Defect Density Mapping for {node_title}", "category": "Wafer Test", "generation": generation, "action_type": "Make", "estimated_hours": 32},
+                {"label": f"Precision Die Singulation & Wirebonding Tooling for {node_title}", "category": "Assembly", "generation": generation, "action_type": "Make", "estimated_hours": 40},
+                {"label": f"JEDEC Parametric Qualification & Speed-Bin ATE for {node_title}", "category": "Final Test", "generation": generation, "action_type": "Make", "estimated_hours": 28}
+            ]
+        elif any(w in p_label for w in ["fpga", "controller", "daughtercard", "march c", "shmoo", "firmware"]):
+            return [
+                {"label": f"Synthesizable RTL Core & State Machine Implementation for {node_title}", "category": "Digital Design", "generation": generation, "action_type": "Make", "estimated_hours": 40},
+                {"label": f"High-Speed Controlled-Impedance Daughtercard PCB for {node_title}", "category": "PCB Hardware", "generation": generation, "action_type": "Make", "estimated_hours": 36},
+                {"label": f"Automated March C- Diagnostic Telemetry & Shmoo Profiling for {node_title}", "category": "Diagnostic Software", "generation": generation, "action_type": "Make", "estimated_hours": 24}
+            ]
+        elif any(w in p_label for w in ["litho", "stage", "aligner", "optics"]):
+            return [
+                {"label": f"Sub-Micron Motion Stage Kinematic Tuning for {node_title}", "category": "Mechatronics", "generation": generation, "action_type": "Make", "estimated_hours": 32},
+                {"label": f"Dual-Field Optical Microscope Vision Calibration for {node_title}", "category": "Optical Metrology", "generation": generation, "action_type": "Make", "estimated_hours": 28},
+                {"label": f"Vernier Box-in-Box Overlay Registration Sign-Off for {node_title}", "category": "Lithography Process", "generation": generation, "action_type": "Make", "estimated_hours": 24}
             ]
         else:
             return [

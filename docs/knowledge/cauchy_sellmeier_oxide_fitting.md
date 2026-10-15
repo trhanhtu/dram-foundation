@@ -14,6 +14,6 @@ For the 180nm DRAM process generation (Gen 2 µm), dry gate oxide grown at 850°
 - **Fitting Precision**: Sub-Angstrom precision target of $\pm0.05\text{ nm}$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
 - Context Sources: *Spectroscopic Ellipsometry and Reflectometry for Dielectric Film Metrology*, *Legacy 180nm DRAM Architecture & Cell Capacitor Engineering*

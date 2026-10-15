@@ -44,7 +44,7 @@ When client payloads lack an `'id'` field (e.g., `{"node": {}}`), downstream dic
   3. **Informative Error Messages**: Return explicit messages (e.g., `"Invalid node payload: Node must contain a valid, non-empty 'id'"`) instead of leaking raw exception internals.
 
 ## References & Related Files
-- [workflow/server.py](../../workflow/server.py)
-- [workflow/council/orchestrator.py](../../workflow/council/orchestrator.py)
-- [workflow/vector_store.py](../../workflow/vector_store.py)
-- [tests/test_adversarial_backend.py](../../tests/test_adversarial_backend.py)
+- [workflow/server.py](.../../..../../.../../workflow/server.py)
+- [workflow/council/orchestrator.py](.../../..../../.../../workflow/council/orchestrator.py)
+- [workflow/vector_store.py](.../../..../../.../../workflow/vector_store.py)
+- [tests/test_adversarial_backend.py](.../../..../../.../../tests/test_adversarial_backend.py)

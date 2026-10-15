@@ -19,5 +19,5 @@ In 180nm DRAM fabrication (stacked capacitor COB architecture with $L = 180\ \te
    - Cleanliness directly protects gate dielectric breakdown voltage and leakage budget of the 180nm DRAM cell.
 
 ## References & Related Files
-- [sop_procurement_reagents_megasonic_immersion_bath.md](../sop/sop_procurement_reagents_megasonic_immersion_bath.md)
-- [context.yaml](../context.yaml)
+- [sop_procurement_reagents_megasonic_immersion_bath.md](.../../sop/sop_procurement_reagents_megasonic_immersion_bath.md)
+- [context.yaml](.../../context.yaml)

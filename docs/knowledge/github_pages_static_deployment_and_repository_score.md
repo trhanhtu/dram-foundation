@@ -30,18 +30,18 @@ GitHub Pages is a static file server with no active Python runtime. Features req
 
 ### 2.1 Dual-Mode Deployment Strategy
 1. **Dynamic Runtime Auto-Adaptation (Zero-Build Standard)**:
-   - [index.html](../../index.html) detects if it is running on GitHub Pages (`window.location.hostname.endsWith('github.io')` or `?static=true`).
+   - [index.html](.../../.../../index.html) detects if it is running on GitHub Pages (`window.location.hostname.endsWith('github.io')` or `?static=true`).
    - Automatically removes/hides `#btn-convene-modal` ("Convene AI Council").
    - Switches the backend status badge from "Connecting..." to a cyan `Static Mode (GitHub Pages)` indicator.
    - Suppresses background pings to `/api/status` to prevent console errors.
-2. **Relative Path Resolution ([`data-engine.js`](../../data-engine.js))**:
-   - `this.manifestUrl` set to `./data/manifest.json` instead of absolute `/data/manifest.json`.
-   - Module JSON fetch URLs resolved via `./${mod.file}`.
+2. **Relative Path Resolution ([`data-engine.js`](.../../.../../data-engine.js))**:
+   - `this.manifestUrl` set to `.../../.../../data/manifest.json` instead of absolute `/data/manifest.json`.
+   - Module JSON fetch URLs resolved via `../../${mod.file}`.
    - Guarantees seamless loading under sub-directory repository paths (e.g., `https://username.github.io/dram/`).
-3. **Automated GitHub Actions Deployment ([`.github/workflows/deploy.yml`](../../.github/workflows/deploy.yml))**:
+3. **Automated GitHub Actions Deployment ([`.github/workflows/deploy.yml`](.../../.../../.github/workflows/deploy.yml))**:
    - On every push to `main`, GitHub Actions validates files, bundles the repository, and publishes directly to GitHub Pages.
    - Includes `.nojekyll` at repository root to prevent Jekyll from omitting subfolders or parsing markdown.
-4. **Standalone Static Builder ([`scripts/build_github_pages.py`](../../scripts/build_github_pages.py))**:
+4. **Standalone Static Builder ([`scripts/build_github_pages.py`](.../../.../../scripts/build_github_pages.py))**:
    - Pre-validates all 1,003 nodes and 1,000 edges.
    - Emits a clean standalone distribution package in `dist/` with all council modal markup completely excised at build time.
 
@@ -49,9 +49,9 @@ GitHub Pages is a static file server with no active Python runtime. Features req
 
 ## 3. References & Related Files
 
-- [scripts/build_github_pages.py](../../scripts/build_github_pages.py): Static site builder and validator.
-- [.github/workflows/deploy.yml](../../.github/workflows/deploy.yml): Automated GitHub Pages deployment pipeline.
-- [index.html](../../index.html): WBS Explorer with dual-mode static detection.
-- [data-engine.js](../../data-engine.js): Pure ES6 data engine with relative static URL resolution.
-- [tests/test_semiconductor_workflows.py](../../tests/test_semiconductor_workflows.py): 8/8 tests passing.
-- [tests/test_server_api.py](../../tests/test_server_api.py): 10/10 tests passing.
+- [scripts/build_github_pages.py](.../../.../../scripts/build_github_pages.py): Static site builder and validator.
+- [.github/workflows/deploy.yml](.../../.../../.github/workflows/deploy.yml): Automated GitHub Pages deployment pipeline.
+- [index.html](.../../.../../index.html): WBS Explorer with dual-mode static detection.
+- [data-engine.js](.../../.../../data-engine.js): Pure ES6 data engine with relative static URL resolution.
+- [tests/test_semiconductor_workflows.py](.../../..../../.../../tests/test_semiconductor_workflows.py): 8/8 tests passing.
+- [tests/test_server_api.py](.../../..../../.../../tests/test_server_api.py): 10/10 tests passing.

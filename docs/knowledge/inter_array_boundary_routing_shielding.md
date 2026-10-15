@@ -14,6 +14,6 @@ In high-density 180nm open-source DRAM architecture (Gen 2 µm regime), transiti
 - Parasitic RC extraction validation confirming $C_{BL} \le 250\text{ fF}$ and $\Delta V \ge 100\text{ mV}$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
-- [docs/context3.yaml](../context3.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
+- [docs/context3.yaml](.../../context3.yaml)

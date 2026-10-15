@@ -14,7 +14,7 @@ Automated optical thin film metrology is indispensable for post-Buffered Oxide E
 - **Calibration Routine**: Bare silicon reference calibration ($n_{Si}$, $k_{Si}$) prior to fitting residual $\text{SiO}_2$ dielectric targets.
 
 ## References & Related Files
-- [docs/context.yaml](./context.yaml)
+- [docs/context.yaml](../context.yaml)
 - Context Literature: *Spectroscopic Ellipsometry and Reflectometry for Dielectric Film Metrology*
 - Context Literature: *180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench*
 - Context Literature: *Legacy 180nm DRAM Architecture & Cell Capacitor Engineering*

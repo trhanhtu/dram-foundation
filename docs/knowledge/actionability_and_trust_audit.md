@@ -66,6 +66,6 @@ Turnkey Physical Recipes (Exact Units)┤█████████████
 
 ## References & Related Files
 
-- [workflow/literature_corpus.py](../../workflow/literature_corpus.py): Verified empirical semiconductor source texts.
-- [workflow/council/domain_expert.py](../../workflow/council/domain_expert.py): Grounded physical metrics synthesizer.
-- [workflow/council/systems_engineer.py](../../workflow/council/systems_engineer.py): TRL Generational Guard and DAG validation.
+- [workflow/literature_corpus.py](.../../..../../.../../workflow/literature_corpus.py): Verified empirical semiconductor source texts.
+- [workflow/council/domain_expert.py](.../../..../../.../../workflow/council/domain_expert.py): Grounded physical metrics synthesizer.
+- [workflow/council/systems_engineer.py](.../../..../../.../../workflow/council/systems_engineer.py): TRL Generational Guard and DAG validation.

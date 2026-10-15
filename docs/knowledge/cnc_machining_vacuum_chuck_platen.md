@@ -16,6 +16,6 @@ Precision tooling fixture required for Spectroscopic Ellipsometry Film Thickness
 - QA & Inspection: Laser dial gauge / CMM metrology confirming Gen 2 sub-5 µm surface flat profile.
 
 ## References & Related Files
-- [context.yaml](../context.yaml)
+- [context.yaml](.../../context.yaml)
 - Precision Linear Stage Design & Vibration Damping
 - Sam Zeloof Z1 Garage Semiconductor Journal (2018)

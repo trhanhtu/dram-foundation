@@ -13,6 +13,6 @@ Captures the statistical sensitivity modeling protocol for evaluating DRAM reten
 - **Statistical Sensitivity**: Monte Carlo modeling ($N \ge 10,000$) evaluates worst-case tail retention distributions ($t_{\text{ret}} = Q_{\text{usable}} / I_{\text{leak}} \ge 64\text{ ms}$).
 
 ## References & Related Files
-- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](../context.yaml)
-- [Legacy 180nm DRAM Architecture & Cell Capacitor Engineering](../context2.yaml)
-- [Folded Bitline Sense Amplifier Circuit Design for DRAM Cell Readout](../context3.yaml)
+- [180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench](.../../context.yaml)
+- [Legacy 180nm DRAM Architecture & Cell Capacitor Engineering](.../../context2.yaml)
+- [Folded Bitline Sense Amplifier Circuit Design for DRAM Cell Readout](.../../context3.yaml)

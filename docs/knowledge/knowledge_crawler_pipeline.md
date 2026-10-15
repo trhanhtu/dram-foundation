@@ -86,6 +86,6 @@ To ground the AI Council (specifically the **Domain Expert** powered by Gemini) 
 ---
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/plan_n_days.md](../plan_n_days.md)
-- [docs/knowledge/system_architecture.md](./system_architecture.md)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/plan_n_days.md](.../../plan_n_days.md)
+- [docs/knowledge/system_architecture.md](../../system_architecture.md)

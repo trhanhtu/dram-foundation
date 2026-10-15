@@ -14,7 +14,7 @@
       "name": "Electronics & Drive Infrastructure",
       "generation": "Gen 1 (mm)",
       "file": "data/modules/01_mcu_cots.json",
-      "node_count": 1
+      "node_count": 110
     },
     {
       "id": "module_litho_stage_gen1",
@@ -50,6 +50,20 @@
       "generation": "Gen 2 (µm)",
       "file": "data/modules/06_dram_cell_architecture_gen2.json",
       "node_count": 291
+    },
+    {
+      "id": "module_180nm_tapeout_gen3",
+      "name": "180nm Commercial MPW Tapeout & Open-Source PDK",
+      "generation": "Gen 3 (nm)",
+      "file": "data/modules/07_commercial_180nm_tapeout.json",
+      "node_count": 499
+    },
+    {
+      "id": "module_beol_packaging_gen3",
+      "name": "BEOL Interconnect, Wafer Sort & Packaging",
+      "generation": "Gen 3 (nm)",
+      "file": "data/modules/08_beol_interconnect_packaging.json",
+      "node_count": 409
     }
   ]
 }

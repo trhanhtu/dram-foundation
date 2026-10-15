@@ -118,6 +118,6 @@ async def stream_antigravity(
 ```
 
 ## References & Related Files
-- [`workflow/council/laya_pm.py`](../../workflow/council/laya_pm.py)
-- [`workflow/crawler_engine.py`](../../workflow/crawler_engine.py)
-- [`docs/knowledge/laya_remote_integration.md`](./laya_remote_integration.md)
+- [`workflow/council/laya_pm.py`](.../../..../../.../../workflow/council/laya_pm.py)
+- [`workflow/crawler_engine.py`](.../../..../../.../../workflow/crawler_engine.py)
+- [`docs/knowledge/laya_remote_integration.md`](../../laya_remote_integration.md)

@@ -14,6 +14,6 @@ Standard Operating Procedure (SOP) for depositing Ti/TiN adhesion and diffusion 
 - **Post-Metal Anneal Integration**: Compatible with forming gas ($95\%\text{ N}_2 / 5\%\text{ H}_2$) anneal at $400^\circ\text{C}$ for 30 minutes, maintaining sheet resistance $R_s < 0.08\ \Omega/\Box$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
+- [docs/context.yaml](.../../context.yaml)
 - Verified Local Literature Context: *Physical Vapor Deposition (PVD) Sputtering of Aluminum Metallization Interconnects*
 - Verified Local Literature Context: *180nm DRAM Cell Layout Topology: Stacked Capacitor vs Deep Trench*

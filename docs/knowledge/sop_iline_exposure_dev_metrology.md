@@ -18,4 +18,4 @@ Actionable standard operating procedure for wafer priming, photoresist coating, 
 - Gen 2 Alignment Tolerance: ±5 µm (tightened from Gen 1 ±100 µm)
 
 ## References
-- [docs/context.yaml](../context.yaml)
+- [docs/context.yaml](.../../context.yaml)

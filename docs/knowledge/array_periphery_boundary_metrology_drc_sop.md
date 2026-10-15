@@ -15,5 +15,5 @@ Establishes benchmarking parameters and DRC/metrology sign-off procedures for th
 - Sense amplifier boundary interface matching: Folded BL/BLB differential sensing balance ($\Delta V = 100\text{ mV to } 150\text{ mV}$ for $C_{s}=25\text{ fF}$, $C_{BL}=250\text{ fF}$).
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

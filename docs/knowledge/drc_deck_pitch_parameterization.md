@@ -16,5 +16,5 @@ Defines physical layout parameterization and DRC deck deck customization rules f
 - **Capacitance Targets**: $C_s = 25 - 30\,\text{fF}$ (nominally $28\,\text{fF}$), $C_b = 150 - 250\,\text{fF}$ for 256/512 cell array blocks. $C_b/C_s$ maintained between $5:1$ and $9:1$.
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)

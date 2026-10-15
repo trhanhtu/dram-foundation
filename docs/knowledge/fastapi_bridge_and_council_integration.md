@@ -55,9 +55,9 @@ The project models the complete vertical stack of legacy 180nm DRAM fabrication:
   - Users can propose a candidate node, select prerequisites and target modules, and run the live AI Council review directly in the browser with full verdict inspection before committing.
 
 ## References & Related Files
-- [workflow/server.py](../../workflow/server.py)
-- [workflow/council/orchestrator.py](../../workflow/council/orchestrator.py)
-- [sandbox/index.html](../../sandbox/index.html)
-- [sandbox/data-engine.js](../../sandbox/data-engine.js)
-- [data/manifest.json](../../data/manifest.json)
-- [tests/test_server_api.py](../../tests/test_server_api.py)
+- [workflow/server.py](.../../..../../.../../workflow/server.py)
+- [workflow/council/orchestrator.py](.../../..../../.../../workflow/council/orchestrator.py)
+- [sandbox/index.html](.../../.../../sandbox/index.html)
+- [sandbox/data-engine.js](.../../.../../sandbox/data-engine.js)
+- [data/manifest.json](.../../..../../.../../data/manifest.json)
+- [tests/test_server_api.py](.../../..../../.../../tests/test_server_api.py)

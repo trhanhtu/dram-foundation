@@ -14,5 +14,5 @@ Actionable standard operating procedure for vacuum qualification and DC magnetro
 - **DC Magnetron Power Setting**: $1.5 \text{ to } 3.0\text{ kW}$
 
 ## References & Related Files
-- [docs/context.yaml](../context.yaml)
-- [docs/context2.yaml](../context2.yaml)
+- [docs/context.yaml](.../../context.yaml)
+- [docs/context2.yaml](.../../context2.yaml)
